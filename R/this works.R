@@ -5,7 +5,7 @@
 
 library(readr)
 filename <- "X:\\Data\\SCOTT\\2017-05-10 GCaMP6f\\2017-05-10 GCaMP6f PFC GABA cre\\2017-05-23 cell2.csv"
-filename <- gsub("\\\\","/",filename)
+filename <- gsub("\\\\","/",filename)  # This line fixes backslash issue
 cell.dt <- read_csv(filename)
 colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
 
