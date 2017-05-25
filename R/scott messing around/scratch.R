@@ -11,8 +11,6 @@ colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
 
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
 
-Fi.values = ROImeans.dt[1, , drop=FALSE]   # Keeps only "Fi" row (frame 1/initial ROI values)
-
 #
 # frame 1 = "time 0" --> initial fluorescence = Fi
 #Ft = fluorescence at time 't' (each frame is a time interval)
@@ -24,9 +22,6 @@ Fi.values = ROImeans.dt[1, , drop=FALSE]   # Keeps only "Fi" row (frame 1/initia
 library(reshape2) 
 
 melted.df <- melt(cell.dt, id.vars='frame')   #restructuring the data
-
-Fi.list <- as.list(Fi.values)
-fi.list.melted <- melt(Fi.list)   #formatting the Fi values to add to rest of data
 
 colnames(fi.list.melted) <- c("value", "variable")   #renaming the columns (necessary in order to merge in next step)
 
