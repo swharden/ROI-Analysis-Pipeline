@@ -15,3 +15,7 @@ To use these tools, acquire and analyze data in these steps
 
 * https://www.youtube.com/watch?v=EEuXCMoRtsw
 * https://www.youtube.com/watch?v=1OHvPi1TbII
+
+# Delta F/F Theory
+
+![doc/theory.jpg](doc/theory.jpg)
