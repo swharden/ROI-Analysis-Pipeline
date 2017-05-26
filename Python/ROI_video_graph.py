@@ -20,11 +20,19 @@ class TiffVid:
             baseline=np.average(col[self.conf['baseline'][0]:self.conf['baseline'][1]])
             self.dataBL[colNum]=self.dataBL[colNum]-baseline
 
+        # BACKGROUND SUBTRACTION - subtract the first ROI from all the rest
+        for i in range(2,len(self.dataBL)):
+            self.dataBL[i]=self.dataBL[i]-self.dataBL[1]
+        self.dataBL[1]=self.dataBL[1]*0
+
 
     def loadTXT(self, fname):
         """load a text file and return its content as a dictionary"""
         fname=fname[:-4]+".txt"
-        print(fname)
+        if not os.path.exists(fname):
+            print("WARNING: experiment file does not exist, so I'll make one.")
+            with open(fname,'w') as f:
+                f.write("")
         with open(fname) as f:
             raw=f.readlines()
         conf={"baseline":[0,1],"period":1}
@@ -176,11 +184,14 @@ class TiffVid:
         if os.path.exists(roiFile):
             rois = read_roi_zip(roiFile)
             for p,roi in enumerate(rois):
+                color='y'
+                if p==0:
+                    color='c'
                 X1,Y1=rois[roi]['left'],rois[roi]['top']
                 X2,Y2=rois[roi]['width']+X1,rois[roi]['height']+Y1
                 ax0.plot([X1,X2,X2,X1,X1],[Y1,Y1,Y2,Y2,Y1],
-                         color='y',alpha=.5,lw=2)
-                ax0.text(X1+1,Y1+5,p,va='top',color='y',
+                         color=color,alpha=.5,lw=2)
+                ax0.text(X1+1,Y1+5,str(p+1),va='top',color=color,
                          fontsize='small',fontweight='bold')
 
         msg="%s\nframe:%d\nminutes: %.02f"%(self.fname,frame,
@@ -208,6 +219,7 @@ class TiffVid:
             ax1.plot(offsetX*i+self.dataBL[0][:frame]*self.conf['period']/60,
                      offsetY*i+self.dataBL[i][:frame],
                      color='b',alpha=.5,lw=1)
+        self.figure_shade()
         plt.axis('off')
         plt.margins(0,.01)
 
@@ -219,10 +231,12 @@ class TiffVid:
 
 
 if __name__=="__main__":
-    TV=TiffVid("../data/2017-05-23 cell1.csv")
+    #TV=TiffVid("../data/2017-05-23 cell1.csv")
+    TV=TiffVid(r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC GABA cre\2017-05-23 cell2.csv")
 
-    #TV.figure_BL_avg()
-    #TV.figure_raw_all_highlight()
-    #TV.figure_tiff_and_graph(frame=2400)
+#    TV.figure_BL_avg()
+#    TV.figure_raw_all()
+#    TV.figure_raw_all_highlight()
+    TV.figure_tiff_and_graph(frame=2400)
 
     print("DONE")
