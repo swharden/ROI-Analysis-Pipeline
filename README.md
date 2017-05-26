@@ -11,11 +11,16 @@ To use these tools, acquire and analyze data in these steps
 * use the R script to create filename.csv.dff.csv
 * use the python script to draw graphs from the "dff" file over the original images
 
-## Example Output
-
-* https://www.youtube.com/watch?v=EEuXCMoRtsw
-* https://www.youtube.com/watch?v=1OHvPi1TbII
 
 # Delta F/F Theory
 
-![doc/theory.jpg](doc/theory.jpg)
+![](doc/theory.jpg)
+
+# Example Output
+
+## Figures
+![](Python/video_frame_02400.png)
+
+## Video
+* https://www.youtube.com/watch?v=EEuXCMoRtsw
+* https://www.youtube.com/watch?v=1OHvPi1TbII
