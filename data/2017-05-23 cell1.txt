@@ -1,4 +1,0 @@
-# GABA Cre / AAV injection (mPFC)
-baseline=1900-2000
-TGOT=2100-2300
-period=.5
