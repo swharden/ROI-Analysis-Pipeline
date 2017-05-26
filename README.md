@@ -1,8 +1,6 @@
 # ROI Analysis Pipeline
 This collection of scripts aids in the automated analysis of large collections of TIFs (most likely fluorescent micrographs), taking ROI data (from FIJI/ImageJ), and reporting it as delta F/F. Additional tools are included which assist in the creation of video. An ultimate goal of this type of analysis is to provide a web-accessable front-end to the data immediately after it is acquired.
 
-# Delta F/F Theory
-
 ![](doc/theory.jpg)
 
 # Example Output
