@@ -1,6 +1,9 @@
-these scripts are a sandbox of experimental code
+# Python Scripts for ROI/Video Analysis
+These scripts are a sandbox of experimental code. The ultimate goal is to maximally automate analysis of time-series data.
 
-Description | Demonstration
----|---
-simple demo | ![01-raw.png](01-raw.png)
-read original image file, ROI zip file, do the analysis, and output frames ready to create a video from | ![video_frame_02400.png](video_frame_02400.png)
+### Simple Demo
+![01-raw.png](01-raw.png)
+
+### Video Render Demo
+read original image file, ROI zip file, do the analysis, and output frames ready to create a video from
+![video_frame_02400.png](video_frame_02400.png)
