@@ -20,13 +20,13 @@ This is a work in progress, but as of now the workflow is:
 * 1 video experiment = 1 folder. Folder name format is like `2017-05-23 cell2`
 * use Micro-Manager to image video (saving output as individual TIFs in this folder)
 * this folder will also contain:
- * `experiment.txt` made by hand at the time of image acquisition
- * `RoiSet.zip` made with ImageJ
- * `Results.xls` made with ImageJ multi-measure
+  * `experiment.txt` made by hand at the time of image acquisition
+  * `RoiSet.zip` made with ImageJ
+  * `Results.xls` made with ImageJ multi-measure
 * Data analysis scripts:
- * `Results.xls` will always have mean pixel values for each ROI
- * `Results_B.xls` will contain (identically formatted) dF/F calculated by Beronica (R)
- * `Results_S.xls` will contain (identically formatted) dF/F calculated by Scott (Python)
+  * `Results.xls` will always have mean pixel values for each ROI
+  * `Results_B.xls` will contain (identically formatted) dF/F calculated by Beronica (R)
+  * `Results_S.xls` will contain (identically formatted) dF/F calculated by Scott (Python)
 
 ### experiment.txt
 Any line without an "=" in it is treated as a comment. Use these lines for notes about the slice. Any line with an "=" in it is a value or a pair of values (if separated by a "-" sign). A baseline is always required. Units are in frames.
