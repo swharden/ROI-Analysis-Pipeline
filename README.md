@@ -27,6 +27,9 @@ This is a work in progress, but as of now the workflow is:
   * `Results.xls` will always have mean pixel values for each ROI
   * `Results_B.xls` will contain (identically formatted) dF/F calculated by Beronica (R)
   * `Results_S.xls` will contain (identically formatted) dF/F calculated by Scott (Python)
+  
+# Photobleach Compensation
+To counteract photobleaching, the first ROI will always be of a non-responsive cell or area. Every subsequent ROI will have the first ROI subtracted from it. 
 
 ### experiment.txt
 Any line without an "=" in it is treated as a comment. Use these lines for notes about the slice. Any line with an "=" in it is a value or a pair of values (if separated by a "-" sign). A baseline is always required. Units are in frames.
