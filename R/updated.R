@@ -1,14 +1,18 @@
+####### INSTALL STUFF #######
+##install.packages("readr")
+##install.packages("reshape2")
+##install.packages("data.table")
+
 ####### ROI Analysis ########
 library(utils)
 # Rscript --vanilla /GitHub/ROI-Analysis-Pipeline/R/updated.R
 #! usr/bin/env Rscript
 args <- commandArgs(TRUE)   
 
-## install.packages("readr")
 library(readr)
 library(data.table)
 
-cell.dt <- read_csv("Results.xls")
+cell.dt <- read_tsv("Results.xls")
 colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
 
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
@@ -16,7 +20,6 @@ frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
 
 #############################
 
-#install.packages("reshape2")
 library(reshape2)
 
 df.m <- melt(cell.dt, id.vars='frame')   #restructuring the data
@@ -95,7 +98,7 @@ dF.Fb.values <- cbind(temp2a, temp2b)
 
 results_B <- dcast(data = dF.Fb.values, formula = frame~ROI, fun.aggregate = sum, value.var = "dF.Fb.adj")
 
-write.csv(results_B, file = "results_B.xls", row.names = FALSE) 
+write.table(results_B, file = "results_B.xls", row.names = FALSE, sep="\t") 
 
 #############################
 
