@@ -1,15 +1,12 @@
 ####### ROI Analysis ########
+library(utils)
+# Rscript --vanilla /GitHub/ROI-Analysis-Pipeline/R/updated.R
+#! usr/bin/env Rscript
+args <- commandArgs(TRUE)   
 
-#getwd()
-setwd(wd) 
-
-#install.packages("readr")
+## install.packages("readr")
 library(readr)
 library(data.table)
-
-#filename <- "~/Documents/GitHub/ROI-Analysis-Pipeline/data/2017-05-23 demo cell1/Results.csv"
-#filename <- gsub("\\\\","/",filename)
-#cell.dt <- read_csv(filename)
 
 cell.dt <- read_csv("Results.csv")
 colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
@@ -25,7 +22,6 @@ library(reshape2)
 df.m <- melt(cell.dt, id.vars='frame')   #restructuring the data
 colnames(df.m) <- c("frame", "ROI", "Ft")  #renaming columns
 head(df.m)
-
 
 #############################
 #### Creating functions #####
@@ -58,7 +54,6 @@ colnames(listofROIs2.df) <- c("ROI")
 
 #############################
 
-#experiment <- read_lines("~/Documents/GitHub/ROI-Analysis-Pipeline/data/2017-05-23 demo cell1/experiment.txt", skip=1)
 experiment <- read_lines("experiment.txt", skip=1)
 exp <- gsub("=", ",", experiment)
 exp1 <- gsub("-", ",", exp)
@@ -99,9 +94,8 @@ temp2b <- df.m3[ ,5, drop = FALSE]
 dF.Fb.values <- cbind(temp2a, temp2b)
 
 results_B <- dcast(data = dF.Fb.values, formula = frame~ROI, fun.aggregate = sum, value.var = "dF.Fb.adj")
-write.csv(results_B, file = "results_B.csv") 
 
-#write.csv(results_B, file = "~/Documents/GitHub/ROI-Analysis-Pipeline/data/2017-05-23 demo cell1/results_B.csv") 
+write.csv(results_B, file = "results_B.csv", row.names = FALSE) 
 
 #############################
 
@@ -115,13 +109,16 @@ colnames(stats.dF.F) <- c("frame", "mean.dF.F", "stdev.dF.F")
 ####### Graphing Data #######
 
 library(ggplot2)
-rplot <- ggplot(data=dF.Fb.values, aes(x=frame, y=(dF.Fb.values[['dF.Fb.adj']])*100, colour=ROI)) +
-  geom_point(size=0.02) 
-rplot + labs(y = "dF/F (%)") +
-  labs(x = "frame") +
-  labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity")), subtitle = "Run 2: TTX + TGOT") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  scale_x_continuous(expand = c(0.006,0))
+# rplot <- ggplot(data=dF.Fb.values, aes(x=frame, y=(dF.Fb.values[['dF.Fb.adj']])*100, colour=ROI)) +
+#   geom_point(size=0.02) 
+# rplot + labs(y = "dF/F (%)") +
+#   labs(x = "frame") +
+#   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity"))) +
+#   theme(plot.title = element_text(hjust = 0.5)) +
+#   scale_x_continuous(expand = c(0.006,0)) +
+#   jpeg(filename = "results_B.jpeg",
+#      width = 1080, height = 720, units = "px", pointsize = 12,
+#      quality = 75)
 
 ###
 
@@ -131,8 +128,8 @@ rplot2 <- ggplot(data=stats.dF.F, aes(x=stats.dF.F[['frame']], y=stats.dF.F[['me
 
 rplot2 + labs(y = "dF/F") +
   labs(x = "frame") +
-  labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity")), subtitle = "Run 2: TTX + TGOT") +
+  labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity"))) +
   theme(plot.title = element_text(hjust = 0.5)) +
-  geom_errorbar(ymin= stats.dF.F$mean.dF.F-stats.dF.F$stdev.dF.F, ymax=stats.dF.F$mean.dF.F+stats.dF.F$stdev.dF.F) 
-  #scale_fill_continuous(guide = guide_legend(keywidth = 7, keyheight = 12)) +
-  #scale_x_continuous(expand = c(0.006,0))
+  jpeg(filename = "results_B.jpeg",
+       width = 1080, height = 720, units = "px", pointsize = 12,
+       quality = 75)
