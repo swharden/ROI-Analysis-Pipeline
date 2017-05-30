@@ -234,9 +234,9 @@ if __name__=="__main__":
     #TV=TiffVid("../data/2017-05-23 cell1.csv")
     TV=TiffVid(r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC GABA cre\2017-05-23 cell2.csv")
 
-#    TV.figure_BL_avg()
-#    TV.figure_raw_all()
-#    TV.figure_raw_all_highlight()
+    TV.figure_BL_avg()
+    TV.figure_raw_all()
+    TV.figure_raw_all_highlight()
     TV.figure_tiff_and_graph(frame=2400)
 
     print("DONE")

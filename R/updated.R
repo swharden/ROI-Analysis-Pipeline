@@ -8,7 +8,7 @@ args <- commandArgs(TRUE)
 library(readr)
 library(data.table)
 
-cell.dt <- read_csv("Results.csv")
+cell.dt <- read_csv("Results.xls")
 colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
 
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
@@ -95,7 +95,7 @@ dF.Fb.values <- cbind(temp2a, temp2b)
 
 results_B <- dcast(data = dF.Fb.values, formula = frame~ROI, fun.aggregate = sum, value.var = "dF.Fb.adj")
 
-write.csv(results_B, file = "results_B.csv", row.names = FALSE) 
+write.csv(results_B, file = "results_B.xls", row.names = FALSE) 
 
 #############################
 
