@@ -1,3 +1,0 @@
-GABA Cre / GCaMP6f injection / mPFC
-baseline=3200-3400
-TGOT=3500-3700
