@@ -3,6 +3,7 @@ These scripts are a sandbox of experimental code. The ultimate goal is to maxima
 
 ### Simple Demo
 ![](fig_traces.png)
+![](fig_av.png)
 
 ### Video Render Demo
 read original image file, ROI zip file, do the analysis, and output frames ready to create a video from
