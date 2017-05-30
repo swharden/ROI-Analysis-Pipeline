@@ -12,6 +12,9 @@ args <- commandArgs(TRUE)
 library(readr)
 library(data.table)
 
+
+cat("\nLOADING: ",normalizePath("Results.xls"))
+
 cell.dt <- read_tsv("Results.xls")
 colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
 
@@ -99,6 +102,7 @@ dF.Fb.values <- cbind(temp2a, temp2b)
 results_B <- dcast(data = dF.Fb.values, formula = frame~ROI, fun.aggregate = sum, value.var = "dF.Fb.adj")
 
 write.table(results_B, file = "results_B.xls", row.names = FALSE, sep="\t") 
+cat("\nSAVED: ",normalizePath("results_B.xls"))
 
 #############################
 
@@ -133,6 +137,7 @@ rplot2 + labs(y = "dF/F") +
   labs(x = "frame") +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity"))) +
   theme(plot.title = element_text(hjust = 0.5)) +
-  jpeg(filename = "results_B.jpeg",
-       width = 1080, height = 720, units = "px", pointsize = 12,
-       quality = 75)
+  jpeg(filename = "results_B.jpeg", width = 1080, height = 720, units = "px", pointsize = 12, quality = 75)
+
+cat("\nSAVED: ",normalizePath("results_B.jpeg"))
+cat("\nDONE!")
