@@ -2,7 +2,7 @@
 These scripts are a sandbox of experimental code. The ultimate goal is to maximally automate analysis of time-series data.
 
 ### Simple Demo
-![01-raw.png](01-raw.png)
+![](fig_traces.png)
 
 ### Video Render Demo
 read original image file, ROI zip file, do the analysis, and output frames ready to create a video from
