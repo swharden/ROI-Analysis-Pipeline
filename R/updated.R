@@ -16,9 +16,9 @@ library(ggplot2)
 args <- commandArgs(TRUE)  
 setwd(args[1])
 
-cat("\nLOADING: ",normalizePath("Results2.xls"),"\n")
+cat("\nLOADING: ",normalizePath("Results.xls"),"\n")
 
-cell.dt <- read_tsv("Results2.xls")
+cell.dt <- read_tsv("Results.xls")
 colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
 
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
