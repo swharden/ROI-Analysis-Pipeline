@@ -156,4 +156,4 @@ rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F'
 cat("\nSAVED: ",normalizePath("fig_av.png"),"\n")
 cat("\nDONE! \n")
 sink()
-
+system("rm -rf ./temp")
