@@ -3,13 +3,15 @@ from matplotlib import gridspec
 import numpy as np
 np.set_printoptions(suppress=True) # don't show exponential notation
 import os
-from read_roi import read_roi_zip
 import subprocess
+import sys
 
 class TiffVid:
-    def __init__(self,folder):
+    def __init__(self,folder,clean=False):
         print("LOADING TIFF VIDEO",folder)
         self.folder=folder
+        if clean:
+            self.clean()
         self.loadTXT(os.path.join(folder,"experiment.txt"))
 
         if not os.path.exists(os.path.join(folder,"results_B.xls")):
@@ -27,6 +29,15 @@ class TiffVid:
         assert os.path.exists(os.path.join(folder,"results_B.xls"))
         self.loadTSV(os.path.join(folder,"results_B.xls"))
         self.dFF=np.copy(self.data)
+
+    def clean(self):
+        """delete all files in this folder except for the experiment files."""
+        print("cleaning out old data...")
+        for fname in os.listdir(self.folder):
+            if fname.startswith("results_") or \
+               fname.startswith("fig_"):
+               print(" DELETING",fname)
+               os.remove(self.folder+"/"+fname)
 
     def loadTXT(self, fname):
         """load a text file and return its content as a dictionary"""
@@ -194,6 +205,8 @@ class TiffVid:
 
     def figure_tiff_and_graph(self,fnamePic='../data/sample.jpg',frame=-1):
 
+        from read_roi import read_roi_zip
+
         # PREPARE THE FIGURE
         mult=1
         plt.figure(figsize=(16*mult,9*mult))
@@ -252,13 +265,16 @@ class TiffVid:
         plt.show()
         plt.close()
 
-
 if __name__=="__main__":
-    #TV=TiffVid("../data/2017-05-23 cell1.csv")
-    TV=TiffVid(r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC GABA cre\2017-05-30 cell2")
+    path=r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC GABA cre\2017-05-30 cell2"
 
-    TV.fig_traces()
-    TV.fig_av()
+    if len(sys.argv)==2:
+        path=sys.argv[1]
+
+    TV=TiffVid(path,clean=True)
+
+    #TV.fig_traces()
+    #TV.fig_av()
 
     #TV.figure_BL_avg()
     #TV.figure_raw_all_highlight()
