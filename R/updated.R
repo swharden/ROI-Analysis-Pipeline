@@ -10,8 +10,7 @@ args <- commandArgs(TRUE)
 setwd(args[1])
 
 ####### ROI Analysis ########
-system("mkdir ./temp/")
-sinkfile <- file("./temp/messages.Rout", open = "wt")
+sinkfile <- file("messages.Rout", open = "wt")
 sink(sinkfile, type = "message")
 library(utils)
 library(readr)
@@ -156,4 +155,3 @@ rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F'
 cat("\nSAVED: ",normalizePath("fig_av.png"),"\n")
 cat("\nDONE! \n")
 sink()
-system("rm -rf ./temp")
