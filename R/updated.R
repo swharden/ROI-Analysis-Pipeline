@@ -16,13 +16,16 @@ library(ggplot2)
 args <- commandArgs(TRUE)  
 setwd(args[1])
 
-cat("\nLOADING: ",normalizePath("Results.xls"),"\n")
+cat("\nLOADING: ",normalizePath("Results2.xls"),"\n")
 
-cell.dt <- read_tsv("Results.xls")
+cell.dt <- read_tsv("Results2.xls")
 colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
 
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
 frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
+
+fnames <- Sys.glob("*.tif")
+fnames.df <- as.data.frame(fnames)
 
 #############################
 
@@ -77,8 +80,8 @@ Fb.df1 <- cbind(listofROIs2.df, Fb.df)
 
 df.m1 <- merge(df.m, Fb.df1, by="ROI")   # Adds 'Fb' column to the data
 
-df.m1$result1 <- Fbnorm.func(df.m1$Ft, df.m1$Fb)   # running Fb-normalization function (results are added as a new column of data labeled "result1")
-colnames(df.m1)[colnames(df.m1)=="result1"] <- "dF.Fb"   #renaming column
+df.m1$result <- Fbnorm.func(df.m1$Ft, df.m1$Fb)   # running Fb-normalization function (results are added as a new column of data labeled "result1")
+colnames(df.m1)[colnames(df.m1)=="result"] <- "dF.Fb"   #renaming column
 
 #############################
 
