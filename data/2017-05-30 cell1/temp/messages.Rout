@@ -1,0 +1,21 @@
+
+Attaching package: ‘reshape2’
+
+The following objects are masked from ‘package:data.table’:
+
+    dcast, melt
+
+Warning message:
+package ‘ggplot2’ was built under R version 3.3.2 
+Parsed with column specification:
+cols(
+  X1 = col_integer(),
+  Mean1 = col_double(),
+  Mean2 = col_double(),
+  Mean3 = col_double(),
+  Mean4 = col_double()
+)
+Warning message:
+Missing column names filled in: 'X1' [1] 
+Warning message:
+In sink() : no sink to remove

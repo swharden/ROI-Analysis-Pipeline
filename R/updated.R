@@ -4,17 +4,20 @@
 ##install.packages("reshape2")
 ##install.packages("ggplot2")
 
+# Rscript --vanilla /GitHub/ROI-Analysis-Pipeline/R/updated.R
+#! usr/bin/env Rscript
+args <- commandArgs(TRUE)  
+setwd(args[1])
+
 ####### ROI Analysis ########
+system("mkdir ./temp/")
+sinkfile <- file("./temp/messages.Rout", open = "wt")
+sink(sinkfile, type = "message")
 library(utils)
 library(readr)
 library(data.table)
 library(reshape2)
 library(ggplot2)
-
-# Rscript --vanilla /GitHub/ROI-Analysis-Pipeline/R/updated.R
-#! usr/bin/env Rscript
-args <- commandArgs(TRUE)  
-setwd(args[1])
 
 cat("\nLOADING: ",normalizePath("Results.xls"),"\n")
 
@@ -152,3 +155,5 @@ rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F'
 
 cat("\nSAVED: ",normalizePath("fig_av.png"),"\n")
 cat("\nDONE! \n")
+sink()
+
