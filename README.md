@@ -6,8 +6,8 @@ This collection of scripts aids in the automated analysis of large collections o
 # Example Output
 
 ## Figures
-![](doc/graphs/fig_traces.png)
-![](doc/graphs/fig_av.png)
+![](doc/graphs/fig_traces.png) | ![](doc/graphs/fig_av.png)
+---|---
 
 ## Web Interface
 ![](doc/graphs/screenshot.png)
