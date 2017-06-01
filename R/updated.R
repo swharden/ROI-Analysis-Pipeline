@@ -8,7 +8,7 @@
 #! usr/bin/env Rscript
 args <- commandArgs(TRUE)  
 setwd(args[1])
-
+wd.name <- basename(getwd())
 png.width = 2000
 png.height = 1500
 
@@ -86,12 +86,17 @@ colnames(listofROIs2.df) <- c("ROI")
 #############################
 cat("\nLOADING: ",normalizePath("experiment.txt"),"\n")
 
+experiment.info <- read_lines("experiment.txt")
+exp.info <- experiment.info[1]
+
 experiment <- read_lines("experiment.txt", skip=1)
 exp <- gsub("=", ",", experiment)
 exp1 <- gsub("-", ",", exp)
 exp.values <- read.table(textConnection(exp1), sep = ",", row.names = 1, col.names = c("condition","b1","b2"))
 
-b.range <- exp.values[1,1:2]
+b.range <- exp.values["baseline",1:2]
+TGOT.range <- exp.values["TGOT",1:2]
+
 Fb.range <- cell.dt[(b.range[[1]]:b.range[[2]]), , drop=FALSE]
 Fb.values <- Fb.range[ ,2:length(Fb.range), drop=FALSE]
 Fb.values.mat <- as.matrix(Fb.values)
@@ -151,8 +156,8 @@ colnames(graph.data.m) <- c("frame", "ROI", "dF.F")  #renaming columns
 rplot1 <- ggplot(data=graph.data.m, aes(x=graph.data.m[['frame']], y=(graph.data.m[['dF.F']]), colour=ROI)) +
   geom_line()
 rplot1 + labs(y = "dF/F (%)") +
-  labs(x = "Experiment Duration") +
-  labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity")), subtitle = "ROI Traces") +
+  labs(x = "Experiment Duration (s)") +
+  labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Traces")), subtitle = paste(wd.name, exp.info)) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.subtitle = element_text(hjust = 0.5)) +
   scale_x_continuous(expand = c(0.006,0)) +
@@ -166,8 +171,8 @@ rplot2 <- ggplot(data=stats.dF.F, aes(x=stats.dF.F[['frame']]))
 rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F']], ymax=stats.dF.F[['mean.dF.F']]+stats.dF.F[['stdev.dF.F']]), fill="grey", alpha=0.3) +
   geom_line(aes(y=(stats.dF.F[['mean.dF.F']]))) + theme_bw() + 
   labs(y = "dF/F (%)") +
-  labs(x = "Experiment Duration") +
-  labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity"))) +
+  labs(x = "Experiment Duration (s)") +
+  labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Average")), subtitle = paste(wd.name, exp.info)) +
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_x_continuous(expand = c(0.006,0)) +
   png(filename = "fig_av.png", width = png.width, height = png.height, units = "px", pointsize = 12, type = "cairo")
