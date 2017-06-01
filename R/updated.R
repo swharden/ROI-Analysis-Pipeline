@@ -9,6 +9,9 @@
 args <- commandArgs(TRUE)  
 setwd(args[1])
 
+png.width = 2000
+png.height = 1500
+
 ####### ROI Analysis ########
 sinkfile <- file("messages.Rout", open = "wt")
 sink(sinkfile, type = "message")
@@ -25,17 +28,17 @@ colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
 
 fnames <- Sys.glob("*.tif")
-fnames1 <- gsub("cell", ",", fnames, fixed = TRUE)
-fnames2 <- gsub(".tif", ",", fnames1, fixed = TRUE)
-fnames.df <- read.table(textConnection(fnames2), sep = ",")
+fnames1 <- gsub(".tif", "", fnames, fixed = TRUE)
+fnames.df <- read.table(textConnection(fnames1), sep = ",")
 nrow(fnames.df)
 
-if (anyDuplicated(fnames.df[,2])==0) +
-   if (nrow(fnames.df)==nrow(cell.dt)){
-     cell.dt<-cbind(fnames.df[,2, drop=FALSE], cell.dt[,2:length(cell.dt)])} else{
-      cat("\nCheck tiff file names. Frame times read from file names in the format \"[date] cell[time].tif\" (E.g. 2017-05-31 cell20000.tif.) Proceeding with frame number instead of time.\n")}
+if (anyDuplicated(fnames.df[,1])==0) +
+  if (is.numeric(fnames.df[,1])=TRUE) + 
+  if (nrow(fnames.df)==nrow(cell.dt)){
+       cell.dt<-cbind(fnames.df[,1, drop=FALSE], cell.dt[,2:length(cell.dt)])} else{
+         cat("\nCheck tiff file names. Frame times read from file names in the format \"[time].tif\" (e.g. 149177004.547.tif.) Proceeding with frame number instead of time.\n")}
 
-colnames(cell.dt)[colnames(cell.dt)=="V2"] <- "frame" 
+colnames(cell.dt)[colnames(cell.dt)=="V1"] <- "frame" 
 frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
 
 #############################
@@ -146,7 +149,7 @@ rplot1 + labs(y = "dF/F (%)") +
   theme(plot.subtitle = element_text(hjust = 0.5)) +
   scale_x_continuous(expand = c(0.006,0)) +
   png(filename = "fig_traces.png",
-    width = 2000, height = 1500, units = "px", pointsize = 12, type = "cairo")
+    width = png.width, height = png.height, units = "px", pointsize = 12, type = "cairo")
 
 cat("\nSAVED: ",normalizePath("fig_traces.png"),"\n")
 ##
@@ -159,7 +162,7 @@ rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F'
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity"))) +
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_x_continuous(expand = c(0.006,0)) +
-  png(filename = "fig_av.png", width = 2000, height = 1500, units = "px", pointsize = 12, type = "cairo")
+  png(filename = "fig_av.png", width = png.width, height = png.height, units = "px", pointsize = 12, type = "cairo")
 
 cat("\nSAVED: ",normalizePath("fig_av.png"),"\n")
 cat("\nDONE! \n")
