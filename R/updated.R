@@ -29,8 +29,10 @@ ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" co
 
 fnames <- Sys.glob("*.tif")
 fnames1 <- gsub(".tif", "", fnames, fixed = TRUE)
-fnames.df <- read.table(textConnection(fnames1), sep = ",")
-nrow(fnames.df)
+fnames1.df <- read.table(textConnection(fnames1), sep = ",")
+t0 = fnames1.df[[1,1]] - 1
+subtract.funct <- function(x) x-t0
+fnames.df <- as.data.frame(subtract.funct(fnames1.df))
 
 if (anyDuplicated(fnames.df[,1])==0) +
   if (is.numeric(fnames.df[,1])=TRUE) + 
