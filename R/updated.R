@@ -4,6 +4,8 @@
 ##install.packages("reshape2")
 ##install.packages("ggplot2")
 
+#system("Rscript --vanilla \\Spike\X_Drive\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\2017-06-01 cell2 Results.xls")
+
 # Rscript --vanilla /GitHub/ROI-Analysis-Pipeline/R/updated.R
 #! usr/bin/env Rscript
 args <- commandArgs(TRUE)  
@@ -39,7 +41,7 @@ fnames3 <- sort(fnames2)
 fnames3.df <- as.data.frame(fnames3)
 colnames(fnames3.df)[1]<-"time"
 
-subtract.funct <- function(x) x-t0
+subtract.funct <- function(x) {(x-t0)/60}
 fnames.df <- as.data.frame(subtract.funct(fnames3.df))
 frame.time <- cbind(actual.frames, fnames.df)
 
@@ -178,13 +180,13 @@ t.xmax=ft.t2[['time']]
 
 ####### Graphing Data #######
 
-rplot1 <- ggplot(data=traces.data.m, aes(x=traces.data.m[['frame']], y=(traces.data.m[['dF.F']]))) +
-  geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.005) +
-  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.005) + 
-  geom_line(aes(colour=ROI)) 
+rplot1 <- ggplot(data=traces.data.m, aes(x=traces.data.m[['frame']], y=(traces.data.m[['dF.F']]))) + theme_bw() +
+  geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002) + 
+  geom_line(aes(colour=ROI, alpha=0.07), show.legend = FALSE) 
 
 rplot1 + labs(y = "dF/F (%)") +
-  labs(x = "Experiment Duration (s)") +
+  labs(x = "Experiment Duration (min)") +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Traces")), subtitle = paste(wd.name, exp.info)) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.subtitle = element_text(hjust = 0.5)) +
@@ -196,13 +198,13 @@ cat("\nSAVED: ",normalizePath("fig_traces.png"),"\n")
 ##
 
 rplot2 <- ggplot(data=stats.dF.F, aes(x=stats.dF.F[['frame']])) +
-  geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.005) +
-  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.005) 
+  geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002) 
 
 rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F']], ymax=stats.dF.F[['mean.dF.F']]+stats.dF.F[['stdev.dF.F']]), fill="grey", alpha=0.3) +
   geom_line(aes(y=(stats.dF.F[['mean.dF.F']]))) + theme_bw() + 
   labs(y = "dF/F (%)") +
-  labs(x = "Experiment Duration (s)") +
+  labs(x = "Experiment Duration (min)") +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Average")), subtitle = paste(wd.name, exp.info)) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.subtitle = element_text(hjust = 0.5)) +
