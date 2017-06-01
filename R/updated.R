@@ -15,6 +15,7 @@ png.height = 1500
 ####### ROI Analysis ########
 sinkfile <- file("messages.Rout", open = "wt")
 sink(sinkfile, type = "message")
+
 library(utils)
 library(readr)
 library(data.table)
@@ -24,23 +25,28 @@ library(ggplot2)
 cat("\nLOADING: ",normalizePath("Results.xls"),"\n")
 
 cell.dt <- read_tsv("Results.xls")
-colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
 
 fnames <- Sys.glob("*.tif")
 fnames1 <- gsub(".tif", "", fnames, fixed = TRUE)
-fnames1.df <- read.table(textConnection(fnames1), sep = ",")
-t0 = fnames1.df[[1,1]] - 1
-subtract.funct <- function(x) x-t0
-fnames.df <- as.data.frame(subtract.funct(fnames1.df))
+fnames2 <- as.double(fnames1)
+t0 <- (fnames2[1])-((fnames2[3])-(fnames2[2]))
 
-if (anyDuplicated(fnames.df[,1])==0) +
-  if (is.numeric(fnames.df[,1])=TRUE) + 
+fnames2[is.na(fnames2)] <- t0 
+fnames3 <- sort(fnames2)
+fnames3.df <- as.data.frame(fnames3)
+
+subtract.funct <- function(x) x-t0
+fnames.df <- as.data.frame(subtract.funct(fnames3.df))
+
+if (anyDuplicated(fnames.df)==0) +
+  if (is.numeric(fnames.df[1:length(fnames.df),])==TRUE) + 
   if (nrow(fnames.df)==nrow(cell.dt)){
        cell.dt<-cbind(fnames.df[,1, drop=FALSE], cell.dt[,2:length(cell.dt)])} else{
          cat("\nCheck tiff file names. Frame times read from file names in the format \"[time].tif\" (e.g. 149177004.547.tif.) Proceeding with frame number instead of time.\n")}
 
-colnames(cell.dt)[colnames(cell.dt)=="V1"] <- "frame" 
+###
+colnames(cell.dt)[1] <- "frame" 
 frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
 
 #############################
