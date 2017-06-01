@@ -22,12 +22,21 @@ cat("\nLOADING: ",normalizePath("Results.xls"),"\n")
 
 cell.dt <- read_tsv("Results.xls")
 colnames(cell.dt)[colnames(cell.dt)=="X1"] <- "frame"   #renaming column
-
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
-frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
 
 fnames <- Sys.glob("*.tif")
-fnames.df <- as.data.frame(fnames)
+fnames1 <- gsub("cell", ",", fnames, fixed = TRUE)
+fnames2 <- gsub(".tif", ",", fnames1, fixed = TRUE)
+fnames.df <- read.table(textConnection(fnames2), sep = ",")
+nrow(fnames.df)
+
+if (anyDuplicated(fnames.df[,2])==0) +
+   if (nrow(fnames.df)==nrow(cell.dt)){
+     cell.dt<-cbind(fnames.df[,2, drop=FALSE], cell.dt[,2:length(cell.dt)])} else{
+      cat("\nCheck tiff file names. Frame times read from file names in the format \"[date] cell[time].tif\" (E.g. 2017-05-31 cell20000.tif.) Proceeding with frame number instead of time.\n")}
+
+colnames(cell.dt)[colnames(cell.dt)=="V2"] <- "frame" 
+frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
 
 #############################
 
@@ -131,13 +140,13 @@ colnames(graph.data.m) <- c("frame", "ROI", "dF.F")  #renaming columns
 rplot1 <- ggplot(data=graph.data.m, aes(x=graph.data.m[['frame']], y=(graph.data.m[['dF.F']]), colour=ROI)) +
   geom_line()
 rplot1 + labs(y = "dF/F (%)") +
-  labs(x = "frame") +
+  labs(x = "Experiment Duration") +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity")), subtitle = "ROI Traces") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.subtitle = element_text(hjust = 0.5)) +
   scale_x_continuous(expand = c(0.006,0)) +
   png(filename = "fig_traces.png",
-    width = 1080, height = 720, units = "px", pointsize = 12)
+    width = 2000, height = 1500, units = "px", pointsize = 12, type = "cairo")
 
 cat("\nSAVED: ",normalizePath("fig_traces.png"),"\n")
 ##
@@ -146,11 +155,11 @@ rplot2 <- ggplot(data=stats.dF.F, aes(x=stats.dF.F[['frame']]))
 rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F']], ymax=stats.dF.F[['mean.dF.F']]+stats.dF.F[['stdev.dF.F']]), fill="grey", alpha=0.3) +
   geom_line(aes(y=(stats.dF.F[['mean.dF.F']]))) + theme_bw() + 
   labs(y = "dF/F (%)") +
-  labs(x = "frame") +
+  labs(x = "Experiment Duration") +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity"))) +
   theme(plot.title = element_text(hjust = 0.5)) +
   scale_x_continuous(expand = c(0.006,0)) +
-  png(filename = "fig_av.png", width = 1080, height = 720, units = "px", pointsize = 12)
+  png(filename = "fig_av.png", width = 2000, height = 1500, units = "px", pointsize = 12, type = "cairo")
 
 cat("\nSAVED: ",normalizePath("fig_av.png"),"\n")
 cat("\nDONE! \n")
