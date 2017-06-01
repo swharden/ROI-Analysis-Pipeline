@@ -9,8 +9,7 @@
 args <- commandArgs(TRUE)  
 setwd(args[1])
 wd.name <- basename(getwd())
-png.width = 2000
-png.height = 1500
+res.pref = 1000  # set graph resolution (ppi)
 
 ####### ROI Analysis ########
 sinkfile <- file("messages.Rout", open = "wt")
@@ -25,7 +24,10 @@ library(ggplot2)
 cat("\nLOADING: ",normalizePath("Results.xls"),"\n")
 
 cell.dt <- read_tsv("Results.xls")
+colnames(cell.dt)[1] <- "frame" 
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
+actual.frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
+
 
 fnames <- Sys.glob("*.tif")
 fnames1 <- gsub(".tif", "", fnames, fixed = TRUE)
@@ -35,9 +37,11 @@ t0 <- (fnames2[1])-((fnames2[3])-(fnames2[2]))
 fnames2[is.na(fnames2)] <- t0 
 fnames3 <- sort(fnames2)
 fnames3.df <- as.data.frame(fnames3)
+colnames(fnames3.df)[1]<-"time"
 
 subtract.funct <- function(x) x-t0
 fnames.df <- as.data.frame(subtract.funct(fnames3.df))
+frame.time <- cbind(actual.frames, fnames.df)
 
 if (anyDuplicated(fnames.df)==0) +
   if (is.numeric(fnames.df[1:length(fnames.df),])==TRUE) + 
@@ -96,6 +100,7 @@ exp.values <- read.table(textConnection(exp1), sep = ",", row.names = 1, col.nam
 
 b.range <- exp.values["baseline",1:2]
 TGOT.range <- exp.values["TGOT",1:2]
+cond.range.df <- rbind(b.range, TGOT.range)
 
 Fb.range <- cell.dt[(b.range[[1]]:b.range[[2]]), , drop=FALSE]
 Fb.values <- Fb.range[ ,2:length(Fb.range), drop=FALSE]
@@ -151,31 +156,59 @@ graph.data <- cbind(results_B, stats.dF.F[,2, drop=FALSE])
 graph.data.m <- melt(graph.data, id.vars='frame')   #restructuring the data
 colnames(graph.data.m) <- c("frame", "ROI", "dF.F")  #renaming columns
 
+traces.data1 <- cbind(results_B[,1], results_B[,3:length(results_B)])  # excludes Mean1 (baseline ROI)
+traces.data <- cbind(stats.dF.F[,1:2, drop=FALSE], traces.data1[,2:length(traces.data1)])
+traces.data.m <- melt(traces.data, id.vars='frame')
+colnames(traces.data.m) <- c("frame", "ROI", "dF.F")
+
+####
+
+cr.df <- cond.range.df
+ft.df <- frame.time
+
+ft.b1 <- ft.df[ft.df$frame==(cr.df[['baseline',1]]),]
+ft.b2 <- ft.df[ft.df$frame==(cr.df[['baseline',2]]),]
+ft.t1 <- ft.df[ft.df$frame==(cr.df[['TGOT',1]]),]
+ft.t2 <- ft.df[ft.df$frame==(cr.df[['TGOT',2]]),]
+
+b.xmin=ft.b1[['time']] 
+b.xmax=ft.b2[['time']]
+t.xmin=ft.t1[['time']]
+t.xmax=ft.t2[['time']]
+
 ####### Graphing Data #######
 
-rplot1 <- ggplot(data=graph.data.m, aes(x=graph.data.m[['frame']], y=(graph.data.m[['dF.F']]), colour=ROI)) +
-  geom_line()
+rplot1 <- ggplot(data=traces.data.m, aes(x=traces.data.m[['frame']], y=(traces.data.m[['dF.F']]))) +
+  geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.005) +
+  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.005) + 
+  geom_line(aes(colour=ROI)) 
+
 rplot1 + labs(y = "dF/F (%)") +
   labs(x = "Experiment Duration (s)") +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Traces")), subtitle = paste(wd.name, exp.info)) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.subtitle = element_text(hjust = 0.5)) +
   scale_x_continuous(expand = c(0.006,0)) +
-  png(filename = "fig_traces.png",
-    width = png.width, height = png.height, units = "px", pointsize = 12, type = "cairo")
+  png(filename = "fig_traces.png", width = 6, height = 4, units = "in", type="cairo", res = res.pref)
+dev.off()
 
 cat("\nSAVED: ",normalizePath("fig_traces.png"),"\n")
 ##
-  
-rplot2 <- ggplot(data=stats.dF.F, aes(x=stats.dF.F[['frame']]))
+
+rplot2 <- ggplot(data=stats.dF.F, aes(x=stats.dF.F[['frame']])) +
+  geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.005) +
+  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.005) 
+
 rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F']], ymax=stats.dF.F[['mean.dF.F']]+stats.dF.F[['stdev.dF.F']]), fill="grey", alpha=0.3) +
   geom_line(aes(y=(stats.dF.F[['mean.dF.F']]))) + theme_bw() + 
   labs(y = "dF/F (%)") +
   labs(x = "Experiment Duration (s)") +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Average")), subtitle = paste(wd.name, exp.info)) +
   theme(plot.title = element_text(hjust = 0.5)) +
+  theme(plot.subtitle = element_text(hjust = 0.5)) +
   scale_x_continuous(expand = c(0.006,0)) +
-  png(filename = "fig_av.png", width = png.width, height = png.height, units = "px", pointsize = 12, type = "cairo")
+  png(filename = "fig_av.png", width = 6, height = 4, units = "in", type="cairo", res = res.pref)
+dev.off()
 
 cat("\nSAVED: ",normalizePath("fig_av.png"),"\n")
 cat("\nDONE! \n")
