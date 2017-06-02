@@ -108,6 +108,7 @@ class TiffVid:
             fname=os.path.join(self.folder,fname)
             self.figure_tiff_and_graph(fnamePic=fname,frame=frame)
         cmd=r'C:\Users\swharden\Documents\important\ffmpeg\bin\ffmpeg.exe'
+        cmd+=' -framerate 15'
         cmd+=r' -y -i "%s\video\frame_%%07d.png"'%self.folder
         cmd+=r' -c:v libx264 -pix_fmt yuv420p "%s"'%os.path.join(self.folder,"render.mp4")
         print(cmd)
@@ -280,7 +281,7 @@ def scriptRun():
     #path=r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\2017-05-31 cell1"
     #path=r"C:\Users\swharden\Documents\temp\seq"
 
-    makeVideo=False
+    makeVideo=True
     makeFigures=True
 
     for folder in sorted(glob.glob(r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\*")):
