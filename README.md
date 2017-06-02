@@ -14,8 +14,9 @@ This collection of scripts aids in the automated analysis of large collections o
 
 ## Video
 ![](Python/video_frame_02400.png)
-* https://www.youtube.com/watch?v=EEuXCMoRtsw
-* https://www.youtube.com/watch?v=1OHvPi1TbII
+* https://www.youtube.com/watch?v=EEuXCMoRtsw (GABA Cre / Glutamate)
+* https://www.youtube.com/watch?v=1OHvPi1TbII (GABA Cre / TGOT)
+* https://youtu.be/zYcEWnD3GCs (GABA Cre / TGOT w/ TTX)
 
 # Workflow
 This is a work in progress, but as of now the workflow is:
