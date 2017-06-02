@@ -143,9 +143,9 @@ class TiffVid:
         plt.ylabel(self.dataYlabel,fontsize=16)
         plt.xlabel(self.dataXlabel,fontsize=16)
         plt.title("ROI Traces [%s]"%os.path.basename(self.folder),fontsize=20)
-        plt.savefig(self.folder+"/fig_traces.png",dpi=100)
+        plt.savefig(self.folder+"/fig_zzz_traces.png",dpi=100)
         plt.tight_layout()
-        plt.show()
+        #plt.show()
         plt.close()
 
     def fig_av(self,stdErr=False):
@@ -168,9 +168,9 @@ class TiffVid:
         plt.ylabel(r'$\Delta$'+"F/F (%)",fontsize=16)
         plt.xlabel("experiment duration (minutes)",fontsize=16)
         plt.title("ROI Traces [%s]"%os.path.basename(self.folder),fontsize=20)
-        plt.savefig(self.folder+"/fig_av.png",dpi=100)
+        plt.savefig(self.folder+"/fig_zzz_av.png",dpi=100)
         plt.tight_layout()
-        plt.show()
+        #plt.show()
         plt.close()
 
     ###########################################################################
@@ -275,23 +275,45 @@ class TiffVid:
 #        plt.show()
         plt.close('all')
 
-if __name__=="__main__":
+
+def scriptRun():
     #path=r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\2017-05-31 cell1"
     #path=r"C:\Users\swharden\Documents\temp\seq"
+
+    makeVideo=False
+    makeFigures=True
 
     for folder in sorted(glob.glob(r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\*")):
         if not os.path.isdir(folder):
             continue
         print("\n\n\n","#"*100,"\n"," ANALYZING",folder,"\n","#"*100)
-#        try:
-        TV=TiffVid(folder)
-        TV.renderVideo(overwrite=True)
-#        except:
-#            print("EXCEPTION")
 
-#    TV.fig_traces()
-#    TV.fig_av()
-    #TV.figure_BL_avg()
-    #TV.figure_raw_all_highlight()
+        if makeVideo:
+            try:
+                TV=TiffVid(folder)
+                TV.renderVideo()
+            except:
+                print("EXCEPTION MAKING VIDEO")
+
+        if makeFigures:
+            try:
+                TV=TiffVid(folder)
+                TV.fig_traces()
+                TV.fig_av()
+            except:
+                print("EXCEPTION MAKING VIDEO")
+
+if __name__=="__main__":
+
+    if len(sys.argv)==1:
+        print("running from within script")
+        scriptRun()
+    else:
+        print("called from command line with arguments")
+        TV=TiffVid(sys.argv[1])
+        TV.fig_traces()
+        TV.fig_av()
+
+
 
     print("DONE")
