@@ -11,7 +11,7 @@
 args <- commandArgs(TRUE)  
 setwd(args[1])
 wd.name <- basename(getwd())
-res.pref = 1000  # set graph resolution (ppi)
+res.pref = 300  # set graph resolution (ppi)
 
 ####### ROI Analysis ########
 sinkfile <- file("messages.Rout", open = "wt")
