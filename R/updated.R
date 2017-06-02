@@ -29,14 +29,19 @@ cell.dt <- read_tsv("Results.xls")
 colnames(cell.dt)[1] <- "frame" 
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
 actual.frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
+est.mins.func <- function(x) {x*(1/6)}
+zero.func <- function(x) {x-1}
+est.mins1a <- (actual.frames[1]) - 1
+est.mins1b <- est.mins.func(est.mins1a)
 
 fnames <- Sys.glob("*.tif")
 fnames1 <- gsub(".tif", "", fnames, fixed = TRUE)
 fnames2 <- as.double(fnames1)
 
-if (sum(is.na(fnames2))<2){
-  
-t0 <- (fnames2[1])-((fnames2[3])-(fnames2[2]));
+if (sum(is.na(fnames2))<2 && is.numeric(fnames2[1:3])==TRUE){
+
+t.interval <- (fnames2[3])-(fnames2[2])  
+t0 <- (fnames2[1])-(t.interval)
 fnames2[is.na(fnames2)] <- t0; 
 fnames3 <- sort(fnames2);
 fnames3.df <- as.data.frame(fnames3);
@@ -44,19 +49,35 @@ colnames(fnames3.df)[1]<-"time";
 
 mins.funct <- function(x) {(x-t0)/60};
 fnames.df <- as.data.frame(mins.funct(fnames3.df));
+f.df <- fnames.df;
 
-if (anyDuplicated(fnames.df)==0 &&
-  is.numeric(fnames.df[1:length(fnames.df),])==TRUE && 
-  nrow(fnames.df)==nrow(cell.dt)){
-       cell.dt<-cbind(fnames.df[,1, drop=FALSE], cell.dt[,2:length(cell.dt)]);
-       time.unit = "Experiment Duration (minutes)"} else{
-         cat("\nCheck tiff file names. Frame times read from file names in the format \"[time].tif\" (e.g. 149177004.547.tif.) Proceeding with frame number instead of time.\n");
-         fnames.df <- actual.frames;
-         time.unit = "Experiment Duration (frames)"};
-} else{fnames.df <- actual.frames;
-  time.unit = "Experiment Duration (frames)";
-  cat("\nCheck tiff file names. Unable to use frame times. Proceeding with frame number instead of time.\n")}
+if (anyDuplicated(fnames.df)==0) {
+    
+  if (nrow(fnames.df)==nrow(cell.dt)){
+      fnames.df=fnames.df} else{
+        
+        if (nrow(fnames.df)+1==nrow(cell.dt)){
+          t1 <- fnames3.df[1, ,drop=FALSE];
+          t1.0 <- t1 - t.interval;
+          t1.mins <- as.data.frame(mins.funct(t1.0));
+          fnames.df <- rbind(t1.mins, f.df);
+          
+          if (nrow(fnames.df)==nrow(cell.dt) && anyDuplicated(fnames.df)==0){
+            fnames.df=fnames.df
+          } else {fnames.df <- est.mins1b;
+          cat("\nCheck tiff file names. Unable to find frame times.Using frame number to estimate time.\n")}
+          
+        } else{fnames.df <- est.mins1b;
+        cat("\nCheck tiff file names. Unable to find frame times.Using frame number to estimate time.\n")}
+      };
+      } else{fnames.df <- est.mins1b;
+      cat("\nCheck tiff file names. Unable to find frame times.Using frame number to estimate time.\n")};
 
+} else{fnames.df <- est.mins1b;
+cat("\nCheck tiff file names. Unable to find frame times.Using frame number to estimate time.\n")
+}
+
+cell.dt<-cbind(fnames.df[,1, drop=FALSE], cell.dt[,2:length(cell.dt)])
 ###
 colnames(fnames.df)[1]<-"time"
 frame.time <- cbind(actual.frames, fnames.df);
@@ -193,6 +214,7 @@ colnames(traces.data.m) <- c("frame", "ROI", "dF.F")
 
 
 ####### Graphing Data #######
+time.unit = "Experiment Duration (minutes)"
 
 rplot1 <- ggplot(data=traces.data.m, aes(x=traces.data.m[['frame']], y=(traces.data.m[['dF.F']]))) + theme_bw() +
   geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
