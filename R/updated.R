@@ -52,7 +52,6 @@ if (anyDuplicated(fnames.df)==0 &&
        time.unit = "Experiment Duration (minutes)"} else{
          cat("\nCheck tiff file names. Frame times read from file names in the format \"[time].tif\" (e.g. 149177004.547.tif.) Proceeding with frame number instead of time.\n");
          fnames.df <- actual.frames;
-         cat(head(fnames.df));
          time.unit = "Experiment Duration (frames)"};
 } else{fnames.df <- actual.frames;
   time.unit = "Experiment Duration (frames)";
