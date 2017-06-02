@@ -96,22 +96,23 @@ class TiffVid:
         if subtractOutFirstROI:
             self.data[1:]=self.data[1:]-self.data[1]
 
-    def renderVideo(self):
-        if os.path.exists(self.folder+"/render.mp4"):
+    def renderVideo(self,overwrite=False):
+        if overwrite is False and os.path.exists(self.folder+"/render.mp4"):
             print("VIDEO ALREADY EXISTS")
             return
         fnames=sorted(glob.glob(self.folder+"/*.tif"))
+        self.maxIntensity=False # optionally define this here
         for frame in range(len(self.dataX)):
             print("Processing frame %d of %d (%.02f%%)"%(frame,len(self.dataX),100*frame/len(self.dataX)))
             fname=fnames[frame]
             fname=os.path.join(self.folder,fname)
-            self.figure_tiff_and_graph(fnamePic=fname,frame=frame, maxIntensity=75)
+            self.figure_tiff_and_graph(fnamePic=fname,frame=frame)
         cmd=r'C:\Users\swharden\Documents\important\ffmpeg\bin\ffmpeg.exe'
         cmd+=r' -y -i "%s\video\frame_%%07d.png"'%self.folder
         cmd+=r' -c:v libx264 -pix_fmt yuv420p "%s"'%os.path.join(self.folder,"render.mp4")
         print(cmd)
         os.system(cmd)
-        #◘shutil.rmtree(os.path.join(self.folder,"video"))
+        #shutil.rmtree(os.path.join(self.folder,"video"))
         print("CREATED VIDEO:\n",os.path.join(self.folder,"render.mp4"))
 
 
@@ -203,8 +204,7 @@ class TiffVid:
         plt.show()
         plt.close()
 
-    def figure_tiff_and_graph(self,fnamePic='../data/sample.jpg',frame=-1,
-                              maxIntensity=150):
+    def figure_tiff_and_graph(self,fnamePic='../data/sample.jpg',frame=-1):
         # create the individual PNG files to be used for video creation
         from read_roi import read_roi_zip
 
@@ -216,7 +216,10 @@ class TiffVid:
         # LEFT AXES - FIGURE
         ax0 = plt.subplot(gs[0])
         img=plt.imread(fnamePic)
-        ax0.imshow(img, zorder=0, cmap='gray', clim=(0, maxIntensity))
+        if self.maxIntensity is False:
+            self.maxIntensity=np.max(img)
+            print("SETTING MAX INTENSITY:",self.maxIntensity)
+        ax0.imshow(img, zorder=0, cmap='gray', clim=(0, self.maxIntensity))
         roiFile=self.folder+"/RoiSet.zip"
         if os.path.exists(roiFile):
             rois = read_roi_zip(roiFile)
@@ -280,11 +283,11 @@ if __name__=="__main__":
         if not os.path.isdir(folder):
             continue
         print("\n\n\n","#"*100,"\n"," ANALYZING",folder,"\n","#"*100)
-        try:
-            TV=TiffVid(folder)
-            TV.renderVideo()
-        except:
-            print("EXCEPTION")
+#        try:
+        TV=TiffVid(folder)
+        TV.renderVideo(overwrite=True)
+#        except:
+#            print("EXCEPTION")
 
 #    TV.fig_traces()
 #    TV.fig_av()
