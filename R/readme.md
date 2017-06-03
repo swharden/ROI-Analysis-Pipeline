@@ -1,1 +1,1 @@
-these scripts are a sandbox of experimental code
+Scripts here are maintained by Beronica. They are typically used interactively in RStudio.

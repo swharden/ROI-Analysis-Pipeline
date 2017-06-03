@@ -1,0 +1,14 @@
+The main script is `run.R` but it uses functions which live in `math.R`. The output is:
+
+```
+GENERATING RANDOM NUMBERS FOR A AND B
+a = 57.8879084419459
+b = 65.258474431932
+
+DOING SOME MATH
+57.887908 + 65.258474 = 123.146383
+57.887908 - 65.258474 = -7.370566
+57.887908 * 65.258474 = 3777.676593
+57.887908 / 65.258474 = 0.887056
+The running total is:3894.33946566367
+```
