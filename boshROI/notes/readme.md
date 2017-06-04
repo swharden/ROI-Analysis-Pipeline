@@ -30,8 +30,11 @@ devtools::document()
 ```
 
 # Useful Links
+* [ggplot2 cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+* [r colors cheat sheet](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf)
 * [example well maintained R package on GitHub](https://github.com/dirkschumacher/ompr)
 * [data table cheat sheet](https://s3.amazonaws.com/assets.datacamp.com/img/blog/data+table+cheat+sheet.pdf)
+* [plotting simple graphs in R](http://www.harding.edu/fmccown/r/)
 * [R Language Definition](https://cran.r-project.org/doc/manuals/R-lang.html#Operators)
 * [sprintf examples](http://www.cookbook-r.com/Strings/Creating_strings_from_variables/)
 * [writing package documentation](https://support.rstudio.com/hc/en-us/articles/200532317-Writing-Package-Documentation)

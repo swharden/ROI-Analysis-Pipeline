@@ -86,5 +86,5 @@ roi_folder_process <- function(folder){
 	
 	# calculate dF/F
 	
-	return(TRUE)
+	return(results.dt)
 }
