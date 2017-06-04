@@ -1,0 +1,2 @@
+rscript remove.R
+pause

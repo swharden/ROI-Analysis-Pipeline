@@ -1,7 +1,20 @@
-# R code base
+# BOSH ROI
+BOSH ROI is an R Package developed assist in the analysis of calcium reporting fluorophores (i.e., FluoAM, Fluo-4 and GCaMP6) from time series images analyzed in [NIH ImageJ](https://imagej.nih.gov/ij/index.html) / [FIJI](http://fiji.sc/). The BOSH ROI package was initially developed by Beronica Ocasio and Scott Harden.
+
+## Installing
+To generate documentation and install the boshROI package:
+* `cd ./dev/`
+* `rscript install.R`
+
+## Uninstalling
+* `rscript -e remove.packages(boshROI)`
+
+# Developer Notes
+
+## R code base
 R scripts here are maintained by Scott and Beronica. These scripts are designed to run "headless" from a server. They are written with modularization / code recycling as a priority. They are designed to be run with `RScript` and not interactively in RStudio.
 
-# Setup
+## Setup
 This section includes notes for setting up a developer environment to edit/run R scripts. RStudio is great for interactive testing, but I'd like to develop exclusively with `RScript.exe` since that's what the server will be calling.
 
 ## System Path

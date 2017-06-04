@@ -1,0 +1,2 @@
+rscript install.R
+pause

@@ -1,0 +1,1 @@
+rscript --vanilla demo.R --analyzeRoiFolder "../../data/cell1"
