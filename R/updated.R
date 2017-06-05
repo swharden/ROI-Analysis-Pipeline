@@ -65,16 +65,16 @@ if (anyDuplicated(fnames.df)==0) {
           if (nrow(fnames.df)==nrow(cell.dt) && anyDuplicated(fnames.df)==0){
             fnames.df=fnames.df
           } else {fnames.df <- est.mins1b;
-          cat("\nCheck tiff file names. Unable to find frame times.Using frame number to estimate time.\n")}
+          cat("\nCheck tiff file names. Unable to find frame times. Using frame number to estimate time.\n")}
           
         } else{fnames.df <- est.mins1b;
-        cat("\nCheck tiff file names. Unable to find frame times.Using frame number to estimate time.\n")}
+        cat("\nCheck tiff file names. Unable to find frame times. Using frame number to estimate time.\n")}
       };
       } else{fnames.df <- est.mins1b;
-      cat("\nCheck tiff file names. Unable to find frame times.Using frame number to estimate time.\n")};
+      cat("\nCheck tiff file names. Unable to find frame times. Using frame number to estimate time.\n")};
 
 } else{fnames.df <- est.mins1b;
-cat("\nCheck tiff file names. Unable to find frame times.Using frame number to estimate time.\n")
+cat("\nCheck tiff file names. Unable to find frame times. Using frame number to estimate time.\n")
 }
 
 cell.dt<-cbind(fnames.df[,1, drop=FALSE], cell.dt[,2:length(cell.dt)])
@@ -215,6 +215,7 @@ colnames(traces.data.m) <- c("frame", "ROI", "dF.F")
 
 ####### Graphing Data #######
 time.unit = "Experiment Duration (minutes)"
+#### Traces: #
 
 rplot1 <- ggplot(data=traces.data.m, aes(x=traces.data.m[['frame']], y=(traces.data.m[['dF.F']]))) + theme_bw() +
   geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
@@ -231,8 +232,8 @@ rplot1 + labs(y = "dF/F (%)") +
 dev.off()
 
 cat("\nSAVED: ",normalizePath("fig_traces.png"),"\n")
-##
 
+#### Average of Traces: #
 rplot2 <- ggplot(data=stats.dF.F, aes(x=stats.dF.F[['frame']])) +
   geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
   geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002) 
@@ -249,5 +250,23 @@ rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F'
 dev.off()
 
 cat("\nSAVED: ",normalizePath("fig_av.png"),"\n")
+
+#### Raw Pixel Values: # 
+rplot3 <- ggplot(data=df.m, aes(x=df.m[['frame']], y=(df.m[['Ft']]))) + theme_bw() +
+  geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002) + 
+  geom_line(aes(colour=ROI, alpha=0.07), show.legend = FALSE) 
+
+rplot3 + labs(y = "Pixel Intensity") +
+  labs(x = paste(time.unit)) + 
+  labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Raw Pixel Intesity Values")), subtitle = paste(wd.name, exp.info)) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(plot.subtitle = element_text(hjust = 0.5)) +
+  scale_x_continuous(expand = c(0.006,0)) +
+  png(filename = "fig_raw.png", width = 6, height = 4, units = "in", type="cairo", res = res.pref)
+dev.off()
+
+cat("\nSAVED: ",normalizePath("fig_raw.png"),"\n")
+
 cat("\nDONE! \n")
 sink()
