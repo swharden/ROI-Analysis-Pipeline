@@ -139,7 +139,6 @@ exp.t <- grep("TGOT", exp.val2, ignore.case = TRUE)
 b.range <- exp.values[as.numeric(paste(exp.b)),1:2]
 TGOT.range <- exp.values[as.numeric(paste(exp.t)),1:2]
 cond.range.df <- rbind(b.range, TGOT.range)
-#cr.df <- cond.range.df
 ft.df <- frame.time
 
 ft.b1 <- ft.df[ft.df$frame==(b.range[,1]),]
