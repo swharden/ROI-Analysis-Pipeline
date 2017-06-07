@@ -30,6 +30,8 @@ devtools::document()
 ```
 
 # Useful Links
+* [low level graphics with R](https://www.stat.auckland.ac.nz/~ihaka/120/Notes/ch03.pdf)
+* [matrix operations](http://www.philender.com/courses/multivariate/notes/matr.html)
 * [ggplot2 cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 * [r colors cheat sheet](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf)
 * [example well maintained R package on GitHub](https://github.com/dirkschumacher/ompr)
