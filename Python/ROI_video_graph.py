@@ -7,6 +7,7 @@ import subprocess
 import sys
 import glob
 import shutil
+import read_roi
 
 class TiffVid:
     def __init__(self,folder,clean=False):
@@ -96,7 +97,7 @@ class TiffVid:
         if subtractOutFirstROI:
             self.data[1:]=self.data[1:]-self.data[1]
 
-    def renderVideo(self,overwrite=False):
+    def renderVideo(self,overwrite=False,showToo=False):
         if overwrite is False and os.path.exists(self.folder+"/render.mp4"):
             print("VIDEO ALREADY EXISTS")
             return
@@ -106,9 +107,9 @@ class TiffVid:
             print("Processing frame %d of %d (%.02f%%)"%(frame,len(self.dataX),100*frame/len(self.dataX)))
             fname=fnames[frame]
             fname=os.path.join(self.folder,fname)
-            self.figure_tiff_and_graph(fnamePic=fname,frame=frame)
+            self.figure_tiff_and_graph(fnamePic=fname,frame=frame,showToo=showToo)
         cmd=r'C:\Users\swharden\Documents\important\ffmpeg\bin\ffmpeg.exe'
-        cmd+=' -framerate 15'
+        cmd+=' -framerate 10'
         cmd+=r' -y -i "%s\video\frame_%%07d.png"'%self.folder
         cmd+=r' -c:v libx264 -pix_fmt yuv420p "%s"'%os.path.join(self.folder,"render.mp4")
         print(cmd)
@@ -205,7 +206,8 @@ class TiffVid:
         plt.show()
         plt.close()
 
-    def figure_tiff_and_graph(self,fnamePic='../data/sample.jpg',frame=-1):
+    def figure_tiff_and_graph(self,fnamePic='../data/sample.jpg',frame=-1,
+                              showToo=False):
         # create the individual PNG files to be used for video creation
         from read_roi import read_roi_zip
 
@@ -218,7 +220,7 @@ class TiffVid:
         ax0 = plt.subplot(gs[0])
         img=plt.imread(fnamePic)
         if self.maxIntensity is False:
-            self.maxIntensity=np.max(img)
+            self.maxIntensity=np.percentile(img,99)*1.5
             print("SETTING MAX INTENSITY:",self.maxIntensity)
         ax0.imshow(img, zorder=0, cmap='gray', clim=(0, self.maxIntensity))
         roiFile=self.folder+"/RoiSet.zip"
@@ -273,7 +275,8 @@ class TiffVid:
         if not os.path.exists(bn+"/video/"):
             os.mkdir(bn+"/video/")
         plt.savefig(bn+"/video/frame_%07d.png"%frame)
-#        plt.show()
+        if showToo:
+            plt.show()
         plt.close('all')
 
 
@@ -282,9 +285,10 @@ def scriptRun():
     #path=r"C:\Users\swharden\Documents\temp\seq"
 
     makeVideo=True
-    makeFigures=True
+    makeFigures=False
 
-    for folder in sorted(glob.glob(r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\*")):
+    #for folder in sorted(glob.glob(r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\*")):
+    for folder in [r"\\Spike\X_Drive\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\2017-06-05 cell1"]:
         if not os.path.isdir(folder):
             continue
         print("\n\n\n","#"*100,"\n"," ANALYZING",folder,"\n","#"*100)
@@ -292,7 +296,7 @@ def scriptRun():
         if makeVideo:
             try:
                 TV=TiffVid(folder)
-                TV.renderVideo()
+                TV.renderVideo(overwrite=True,showToo=True)
             except:
                 print("EXCEPTION MAKING VIDEO")
 
@@ -314,6 +318,7 @@ if __name__=="__main__":
         TV=TiffVid(sys.argv[1])
         TV.fig_traces()
         TV.fig_av()
+        TV.renderVideo()
 
 
 

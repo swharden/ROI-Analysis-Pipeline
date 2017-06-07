@@ -1,8 +1,11 @@
-require(devtools)
+library(devtools)
 library(colorRamps)
+library(reshape2)
 
 load_all("../../boshROI")
 results.dt <- roi_read_results("../../data/cell1/Results.xls")
+#results.dt[,i]<-as.numeric(as.character(results.dt[,i])) - as.numeric(as.character(results.dt[,1]))
+
 
 #print(colnames(results.dt))
 Xs <- as.numeric(rownames(results.dt)) # row names are X units (seconds)
@@ -12,25 +15,15 @@ Xs <- Xs/60 # now in minutes
 png("demo.png", width=8, height=6, units="in", type="cairo", res=300)
 
 # establish coords by plotting invisibly, then grid the plot
-plot(Xs, results.dt[,1], type="n", ann=FALSE)
-grid()
+data <- results.dt
+data <- t(data) # rotate
+data <- melt(results.dt, id.vars = colnames(results.dt)[0])
 
-# plot the actual (visible) data
-
-# start by determining a colormap
-#colors <- rainbow(ncol(results.dt)*2)
-colors <- colorRamps::magenta2green(ncol(results.dt))
-for (i in (1:ncol(results.dt))){
-	# add transparency to the color
-	color=paste(colors[i],"99",sep = "")
-	# plot the line
-	lines(Xs, results.dt[,i], col=color, lwd = 2)
-}
-
-# add labels
-title(main="Super Scientific Plot")
-title(xlab="Experiment Duration (minutes)")
-title(ylab="Pixel Value (AFU)")
+plot(data)
+#grid()
+#title(main="Raw Pixel Intensity")
+#title(xlab="Experiment Duration (minutes)")
+#title(ylab="Pixel Value (AFU)")
 
 # flush the image memory into the output file
 invisible(dev.off())

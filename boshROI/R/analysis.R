@@ -29,7 +29,7 @@ roi_read_results <- function(results_file, timePeriod=1){
 	
 	# make column names those from the original results file
 	colnames(data_pixel.dt) <- as.matrix(results.dt[1,][2:ncol(results.dt)])[1,]
-	
+    
 	# nwo we have a clean data table of pixel values ONLY with named rows and columns.
 	return(data_pixel.dt)
 }
