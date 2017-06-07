@@ -4,7 +4,7 @@
 # row names are the time (in seconds) of the data.
 roi_data_load <- function(fname, framePeriod=1){
   message("loading raw data from ",fname)
-  rawData <- as.matrix(read.csv("../../../data/cell1/Results.xls", sep="\t"))
+  rawData <- as.matrix(read.csv(fname, sep="\t"))
   rawData <- rawData[,-1:0] # chop off the first column (frame number)
   frameTimes <- (1:nrow(rawData))-1 # ascending numbers starting at 0
   frameTimes <- frameTimes * framePeriod # adjust for frame period
@@ -161,6 +161,7 @@ plot_ROI_DFF<-function(ROI,saveAs="NULL"){
 ################################################################
 ### PROGRAM STARTS HERE ########################################
 ################################################################
-ROI<-newRoiFolder("../../../data/cell1")
+roi_folder_path<-"X:/Data/SCOTT/2017-05-10 GCaMP6f/GCaMP6f PFC OXTR cre/2017-06-01 cell3"
+ROI<-newRoiFolder(roi_folder_path, framePeriod=10, firstRoiBaseline=FALSE)
 plot_ROI_DFF(ROI)
 plot_ROI_DFF(ROI,saveAs="04.png")
