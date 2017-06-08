@@ -1,4 +1,6 @@
-# stuff here happens when the package is loaded
+# code here runs when the package is loaded
+#####################################################
+
 .onLoad <- function(libname, pkgname){
 
 	# determine the path to this script and the base directory
@@ -11,8 +13,8 @@
 	# scan the arguments to see if we are expected to analyze an ROI folder
 	if("--analyzeRoiFolder" %in% initial.options){
 		# the analysis folder is the next item in the list of arguments
-		folder=initial.options[(which(initial.options == "--analyzeRoiFolder")+1)]
-		roi_folder_process(folder)
+		folder <- initial.options[(which(initial.options == "--analyzeRoiFolder")+1)]
+		message("I WAS TOLD TO ANALYZE THIS FOLDER: ",folder)
 	}
   
 }

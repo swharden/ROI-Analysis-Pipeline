@@ -30,6 +30,7 @@ devtools::document()
 ```
 
 # Useful Links
+* [making a package](http://tinyheero.github.io/jekyll/update/2015/07/26/making-your-first-R-package.html)
 * [low level graphics with R](https://www.stat.auckland.ac.nz/~ihaka/120/Notes/ch03.pdf)
 * [matrix operations](http://www.philender.com/courses/multivariate/notes/matr.html)
 * [ggplot2 cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)

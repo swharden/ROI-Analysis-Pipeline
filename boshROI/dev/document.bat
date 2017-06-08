@@ -1,0 +1,2 @@
+rscript document.R
+pause
