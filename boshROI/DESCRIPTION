@@ -1,8 +1,8 @@
 Package: boshROI
-Title: What the Package Does (one line, title case)
+Title: Quantification and Analysis of Fluorescence Micrographs
 Version: 0.0.0.9000
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: A package to assist in the quantification and analysis of fluorescence micrographs.
 Depends: R (>= 3.4.0)
 License: What license is it under?
 Encoding: UTF-8
