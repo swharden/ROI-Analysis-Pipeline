@@ -5,10 +5,10 @@
 
 
 # create a reference class obect to represent an ROI folder and its analyzed data.
-# no information about how to analyze this data belongs here. 
+# no information about how to analyze this data belongs here.
 # Just attributes describing the ROI folder.
-library(methods)
-RoiFolder <- setRefClass("RoiFolder",fields=list(folder="character",
+#library(methods)
+RoiFolder <- methods::setRefClass("RoiFolder",fields=list(folder="character",
                                                  dataFile="character",
                                                  dataRaw="matrix",
                                                  dataDFF="matrix",
@@ -25,25 +25,40 @@ RoiFolder <- setRefClass("RoiFolder",fields=list(folder="character",
 # call this to define a new data folder
 # create a new object with all the defaults
 # return it so the user can change it before it's analyzed
+
+#' newRoiFolder
+#'
+#' Defines a new RoiFolder object.
+#'
+#' Reads a data file (e.g. "Results.xls"), experiment file (e.g. "experiment.txt"),
+#' and an ROI-set zip file (e.g. "RoiSet.zip") from a parent directory ("folder").
+#' Returns an RoiFolder object containing calculated dF/F values for each ROI (region of interest)
+#' at each timepoint.
+#'
+#' @param folder name of a directory that contains ROI data (character).
+#' @param framePeriod period of time between image frames (numeric).
+#' @param firstRoiBasline Indicates whether the first ROI in the dataset should be used for background normalization (logical).
+#'
+#' @return an RoiFolder object containing calculated dF/F values for each ROI
 #' @export
 newRoiFolder <- function(folder, framePeriod=1, firstRoiBaseline=TRUE){
-  
+
   # make a new class instance and fill out its file path values
   ROI <- RoiFolder()
   ROI$folder<-folder
   ROI$dataFile<-file.path(ROI$folder,"Results.xls")
   ROI$experimentFile=file.path(ROI$folder,"experiment.txt")
   ROI$roiSetFile=file.path(ROI$folder,"RoiSet.zip")
-  
+
   # normalize all the file paths
   ROI$folder<-normalizePath(ROI$folder)
   ROI$dataFile<-normalizePath(ROI$dataFile)
   ROI$experimentFile<-normalizePath(ROI$experimentFile)
   ROI$roiSetFile<-normalizePath(ROI$roiSetFile)
-  
+
   # load the CSV data, time points, ROI labels
   ROI$dataRaw<-roi_data_load(ROI$dataFile, framePeriod=framePeriod)
-  
+
   # if the first row is a baseline, subtract it from other rows then remove it.
   if (firstRoiBaseline){
     message("subtracting ROI 1 from all the rest ...")
@@ -52,7 +67,7 @@ newRoiFolder <- function(folder, framePeriod=1, firstRoiBaseline=TRUE){
     }
     ROI$dataRaw <- ROI$dataRaw[,-1:0] # chop off the baseline column
   }
-  
+
   # load and parse the experiment file for baseline range (optional)
   experimentParts<-roi_experiment_load(ROI$experimentFile)
   for (i in (1:nrow(experimentParts))){
@@ -66,7 +81,7 @@ newRoiFolder <- function(folder, framePeriod=1, firstRoiBaseline=TRUE){
     message("no baseline span found, defaulting to first frame")
     ROI$baseline=c(1,1)
   }
-  
+
   # determine the average over the baseline area for each ROI
   message("calculating baseline values for each ROI ...")
   baselineRows<-(ROI$baseline[1]:ROI$baseline[2])
@@ -74,18 +89,18 @@ newRoiFolder <- function(folder, framePeriod=1, firstRoiBaseline=TRUE){
   for (thisCol in (1:ncol(ROI$dataRaw))){
     roiBaselineAverages[thisCol]<-mean(ROI$dataRaw[baselineRows,thisCol])
   }
-  
+
   # calculate delta(F) by subtracting the baseline average from each roi
   deltaF<-ROI$dataRaw
   for (thisCol in (1:ncol(deltaF))){
     deltaF[,thisCol]<-deltaF[,thisCol]-roiBaselineAverages[thisCol]
   }
-  
+
   # create delta(F)/F by dividing this by the baseline average for each roi
   ROI$dataDFF<-deltaF
   for (thisCol in (1:ncol(ROI$dataDFF))){
     ROI$dataDFF[,thisCol]<-ROI$dataDFF[,thisCol]/roiBaselineAverages[thisCol]
   }
-  
+
   return(ROI)
 }
