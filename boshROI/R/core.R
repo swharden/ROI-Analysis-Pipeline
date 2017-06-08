@@ -7,7 +7,7 @@
 # create a reference class obect to represent an ROI folder and its analyzed data.
 # no information about how to analyze this data belongs here.
 # Just attributes describing the ROI folder.
-#library(methods)
+library(methods) # THIS IS NEEDED IF RUNNING IN A CONSOLE
 RoiFolder <- methods::setRefClass("RoiFolder",fields=list(folder="character",
                                                  dataFile="character",
                                                  dataRaw="matrix",
