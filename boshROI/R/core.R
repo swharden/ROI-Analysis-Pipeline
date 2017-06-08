@@ -43,8 +43,11 @@ RoiFolder <- methods::setRefClass("RoiFolder",fields=list(folder="character",
 #' @export
 newRoiFolder <- function(folder, framePeriod=1, firstRoiBaseline=TRUE){
 
+  message("making new ROI object from folder: ",folder)
+  
   # make a new class instance and fill out its file path values
   ROI <- RoiFolder()
+  
   ROI$folder<-folder
   ROI$dataFile<-file.path(ROI$folder,"Results.xls")
   ROI$experimentFile=file.path(ROI$folder,"experiment.txt")
@@ -55,6 +58,7 @@ newRoiFolder <- function(folder, framePeriod=1, firstRoiBaseline=TRUE){
   ROI$dataFile<-normalizePath(ROI$dataFile)
   ROI$experimentFile<-normalizePath(ROI$experimentFile)
   ROI$roiSetFile<-normalizePath(ROI$roiSetFile)
+  
 
   # load the CSV data, time points, ROI labels
   ROI$dataRaw<-roi_data_load(ROI$dataFile, framePeriod=framePeriod)
