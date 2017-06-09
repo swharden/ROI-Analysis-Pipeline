@@ -6,5 +6,4 @@
 #' @name boshROI
 #' @keywords package
 #' @import methods
-#' @useDynLib boshROI
 NULL

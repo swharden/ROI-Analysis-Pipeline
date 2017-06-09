@@ -14,7 +14,8 @@ newRoiFolder(folder, framePeriod = 1, firstRoiBaseline = TRUE)
 \item{firstRoiBasline}{Indicates whether the first ROI in the dataset should be used for background normalization (logical).}
 }
 \value{
-an RoiFolder object containing calculated dF/F values for each ROI
+an RoiFolder object ('ROI') containing raw pixel intensity values for each ROI ('ROI$dataRaw')
+and calculated dF/F values for each ROI ('ROI$dataDFF')
 }
 \description{
 Defines a new RoiFolder object.
@@ -24,4 +25,8 @@ Reads a data file (e.g. "Results.xls"), experiment file (e.g. "experiment.txt"),
 and an ROI-set zip file (e.g. "RoiSet.zip") from a parent directory ("folder").
 Returns an RoiFolder object containing calculated dF/F values for each ROI (region of interest)
 at each timepoint.
+}
+\seealso{
+Other RoiFolder functions: \code{\link{plot_ROI_DFF}},
+  \code{\link{plot_ROI_RAW}}
 }

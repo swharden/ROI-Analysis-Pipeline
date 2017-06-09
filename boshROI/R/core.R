@@ -39,15 +39,19 @@ RoiFolder <- methods::setRefClass("RoiFolder",fields=list(folder="character",
 #' @param framePeriod period of time between image frames (numeric).
 #' @param firstRoiBasline Indicates whether the first ROI in the dataset should be used for background normalization (logical).
 #'
-#' @return an RoiFolder object containing calculated dF/F values for each ROI
+#' @return an RoiFolder object ('ROI') containing raw pixel intensity values for each ROI ('ROI$dataRaw')
+#' and calculated dF/F values for each ROI ('ROI$dataDFF')
+#'
+#' @family RoiFolder functions
+#'
 #' @export
 newRoiFolder <- function(folder, framePeriod=1, firstRoiBaseline=TRUE){
 
   message("making new ROI object from folder: ",folder)
-  
+
   # make a new class instance and fill out its file path values
   ROI <- RoiFolder()
-  
+
   ROI$folder<-folder
   ROI$dataFile<-file.path(ROI$folder,"Results.xls")
   ROI$experimentFile=file.path(ROI$folder,"experiment.txt")
@@ -58,7 +62,7 @@ newRoiFolder <- function(folder, framePeriod=1, firstRoiBaseline=TRUE){
   ROI$dataFile<-normalizePath(ROI$dataFile)
   ROI$experimentFile<-normalizePath(ROI$experimentFile)
   ROI$roiSetFile<-normalizePath(ROI$roiSetFile)
-  
+
 
   # load the CSV data, time points, ROI labels
   ROI$dataRaw<-roi_data_load(ROI$dataFile, framePeriod=framePeriod)

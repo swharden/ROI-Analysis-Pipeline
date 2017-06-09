@@ -27,15 +27,29 @@ figureEND<-function(saveAs){
   }
 }
 
+
+#' plot_ROI_RAW
+#'
+#' Plots raw pixel intensity values of each ROI as a function of time from data contained in an RoiFolder object.
+#' If saveAs=[PNG filename], saves plot as a PNG file.
+#'
+#' @param ROI an RoiFolder object containing raw pixel intensity values for each ROI.
+#' @param saveAs (optional) A PNG filename (e.g. "figure.png"); Saves plot as a PNG file.
+#'
+#' @return a plot of raw pixel values for each ROI vs. time
+#'
+#' @family RoiFolder functions
+#'
+#' @export
 plot_ROI_RAW<-function(ROI,saveAs="NULL"){
   figureSTART(saveAs)
-  matplot(as.numeric(rownames(ROI$dataRaw))/60, ROI$dataRaw*100, type='l', lw=3, lty=1, 
+  matplot(as.numeric(rownames(ROI$dataRaw))/60, ROI$dataRaw*100, type='l', lw=3, lty=1,
           xlab = "experiment duration (minutes)",
           ylab = "raw pixel value (AFU)")
   title(paste("ROI Analysis of",basename(ROI$folder)))
   grid()
   abline(h=0,lty="dashed") # draw a horizontal and vertical line
-  legend("topleft", colnames(ROI$dataRaw), 
+  legend("topleft", colnames(ROI$dataRaw),
          cex=0.6, # font size
          lty=c(1,1),lw=2, # line style
          col=(1:length(ROI$dataRaw)), # line color
@@ -44,17 +58,30 @@ plot_ROI_RAW<-function(ROI,saveAs="NULL"){
   figureEND(saveAs)
 }
 
-
 # given an RoiFolder object, plot its delta F/F chart
+
+#' plot_ROI_DFF
+#'
+#' Plots dF/F of each ROI as a function of time from data contained in an RoiFolder object.
+#' If saveAs=[PNG filename], saves plot as a PNG file.
+#'
+#' @param ROI an RoiFolder object containing calculated dF/F values for each ROI.
+#' @param saveAs (optional) A PNG filename (e.g. "figure.png"); Saves plot as a PNG file.
+#'
+#' @return a plot of dF/F values for each ROI vs. time
+#'
+#' @family RoiFolder functions
+#'
+#' @export
 plot_ROI_DFF<-function(ROI,saveAs="NULL"){
   figureSTART(saveAs)
-  matplot(as.numeric(rownames(ROI$dataDFF))/60, ROI$dataDFF*100, type='l', lw=3, lty=1, 
+  matplot(as.numeric(rownames(ROI$dataDFF))/60, ROI$dataDFF*100, type='l', lw=3, lty=1,
           xlab = "experiment duration (minutes)",
           ylab = expression(paste(Delta, "  F / F (%)")))
   title(paste("ROI Analysis of",basename(ROI$folder)))
   grid()
   abline(h=0,lty="dashed") # draw a horizontal and vertical line
-  legend("topleft", colnames(ROI$dataDFF), 
+  legend("topleft", colnames(ROI$dataDFF),
          cex=0.6, # font size
          lty=c(1,1),lw=2, # line style
          col=(1:length(ROI$dataDFF)), # line color
