@@ -1,0 +1,1 @@
+rscript process.R "../data/"
