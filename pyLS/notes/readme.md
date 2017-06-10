@@ -3,7 +3,7 @@ These scripts demonstrate how to turn a 2D linescan TIF into a linescan intensit
 
 ## Linescan Conversion
 [summary.py](summary.py) has extra lines and comments. [minimal.py](minimal.py) is code only and generates the graph in only 4 lines! The key code is here:
-```
+```python
 imageData=plt.imread("../../data/linescan/example/green.tif") # load the image
 trace=np.average(imageData,axis=1) # get the average (vertically)
 plot(trace) # draw the trace
@@ -12,7 +12,7 @@ plot(trace) # draw the trace
 
 ## Displaying Graphs and Images
 [imageDisplay.py](imageDisplay.py) shows how to plot a trace next to an image. Note that by using different colormaps you can create different outputs. Online are [lists of colormap names you can use](https://matplotlib.org/examples/color/colormaps_reference.html). Changing the colormap to red, green, or magenta is an easy way to convert a gray image into a color one. The key code is here:
-```
+```python
 imageData=plt.imread("../../data/linescan/example/green.tif") # load the image
 plt.imshow(np.rot90(imageData), cmap='gray', aspect='auto') # draw the image
 ```
@@ -24,7 +24,7 @@ plt.imshow(np.rot90(imageData), cmap='gray', aspect='auto') # draw the image
 
 ## Displaying Graphs above Images
 [imageOverlap.py](imageOverlap.py) example shows how to create a graph drawn directly on a graph. These are starting to get to be advanced examples, but it might be useful. Key code is:
-```
+```python
 plt.plot(trace,alpha=.5,color='y',lw=.5) # plot the data first
 plt.margins(0,.1) # adjust margins so it's flush horizontally and padded vertically
 plt.imshow(np.rot90(imageData), cmap='gray', aspect='auto', extent=plt.axis()) # draw image
