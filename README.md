@@ -1,45 +1,11 @@
 # ROI Analysis Pipeline
-This collection of scripts aids in the automated analysis of large collections of TIFs (most likely fluorescent micrographs), taking ROI data (from [FIJI/ImageJ](https://fiji.sc/)), and reporting it as delta F/F. Additional tools are included which assist in the creation of video. These scripts can also be integrated with [SWHLabPHP](https://github.com/swharden/SWHLabPHP) to yield a web-accessable front-end to the data immediately after it is acquired.
+This project contains Python scripts and R packages written to facilitate analysis of fluorescent micrographs for the purpose of biomedical research. Although code in this project can be interacted with directly for the purpose of data exploration, care is taken to ensure these scripts can also be run in a fully-automated manner allowing them to serve as individual component in a data analysis pipeline or be executed by a web-based data browsing front-end (i.e., [SWHLabPHP](https://github.com/swharden/SWHLabPHP)). Data analyzed by these routines are typically related to calcium reporting fluorophores (i.e., Fluo-4, Fluo-4 AM, Fluo-5, GCaMP6) obtained with a traditional epifluroesecnce or two-photon scanning laser microscope.
 
-![](doc/theory.jpg)
+These projects are collaboratively written and maintained by [Scott Harden](https://github.com/swharden) and [Beronica Ocasio](https://github.com/beronicao).
 
-# Example Output
-
-## Figures
-![](doc/graphs/fig_traces.png) | ![](doc/graphs/fig_av.png)
+Project | Description
 ---|---
-
-## Web Interface
-![](doc/graphs/screenshot.png)
-
-## Video
-![](Python/video_frame_02400.png)
-* https://www.youtube.com/watch?v=EEuXCMoRtsw (GABA Cre / Glutamate)
-* https://www.youtube.com/watch?v=1OHvPi1TbII (GABA Cre / TGOT)
-* https://youtu.be/zYcEWnD3GCs (GABA Cre / TGOT w/ TTX)
-
-# Workflow
-This is a work in progress, but as of now the workflow is:
-
-* 1 video experiment = 1 folder. Folder name format is like `2017-05-23 cell2`
-* use Micro-Manager to image video (saving output as individual TIFs in this folder)
-* this folder will also contain:
-  * `experiment.txt` made by hand at the time of image acquisition
-  * `RoiSet.zip` made with ImageJ
-  * `Results.xls` made with ImageJ multi-measure
-* Data analysis scripts:
-  * `Results.xls` will always have mean pixel values for each ROI
-  * `Results_B.xls` will contain (identically formatted) dF/F calculated by Beronica (R)
-  
-## Photobleach Compensation
-To counteract photobleaching, the first ROI will always be of a non-responsive cell or area. Every subsequent ROI will have the first ROI subtracted from it. 
-
-## experiment.txt
-This is an example of how to make an experiment.txt at the time of recording noting important information
-```
-GABA Cre / GCaMP6f injection / mPFC
-# some cool note
-baseline=100-120
-TGOT=123-234
-antagonist=50-300
-```
+**[boshROI](boshROI)** | R Package designed to analyze cellular calcium signals (reported by GCaMP6f) from a time series of single-channel micrographs. ImageJ is used to draw regions of interest (ROIs), and this script loads the ROIs, analyzes the TIFs (using different image analysis methods), and generates delta F / F graphs. 
+**[pyROI](pyROI)** | Python scripts to generate annotated video (showing ROIs and graphs of analyzed data) from ROI data. Video output is HTML5-compatible MP4. Code here supplements boshROI.
+**[boshLS](boshLS)**  | R Package designed to analyze sub-cellular calcium transients in neurons from two-photon linescans simultaneously imaging Fluo-5f and Alexa Fluor 594. Calcium fluctuations are reported as the ratio of these two fluorophores.
+**[pyLS](pyLS)** | Python scripts to generate dF/F graphs from linescan data. Code here is independent of (but complementary to) boshLS.
