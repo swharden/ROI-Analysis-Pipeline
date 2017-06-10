@@ -4,16 +4,17 @@ These scripts demonstrate how to turn a 2D linescan TIF into a linescan intensit
 ## Linescan Conversion
 [summary.py](summary.py) has extra lines and comments. [minimal.py](minimal.py) is code only and generates the graph in only 4 lines! The key code is here:
 ```
-imageData=plt.imread("../../data/linescan/example/green.tif")
-trace=np.average(imageData,axis=1)
+imageData=plt.imread("../../data/linescan/example/green.tif") # load the image
+trace=np.average(imageData,axis=1) # get the average (vertically)
+plot(trace) # draw the trace
 ```
 ![](output.png)
 
 ## Displaying Graphs and Images
 [imageDisplay.py](imageDisplay.py) shows how to plot a trace next to an image. Note that by using different colormaps you can create different outputs. Online are [lists of colormap names you can use](https://matplotlib.org/examples/color/colormaps_reference.html). Changing the colormap to red, green, or magenta is an easy way to convert a gray image into a color one. The key code is here:
 ```
-imageData=plt.imread("../../data/linescan/example/green.tif")
-plt.imshow(np.rot90(imageData), cmap='gray', aspect='auto')
+imageData=plt.imread("../../data/linescan/example/green.tif") # load the image
+plt.imshow(np.rot90(imageData), cmap='gray', aspect='auto') # draw the image
 ```
 ### Output when cmap='gray'
 ![](output_gray.png)

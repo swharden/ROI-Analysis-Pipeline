@@ -10,6 +10,6 @@ plt.imshow(np.rot90(imageData), cmap='gray', aspect='auto', extent=plt.axis())
 plt.axis('off') # hide all axis stuff
 plt.gca().get_xaxis().set_visible(False) # remove X axis
 plt.gca().get_yaxis().set_visible(False) # remove Y axis
-plt.savefig("output_overlap.png",dpi=200,bbox_inches='tight',pad_inches=0) # extra options prevent whitespace
+plt.savefig("output_overlap.png",bbox_inches='tight',pad_inches=0) # extra options prevent whitespace
 plt.show()
 print("DONE")
