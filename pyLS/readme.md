@@ -3,19 +3,11 @@ pyLineScan is a Python module intended to make it easy to access, analyze, and d
 
 ## Usage
 ```python
-import pyLineScan # assuming pyLineScan.py is in the same folder
-LS=pyLineScan.LineScan('/path/to/folder/',baseline=[1.5,2]) # init with a path and a baseline region in seconds
-print(LS.traceG[0]) # show the green values from the first linescan
-LS.figureDual("demo.png")
+from pyLineScan import LineScan # import the LineScan class directly from the module
+LS=LineScan('/path/to/folder/',baseline=[1.5,2]) # init with a linescan folder and baseline
+print(LS.traceG[0]) # shows green values from first linescan
+LS.figureDual("demo.png") # makes a plot like the one you see below
 ```
-
-**Example Output (text)**
-```
-[-0.0929349  -0.04921378 -0.05045224 ...,  0.2000458   0.21029908
-  0.14951943]
-```
-
-**Example Output (figure)**
 ![](output_dual.png)
 
 ## Processing Multiple Folders
