@@ -1,8 +1,14 @@
-#install.packages("tiff")
+# install.packages("tiff")
+# install.packages("readr")
+# install.packages("XML")
+# install.packages("xml2")
+# install.packages("ggplot2")
+
 library(tiff)
 library(readr)
 library(XML)
 library(xml2)
+library(ggplot2)
 
 xml.name <- Sys.glob("*.xml")
 #ls.info <- read_lines(paste(xml.name))
@@ -14,8 +20,12 @@ xml.nodes <- as_list(xml.data2)
 #nodeset <-getNodeSet(doc=xml.itree, "xml.itree//PVStateValue//key")
 node.xpaths <- xml_path(xml_find_all(xml.data2, ".//PVStateValue"))
 
+# Channel 1 = red, channel 2 = green
+
 try(system("mkdir ./results"), silent = TRUE)
 fnames <- Sys.glob("*.ome.tif")
+fnames2 <- Sys.glob("*!Source.tif")
+
 if (length(fnames)==0){
   fnames <- Sys.glob("*.tif");
   fnames1 <- gsub(".tif", "", fnames, fixed = TRUE)
@@ -45,22 +55,36 @@ GoR.fun <- function(green, red){
 }
 
 if (((apply(rowmeans.df[1],2,mean))<(apply(rowmeans.df[2],2,mean)))==TRUE){
-  colnames(rowmeans.df[1])<-"green";
-  colnames(rowmeans.df[2])<-"red"
+  colnames(rowmeans.df)<-c("green", "red")
 } else {
   if (((apply(rowmeans.df[1],2,mean))>(apply(rowmeans.df[2],2,mean)))==TRUE){
-    colnames(rowmeans.df[2])<-"green";
-    colnames(rowmeans.df[1])<-"red"
+    colnames(rowmeans.df)<-c("red", "green")
   } else {
     print("Caution: mean(channel 1) = mean(channel 2); May want to check data for accuracy.")
   }
 }
 
 rowmeans.df$GoR = GoR.fun(rowmeans.df$green, rowmeans.df$red)
+GoR.t0 <- rowmeans.df$GoR[1]
+rowmeans.df$dGoR <- rowmeans.df$GoR - GoR.t0
 
+dGoR.values <- rowmeans.df$dGoR
+frames <- rownames(rowmeans.df)
+dGoR.df <- as.data.frame(cbind(frames,dGoR.values))
 
+#### dG/R: # 
+plot1 <- ggplot(data=dGoR.df, aes(x=dGoR.df[['frames']])) + theme_bw() 
+  #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+  plot1 + geom_line(aes(y=(dGoR.df[['dGoR.values']]))) +
+    png(filename = "./results/fig_dGoR.png")
+    dev.off()
 
-
+#### G/R: # 
+    plot2 <- ggplot(data=rowmeans.df, aes(x=rownames(rowmeans.df))) + theme_bw() 
+    #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+    plot2 + geom_line(aes(y=(rowmeans.df[['GoR']]))) +
+      png(filename = "./results/fig_GoR.png")
+    dev.off()
 
 
 
