@@ -83,36 +83,36 @@ frames <- rownames(rowmeans.df)
 dGoR.df <- as.data.frame(cbind(frames,dGoR.values))
 
 #### red: # 
-plotr <- ggplot(data=rowmeans.df, aes(x=rowmeans.df$red)) + theme_bw() 
+plotr <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw()
 #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-plotr + geom_line() +
+plotr + geom_line(aes(y=rowmeans.df$red)) +
   png(filename = "./results/fig_red.png")
-dev.off()
-cat("\nSAVED: ",normalizePath("fig_red.png"),"\n")
+  #dev.off()
+  cat("\nSAVED: ",normalizePath("fig_red.png"),"\n")
 
 #### green: # 
-plotg <- ggplot(data=rowmeans.df, aes(x=rowmeans.df$green)) + theme_bw() 
+plotg <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw() 
 #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-plotr + geom_line() +
+plotg + geom_line(aes(y=(rowmeans.df$green))) +
   png(filename = "./results/fig_green.png")
-dev.off()
-cat("\nSAVED: ",normalizePath("fig_green.png"),"\n")
+  #dev.off()
+  cat("\nSAVED: ",normalizePath("fig_green.png"),"\n")
 
 
 #### dG/R: # 
-plot1 <- ggplot(data=dGoR.df, aes(x=dGoR.df[['frames']])) + theme_bw() 
+plot1 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw() 
   #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-  plot1 + geom_line(aes(y=(dGoR.df[['dGoR.values']]))) +
+  plot1 + geom_line(aes(y=(rowmeans.df[['dGoR']]))) +
     png(filename = "./results/fig_dGoR.png")
-    dev.off()
+    #dev.off()
     cat("\nSAVED: ",normalizePath("fig_dGoR.png"),"\n")
     
 #### G/R: # 
-    plot2 <- ggplot(data=rowmeans.df, aes(x=rownames(rowmeans.df))) + theme_bw() 
+    plot2 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw() 
     #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
     plot2 + geom_line(aes(y=(rowmeans.df[['GoR']]))) +
       png(filename = "./results/fig_GoR.png")
-    dev.off()
+    #dev.off()
 
     cat("\nSAVED: ",normalizePath("fig_GoR.png"),"\n")
     
