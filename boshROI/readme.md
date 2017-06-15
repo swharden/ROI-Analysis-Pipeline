@@ -9,7 +9,7 @@ To install the latest boshROI package version from GitHub, use these commands:
 ```R
 install.packages("devtools")
 library(devtools)
-devtools::install_github("swharden/ROI-Analysis-Pipeline", subdir = "boshROI" )
+devtools::install_github("swharden/ROI-Analysis-Pipeline", subdir = "boshROI")
 library(boshROI)
 ```
 
@@ -29,6 +29,7 @@ Ensure your working directory is the root of a directory containing the ROI file
 
 ```R
 library(boshROI)
+setwd("X:/Data/SCOTT/2017-05-10 GCaMP6f/GCaMP6f PFC OXTR cre/2017-06-01 cell2")
 ROI <- newRoiFolder("./")
 plot_ROI_DFF(ROI)
 ```
