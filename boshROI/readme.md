@@ -2,7 +2,7 @@
 BOSH ROI is an R Package developed assist in the analysis of calcium reporting fluorophores (i.e., FluoAM, Fluo-4 and GCaMP6) from time series images analyzed in [NIH ImageJ](https://imagej.nih.gov/ij/index.html) / [FIJI](http://fiji.sc/). The BOSH ROI package was initially developed by Beronica Ocasio and Scott Harden.
 
 # Setup 
-BOSH ROI is an R package that was developed and tested in [RStudio 1.0.143](https://www.rstudio.com/products/rstudio/) (R 3.4.0). 
+BOSH ROI is an R package that was developed and tested in [RStudio 1.0.143](https://www.rstudio.com/products/rstudio/) using [R 3.4.0](https://www.r-project.org/). 
 
 ## Installing
 To install the latest boshROI package version from GitHub, use these commands:
