@@ -12,3 +12,6 @@ LS.figureDual("demo.png") # makes a plot like the one you see below
 
 ## Processing Multiple Folders
 [processFolders.py](processFolders.py) is a script to automatically generate a linescan graph for every linescan found in a folder. Now they can be easily browsed with a web interface. Convension is that linescan output data is stored in the linescan folder's `./analysis/` folder.
+
+## Screenshot
+![](screenshot.png)

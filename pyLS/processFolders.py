@@ -52,6 +52,10 @@ def index(folderParent):
             out+='<td valign="top">'
             out+='<a href="%s/analysis/%s"><img src="%s/analysis/%s"></a>'%(rel,fname,rel,fname)
             out+='</td>'
+        csvPath=os.path.abspath(folderParent+"/"+folder+"/analysis/fig_swh_dual.csv")
+        if os.path.exists(csvPath):
+            with open(csvPath) as f:
+                out+='<td valign="top"><textarea rows="50" cols="80">%s</textarea></td>'%(f.read())
         out+="</tr></table>"
     out+="</code></body></html>"
     fileOut=os.path.abspath(folderParent+"/index.html")
@@ -62,7 +66,7 @@ def index(folderParent):
 
 if __name__=="__main__":
     #folderParent='../data/linescan/realistic/'
-    folderParent=r'X:\Data\SCOTT\2017-06-08 2p F5 tests\2017-06-09 F4vF5\2p'
+    folderParent=r'X:\Data\SCOTT\2017-06-08 2p F5 tests\2017-06-12 F4vF5 5mo rat\2p'
     analyzeSubfolders(folderParent,overwrite=True)
     index(folderParent)
     print("DONE")
