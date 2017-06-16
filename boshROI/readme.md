@@ -34,3 +34,13 @@ ROI <- newRoiFolder("./")
 plot_ROI_DFF(ROI)
 ```
 ![](demo.png)
+
+# Advanced Functionality
+Highly advanced functionality is demonstrated in [updated.R](../sandbox/beronica/updated.R): 
+* Reading experiment text files to determine baseline and drug exposure times
+* Automatic shading and labeling of baseline and drug exposure ranges
+* Plot raw pixel intensity (AFU) or calcium signal (dF/F) 
+* Graph signal of each ROI individually or average all ROIs together (with standard error)
+* Read ROI data directly from an ImageJ ZIP file
+* Output analysis data as an excel spreadsheet
+
