@@ -6,4 +6,5 @@
 #' @name bosh2P
 #' @keywords package
 #' @import methods
+#' @import tiff
 NULL
