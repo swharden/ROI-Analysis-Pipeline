@@ -44,3 +44,7 @@ Highly advanced functionality is demonstrated in [updated.R](../sandbox/beronica
 * Read ROI data directly from an ImageJ ZIP file
 * Output analysis data as an excel spreadsheet
 
+![](demo.fig_av.png)
+
+![](demo.fig_traces.png)
+
