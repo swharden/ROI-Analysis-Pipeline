@@ -11,4 +11,4 @@ Project | Description
 **[pyLS](pyLS)** | Python scripts to generate dF/F graphs from linescan data. Code here is independent of (but complementary to) boshLS.
 
 ## Screenshot
-![](pyLs/screenshot.png)
+![](pyLS/screenshot.png)

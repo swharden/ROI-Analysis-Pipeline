@@ -4,6 +4,16 @@
 # install.packages("xml2")
 # install.packages("ggplot2")
 
+# Rscript --vanilla /GitHub/ROI-Analysis-Pipeline/R/updated.R
+
+#! usr/bin/env Rscript
+args <- commandArgs(TRUE)  
+setwd(args[1])
+wd.name <- basename(getwd())
+
+sinkfile <- file("messages.Rout", open = "wt")
+sink(sinkfile, type = "message")
+
 library(tiff)
 library(readr)
 library(XML)
@@ -22,7 +32,7 @@ node.xpaths <- xml_path(xml_find_all(xml.data2, ".//PVStateValue"))
 
 # Channel 1 = red, channel 2 = green
 
-try(system("mkdir ./results"), silent = TRUE)
+dir.create("./results", showWarnings = FALSE)
 fnames <- Sys.glob("*.ome.tif")
 fnames2 <- Sys.glob("*!Source.tif")
 
@@ -72,25 +82,66 @@ dGoR.values <- rowmeans.df$dGoR
 frames <- rownames(rowmeans.df)
 dGoR.df <- as.data.frame(cbind(frames,dGoR.values))
 
-#### dG/R: # 
-plot1 <- ggplot(data=dGoR.df, aes(x=dGoR.df[['frames']])) + theme_bw() 
-  #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-  plot1 + geom_line(aes(y=(dGoR.df[['dGoR.values']]))) +
-    png(filename = "./results/fig_dGoR.png")
-    dev.off()
+#### red: # 
+#dev.new()
+plotr <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw()
+#geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+plotr + geom_line(aes(y=rowmeans.df$red), col="magenta") +
+  labs(y = "Pixel Intensity") +
+  labs(x = "Frame") + 
+  labs(title = expression(paste("Two-photon Linescans: Red")), subtitle = paste(wd.name)) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(plot.subtitle = element_text(hjust = 0.5)) +
+  scale_x_continuous(expand = c(0.006,0)) +
+  png(filename = "./results/fig_red.png")
+dev.off()
+cat("\nSAVED: ",normalizePath("./results/fig_red.png"),"\n")
 
+#### green: # 
+plotg <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw() 
+#geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+plotg + geom_line(aes(y=(rowmeans.df$green)), col="green") +
+  labs(y = "Pixel Intensity") +
+  labs(x = "Frame") + 
+  labs(title = expression(paste("Two-photon Linescans: Green")), subtitle = paste(wd.name)) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(plot.subtitle = element_text(hjust = 0.5)) +
+  scale_x_continuous(expand = c(0.006,0)) +
+  png(filename = "./results/fig_green.png")
+dev.off()
+cat("\nSAVED: ",normalizePath("./results/fig_green.png"),"\n")
+
+
+#### dG/R: # 
+plot1 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw() 
+  #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+  plot1 + geom_line(aes(y=(rowmeans.df[['dGoR']]))) +
+    labs(y = "Pixel Intensity") +
+    labs(x = "Frame") + 
+    labs(title = expression(paste("Two-photon Linescans: dG/R")), subtitle = paste(wd.name)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(plot.subtitle = element_text(hjust = 0.5)) +
+    scale_x_continuous(expand = c(0.006,0)) +
+    png(filename = "./results/fig_dGoR.png")
+  dev.off()
+  cat("\nSAVED: ",normalizePath("./results/fig_dGoR.png"),"\n")
+    
 #### G/R: # 
-    plot2 <- ggplot(data=rowmeans.df, aes(x=rownames(rowmeans.df))) + theme_bw() 
+    plot2 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw() 
     #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-    plot2 + geom_line(aes(y=(rowmeans.df[['GoR']]))) +
+    plot2 + geom_line(aes(y=(rowmeans.df[['GoR']]))) + 
+      labs(y = "Pixel Intensity") +
+      labs(x = "Frame") + 
+      labs(title = expression(paste("Two-photon Linescans: Green/Red (G/R)")), subtitle = paste(wd.name)) +
+      theme(plot.title = element_text(hjust = 0.5)) +
+      theme(plot.subtitle = element_text(hjust = 0.5)) +
+      scale_x_continuous(expand = c(0.006,0)) +
       png(filename = "./results/fig_GoR.png")
     dev.off()
-
-
-
-
-
-
+    cat("\nSAVED: ",normalizePath("./results/fig_GoR.png"),"\n")
+    
+cat("\nDONE! \n")
+sink()
 
 
 
