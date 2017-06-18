@@ -10,6 +10,9 @@ LS.figureDual("demo.png") # makes a plot like the one you see below
 ```
 
 ## Core Class Properties
+* configuration data
+  * ```LS.frames``` - number of frames in the linescan
+  * ```LS.Xs``` - time units for each trace (seconds)
 * image data (1d list organized by frame)
   * ```LS.dataR[frame]```
   * ```LS.dataG[frame]```
