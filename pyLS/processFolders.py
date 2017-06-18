@@ -21,10 +21,10 @@ def analyzeSubfolders(folderParent,overwrite=False):
         folderOutput=os.path.join(folderLinescan,"analysis")
         if not os.path.exists(folderOutput):
             os.mkdir(folderOutput)
-        if overwrite or not os.path.exists(os.path.join(folderOutput,"fig_swh_dual.png")):
+        if overwrite or not os.path.exists(os.path.join(folderOutput,"fig_01_img.png")):
             print(" analyzing linescan data...")
-            LS=LineScan(folderLinescan)
-            LS.figureDual(os.path.join(folderOutput,"fig_swh_dual.png"))
+            LS=LineScan(folderLinescan,baseline=None)
+            LS.allFigures()
             plt.close('all')
         if overwrite or not os.path.exists(os.path.join(folderOutput,"ref.png")):
             refFigures=glob.glob(folderLinescan+"/References/*Window2*.tif")
@@ -37,7 +37,15 @@ def index(folderParent):
     """make index.html and stick it in the parent directory."""
     timestamp=datetime.datetime.now().strftime("%I:%M %p on %B %d, %Y")
     folders=os.listdir(folderParent)
-    out="<html><body>"
+    out="<html><style>"
+    out+="""
+    img{
+        margin: 10px;
+        border: 1px solid black;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, .2);
+        }
+    """
+    out+="</style><body>"
     out+="<b style='font-size: 300%%'>boshLS</b><br><i>automatic linescan index generated at %s</i><hr><br>"%timestamp
     for folder in sorted(folders):
         if not folder.startswith("LineScan-"):
@@ -47,16 +55,10 @@ def index(folderParent):
         out+="<div style='background-color: #336699; color: white; padding: 10px; page-break-before: always;'>"
         out+="<span style='font-size: 200%%; font-weight: bold;'>%s</span><br>"%folder
         out+="<code>%s</code></div>"%path
-        out+="<table cellpadding=20><tr>"
-        for fname in ['ref.png','fig_swh_dual.png']:
-            out+='<td valign="top">'
-            out+='<a href="%s/analysis/%s"><img src="%s/analysis/%s"></a>'%(rel,fname,rel,fname)
-            out+='</td>'
-        csvPath=os.path.abspath(folderParent+"/"+folder+"/analysis/fig_swh_dual.csv")
-        if os.path.exists(csvPath):
-            with open(csvPath) as f:
-                out+='<td valign="top"><textarea rows="50" cols="80">%s</textarea></td>'%(f.read())
-        out+="</tr></table>"
+        for fname in sorted(glob.glob(folderParent+"/"+folder+"/analysis/*.png")):
+            fname=os.path.basename(fname)
+            out+='<a href="%s/analysis/%s"><img src="%s/analysis/%s" height=300></a>'%(rel,fname,rel,fname)
+        out+="<br>"*6
     out+="</code></body></html>"
     fileOut=os.path.abspath(folderParent+"/index.html")
     with open(fileOut,'w') as f:
@@ -66,7 +68,7 @@ def index(folderParent):
 
 if __name__=="__main__":
     #folderParent='../data/linescan/realistic/'
-    folderParent=r'X:\Data\SCOTT\2017-06-08 2p F5 tests\2017-06-12 F4vF5 5mo rat\2p'
-    analyzeSubfolders(folderParent,overwrite=True)
+    folderParent=r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p'
+    analyzeSubfolders(folderParent,overwrite=False)
     index(folderParent)
     print("DONE")
