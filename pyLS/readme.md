@@ -24,12 +24,9 @@ LS.figureDual("demo.png") # makes a plot like the one you see below
   * ```LS.traceG[frame]```
   * ```LS.traceR[frame]```
   * ```LS.traceGoR[frame]```
-* baseline values
-  * ```LS.baselines[frame]```
-* baseline-subtracted trace data (delta trace)
-  * ```LS.dG[frame]```
-  * ```LS.dR[frame]```
-  * ```LS.dGoR[frame]```
+* baseline values and delta traces
+  * ```LS.baselines[frame]``` - the baseline average for each frame
+  * ```LS.dGoR[frame]``` - baseline-subtracted trace data (delta trace)
 * average of all traces
   * ```LS.AVGdGoR[frame]```
 
