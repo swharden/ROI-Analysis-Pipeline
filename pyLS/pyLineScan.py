@@ -168,7 +168,9 @@ class LineScan:
         plt.ylabel(title)
         plt.grid(alpha=.5)
         plt.axhline(0,color='k',ls='--')
-        plt.axvspan(self.baselineSec[0],self.baselineSec[1],alpha=.1,color='k')
+        print(self.baselineSec)
+        if type(self.baselineSec) is list:
+            plt.axvspan(self.baselineSec[0],self.baselineSec[1],alpha=.1,color='k')
         for frame in range(self.frames):
             plt.plot(self.Xs,self.traceGoRavg*100,'-',color='b',alpha=.5)
         plt.margins(0,.1)
