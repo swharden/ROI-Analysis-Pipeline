@@ -1,5 +1,8 @@
 # bosh2P
-bosh2P is an R package to assist in the quantification and analysis of Two-Photon imaging data.
+bosh2P is an R package to assist in the quantification and analysis of Two-Photon imaging data. This package is ultimately intended to analyze the following types of two-photon data:
+* linescan (X, T)
+* time-series video (X, Y, T)
+* Z-series stack (X, Y, Z)
 
 # Setup 
 bosh2P was developed and tested in [RStudio 1.0.143](https://www.rstudio.com/products/rstudio/) using [R 3.4.0](https://cran.rstudio.com/).
