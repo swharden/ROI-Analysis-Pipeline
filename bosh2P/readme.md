@@ -27,7 +27,7 @@ library(devtools)
 update_packages("bosh2P")
 ```
 
-# Example Usage 
+# Example Usage: Linescan Analysis
 Ensure your working directory is the root of a directory containing the Two-Photon linescan files you wish to analyze. This can be done in Rstudio through the dropdown menu "Session" > "Set Working Directory" > "Choose Directory...", or via the command ```setwd()``` in R.  
 
 ```R
