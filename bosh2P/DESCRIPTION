@@ -1,4 +1,5 @@
 Package: bosh2P
+Type: Package
 Title: Two-Photon Imaging Data Quantification and Analysis
 Version: 0.0.1.0000
 Authors@R: person("Beronica", "Ocasio", email = "beronica.ocasio@gmail.com", role = c("aut", "cre"))
