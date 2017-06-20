@@ -1,0 +1,235 @@
+Error in library(XML) : there is no package called ‘XML’
+Warning message:
+running command 'mkdir ./results' had status 127 
+Warning messages:
+1: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFReadDirectory: Unknown field with tag 317 (0x13d) encountered
+2: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFReadDirectory: Unknown field with tag 33628 (0x835c) encountered
+3: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFReadDirectory: Unknown field with tag 33629 (0x835d) encountered
+4: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFReadDirectory: Unknown field with tag 33630 (0x835e) encountered
+5: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFFetchNormalTag: ASCII value for tag "Software" does not end in null byte
+6: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFReadDirectory: Unknown field with tag 317 (0x13d) encountered
+7: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFReadDirectory: Unknown field with tag 33628 (0x835c) encountered
+8: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFReadDirectory: Unknown field with tag 33629 (0x835d) encountered
+9: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFReadDirectory: Unknown field with tag 33630 (0x835e) encountered
+10: In readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE) :
+  TIFFFetchNormalTag: ASCII value for tag "Software" does not end in null byte
+Error in png(filename = "./results/fig_red.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_red.png") :
+  unable to open file './results/fig_red.png' for writing
+2: In png(filename = "./results/fig_red.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_red.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_green.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_green.png") :
+  unable to open file './results/fig_green.png' for writing
+2: In png(filename = "./results/fig_green.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_green.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_dGoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_dGoR.png") :
+  unable to open file './results/fig_dGoR.png' for writing
+2: In png(filename = "./results/fig_dGoR.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_dGoR.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_GoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_GoR.png") :
+  unable to open file './results/fig_GoR.png' for writing
+2: In png(filename = "./results/fig_GoR.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_GoR.png": The system cannot find the file specified
+Warning message:
+In sink() : no sink to remove
+Error in png(filename = "./results/fig_red.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_red.png") :
+  unable to open file './results/fig_red.png' for writing
+2: In png(filename = "./results/fig_red.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_red.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_green.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_green.png") :
+  unable to open file './results/fig_green.png' for writing
+2: In png(filename = "./results/fig_green.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_green.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_dGoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_dGoR.png") :
+  unable to open file './results/fig_dGoR.png' for writing
+2: In png(filename = "./results/fig_dGoR.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_dGoR.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_GoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_GoR.png") :
+  unable to open file './results/fig_GoR.png' for writing
+2: In png(filename = "./results/fig_GoR.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_GoR.png": The system cannot find the file specified
+Warning message:
+In sink() : no sink to remove
+Error in png(filename = "./results/fig_red.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_red.png") :
+  unable to open file './results/fig_red.png' for writing
+2: In png(filename = "./results/fig_red.png") : opening device failed
+Error in png(filename = "./results/fig_red.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_red.png") :
+  unable to open file './results/fig_red.png' for writing
+2: In png(filename = "./results/fig_red.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_red.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_green.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_green.png") :
+  unable to open file './results/fig_green.png' for writing
+2: In png(filename = "./results/fig_green.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_green.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_dGoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_dGoR.png") :
+  unable to open file './results/fig_dGoR.png' for writing
+2: In png(filename = "./results/fig_dGoR.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_dGoR.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_GoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_GoR.png") :
+  unable to open file './results/fig_GoR.png' for writing
+2: In png(filename = "./results/fig_GoR.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_GoR.png": The system cannot find the file specified
+Warning message:
+In sink() : no sink to remove
+Error in png(filename = "./results/fig_red.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_red.png") :
+  unable to open file './results/fig_red.png' for writing
+2: In png(filename = "./results/fig_red.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_red.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_green.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_green.png") :
+  unable to open file './results/fig_green.png' for writing
+2: In png(filename = "./results/fig_green.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_green.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_dGoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_dGoR.png") :
+  unable to open file './results/fig_dGoR.png' for writing
+2: In png(filename = "./results/fig_dGoR.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_dGoR.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_GoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_GoR.png") :
+  unable to open file './results/fig_GoR.png' for writing
+2: In png(filename = "./results/fig_GoR.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_GoR.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_red.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_red.png") :
+  unable to open file './results/fig_red.png' for writing
+2: In png(filename = "./results/fig_red.png") : opening device failed
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_red.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_green.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_green.png") :
+  unable to open file './results/fig_green.png' for writing
+2: In png(filename = "./results/fig_green.png") : opening device failed
+Error in dev.off() : cannot shut down device 1 (the null device)
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_green.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_dGoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_dGoR.png") :
+  unable to open file './results/fig_dGoR.png' for writing
+2: In png(filename = "./results/fig_dGoR.png") : opening device failed
+Error in dev.off() : cannot shut down device 1 (the null device)
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_dGoR.png": The system cannot find the file specified
+Error in png(filename = "./results/fig_GoR.png") : 
+  unable to start png() device
+In addition: Warning messages:
+1: In png(filename = "./results/fig_GoR.png") :
+  unable to open file './results/fig_GoR.png' for writing
+2: In png(filename = "./results/fig_GoR.png") : opening device failed
+Error in dev.off() : cannot shut down device 1 (the null device)
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_GoR.png": The system cannot find the file specified
+Warning message:
+running command 'mkdir ./results' had status 127 
+Warning message:
+running command 'mkdir ./results' had status 127 
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_red.png": The system cannot find the file specified
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_green.png": The system cannot find the file specified
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_dGoR.png": The system cannot find the file specified
+Warning message:
+In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="fig_GoR.png": The system cannot find the file specified
