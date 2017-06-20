@@ -7,4 +7,5 @@
 #' @keywords package
 #' @import methods
 #' @import tiff
+#' @import ggplot2
 NULL

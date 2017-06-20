@@ -1,8 +1,5 @@
-#' test
-#' @export
-test <- function(){
-  message("This is a test function.")
-}
+## setwd("~/Documents/GitHub/ROI-Analysis-Pipeline/bosh2P") #
+
 
 #' load_2ptiff
 #'
@@ -10,17 +7,18 @@ test <- function(){
 #' Converts two-dimensional measures of fluorescence intensity into one-dimensional intensity averages.
 #' Returns a data frame with average traces across time for each fluorophore.
 #'
-#' @param tiff Specify a name pattern to search (via Sys.glob) for TIFF files of interest within the same directory.
+#' @param tiffNames Specify a name pattern to search (via Sys.glob) for TIFF files of interest within the same directory.
 #' @param ignore.source logical. If TRUE, ignores TIFF files with "source" in the file name.
-#' @param ignore.more A character string to ignore additional TIFF files with the given pattern in the file name.
+#' @param ignore.more optional. A character string to ignore additional TIFF files with the given pattern in the file name.
 #'
-#' @return a data frame containing average trace values for each fluorophore
+#' @return a data frame containing  average raw pixel intensity values for each fluorophore
+#'
+#' @family LineScan functions
 #'
 #' @export
 
-
-load_2ptiff <- function(tiff= "*.tif", ignore.source=TRUE, ignore.more=NULL){
-  fnames <- Sys.glob(paste0(tiff))
+load_2ptiff <- function(tiffNames="*.tif", ignore.source=TRUE, ignore.more=NULL){
+  fnames <- Sys.glob(paste0(tiffNames))
   if (ignore.source==TRUE){
     fnames <- fnames[grep("Source", fnames, ignore.case = TRUE, invert = TRUE)]
   } else {
@@ -35,38 +33,41 @@ load_2ptiff <- function(tiff= "*.tif", ignore.source=TRUE, ignore.more=NULL){
   for(fileN in 1:length(fnames)){
     assign(fnames1[fileN], tiff::readTIFF(paste(fnames[fileN]), info = TRUE, as.is = TRUE))
   }
-  rowmeans.names<-dim(NULL)
+  trace.means<-dim(NULL)
   for (x in fnames1[1:length(fnames1)]){
     #rowmeans.names <- data.frame(1:length(fnames1))
     xdf<- get(x);
     rowmeans <- paste0(x,".rowmeans");
-    rowmeans.names[x] <- cbind(assign(rowmeans, as.data.frame(apply(xdf, 1, mean))))
+    trace.means[x] <- cbind(assign(rowmeans, as.data.frame(apply(xdf, 1, mean))))
   }
-  traces <- as.data.frame(rowmeans.names)
-  return(traces)
+  channelMeans <- as.data.frame(trace.means)
+  return(channelMeans)
 }
 
 # traces<-load_2ptiff()
 
-#' trace_norm
+#' norm_traces_LS
 #'
-#' Reads a data frame of averaged (one-dimensional) pixel intensity values for two fluorophore channels (one as a baseline)
-#' and calculates normalized fluorescence intensity over time.
+#' Reads a data frame of averaged (one-dimensional) pixel intensity values for two fluorophore channels (one as a baseline) from a linescan dataset and calculates normalized fluorescence intensity over time.
 #' Returns a data frame with average intensity across time for each fluorophore, average intesity divided by the baseline (G/R), and normalized intensity (dG/R).
 #'
-#' @param traces a data frame containing average trace values for each fluorophore.
+#' @param channelMeans a data frame containing average trace values for each fluorophore.
 #' @param auto.detect logical. If TRUE, selects the fluorophore channel with the higher mean intensity as the baseline.
+#' @param channel1.baseline logical. TRUE indicates that channel 1 contains the baseline fluorophore (default red).
 #' @param baseline_fluor A character string to indicate the name of the baseline fluorophore.
 #' @param indicator_fluor A character string to indicate the name of the indicator fluorophore.
 #'
-#' @return a data frame containing average trace values for each fluorophore and normalized intensity values.
+#' @return a data frame containing raw pixel intensity values for each fluorophore over time.
+#'
+#' @family LineScan functions
 #'
 #' @export
-trace_norm <- function(traces, auto.detect = TRUE, baseline_fluor="red", indicator_fluor="green"){
+norm_traces_LS <- function(channelMeans, auto.detect = TRUE, channel1.baseline = TRUE, baseline_fluor = "Red", indicator_fluor = "Green"){
   GoR.fun <- function(green, red){
     GoR = green/red
     return(GoR)
   }
+  traces <- channelMeans
   if (auto.detect==TRUE){
     traces.m <- as.matrix(traces)
     if (((mean(traces.m[,1]))<(mean(traces.m[,2])))==TRUE){
@@ -79,8 +80,12 @@ trace_norm <- function(traces, auto.detect = TRUE, baseline_fluor="red", indicat
       }
     }
   } else {
-    if (auto.detect==FALSE){
+    if (auto.detect==FALSE && channel1.baseline==TRUE){
       colnames(traces)<-c("red", "green")
+    } else{
+      if (auto.detect==FALSE && channel1.baseline==FALSE){
+        colnames(traces)<-c("green", "red")
+      }
     }
   }
   traces$GoR = GoR.fun(traces$red, traces$green)
@@ -90,4 +95,119 @@ trace_norm <- function(traces, auto.detect = TRUE, baseline_fluor="red", indicat
   names(traces)[dimnames(traces)[[2]]=="green"]<-paste0(indicator_fluor)
   return(traces)
 }
-# norm <- trace_norm(traces)
+# norm <- norm_traces_LS(traces)
+
+
+## Plotting
+
+#' save_plot_2P
+#'
+#' @export
+save_plot_2P = function(filetype = "png", filename = NULL, width = 6, height = 4, units = "in", type="cairo", res=300){
+  if (is.null(filename)){
+    filename= basename(getwd())
+  }
+  eval(call(filetype, filename=filename, width=width, height=height, units=units, type=type, res=res))
+}
+
+
+#### red: #
+
+#' plot_2P_baseline
+#'
+#' @return a plot of the baseline fluorophore average raw pixel intensity values over time.
+#'
+#' @family LineScan functions
+#'
+#' @export
+plot_2P_baseline<-function(traces, baseline_fluor="Red", indicator_fluor="Green", ...){
+  filename= basename(getwd())
+  require(ggplot2)
+  names(traces)[dimnames(traces)[[2]]==(paste0(baseline_fluor))]<-"red"
+  names(traces)[dimnames(traces)[[2]]==paste0(indicator_fluor)]<-"green"
+  plotr <- ggplot2::ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
+  plotr + geom_line(aes(y=traces$red), col="magenta") +
+    labs(y = "Pixel Intensity") +
+    labs(x = "Frame") +
+    labs(title = paste("Two-photon Linescans:", baseline_fluor), subtitle = paste(filename)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(plot.subtitle = element_text(hjust = 0.5)) +
+    #scale_x_continuous(expand = c(0.006,0)) +
+    save_plot_2P()
+}
+# traces <- norm
+# plot_2P_baseline(traces)
+
+#### green: #
+#' plot_2P_Ca
+#'
+#' @return a plot of the calcium-sensitive fluorophore average raw pixel intensity values over time.
+#'
+#' @family LineScan functions
+#'
+#' @export
+plot_2P_Ca<-function(traces, baseline_fluor="Red", indicator_fluor="Green", ...){
+  filename= basename(getwd())
+  require(ggplot2)
+  names(traces)[dimnames(traces)[[2]]==paste0(baseline_fluor)]<-"red"
+  names(traces)[dimnames(traces)[[2]]==paste0(indicator_fluor)]<-"green"
+  plotr <- ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
+  #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+  plotr + geom_line(aes(y=traces$green), col="green") +
+    labs(y = "Pixel Intensity") +
+    labs(x = "Frame") +
+    labs(title = paste("Two-photon Linescans:", indicator_fluor), subtitle = paste(filename)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(plot.subtitle = element_text(hjust = 0.5)) +
+    scale_x_continuous(expand = c(0.006,0))
+}
+
+# plot_2P_Ca(traces)
+
+# #### dG/R: #
+#' plot_2P_dGR
+#'
+#' @return a plot of the delta(G/R) normalized calcium-sensitive fluorophore average pixel intensity values over time.
+#'
+#' @family LineScan functions
+#'
+#' @export
+plot_2P_dGR <- function(traces, baseline_fluor="Red", indicator_fluor="Green", ...){
+  filename= basename(getwd())
+
+  plot1 <- ggplot2::ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
+  #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+  plot1 + geom_line(aes(y=(traces[['dGoR']]))) +
+    labs(y = "Pixel Intensity") +
+    labs(x = "Frame") +
+    labs(title = expression(paste("Two-photon Linescans: dG/R")), subtitle = paste(filename)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(plot.subtitle = element_text(hjust = 0.5)) +
+    scale_x_continuous(expand = c(0.006,0)) +
+    save_plot_2P()
+}
+
+# #### G/R: #
+#' plot_2P_norm
+#'
+#' @return a plot of the G/R normalized calcium-sensitive fluorophore average pixel intensity values over time.
+#'
+#' @family LineScan functions
+#'
+#' @export
+plot_2P_norm <- function(traces, baseline_fluor="Red", indicator_fluor="Green", ...){
+  filename= basename(getwd())
+
+  plot1 <- ggplot2::ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
+    #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
+  plot1 + geom_line(aes(y=(traces[['GoR']]))) +
+    labs(y = "Pixel Intensity") +
+    labs(x = "Frame") +
+    labs(title = expression(paste("Two-photon Linescans: G/R")), subtitle = paste(filename)) +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    theme(plot.subtitle = element_text(hjust = 0.5)) +
+    scale_x_continuous(expand = c(0.006,0)) +
+    do.call(save_plot_2P, ...)
+  }
+
+
