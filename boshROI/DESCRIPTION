@@ -2,7 +2,7 @@ Package: boshROI
 Type: Package
 Title: Quantification and Analysis of Fluorescence Micrographs
 Version: 0.0.1.1000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Authors@R: c(person("Scott", "Harden", email = "swharden@gmail.com", role = c("aut", "cre")), person("Beronica", "Ocasio", email = "beronica.ocasio@gmail.com", role = c("aut"))) 
 Description: A package to assist in the quantification and analysis of fluorescence micrographs.
 Depends: R (>= 3.4.0)
 License: What license is it under?
