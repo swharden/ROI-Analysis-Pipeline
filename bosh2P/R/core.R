@@ -134,12 +134,14 @@ plot_2P_baseline<-function(traces, baseline_fluor="Red", indicator_fluor="Green"
     labs(title = paste("Two-photon Linescans:", baseline_fluor), subtitle = paste(filename)) +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5)) +
-    scale_x_continuous(expand = c(0.006,0)) +
-    save_plot_2P()
-    dev.off()
+    scale_x_continuous(expand = c(0.006,0))
+    # save_plot_2P()
+    # dev.off()
 }
 # traces <- norm
-# plot_2P_baseline(traces)
+#
+#plot_2P_baseline(traces) + save_plot_2P(filename = "demo.png")
+#dev.off()
 
 #### green: #
 #' plot_2P_Ca
@@ -154,17 +156,15 @@ plot_2P_Ca<-function(traces, baseline_fluor="Red", indicator_fluor="Green", ...)
   require(ggplot2)
   names(traces)[dimnames(traces)[[2]]==paste0(baseline_fluor)]<-"red"
   names(traces)[dimnames(traces)[[2]]==paste0(indicator_fluor)]<-"green"
-  plotr <- ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
+  plotg <- ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
   #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-  plotr + geom_line(aes(y=traces$green), col="green") +
+  plotg + geom_line(aes(y=traces$green), col="green") +
     labs(y = "Pixel Intensity") +
     labs(x = "Frame") +
     labs(title = paste("Two-photon Linescans:", indicator_fluor), subtitle = paste(filename)) +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5)) +
-    scale_x_continuous(expand = c(0.006,0))+
-    save_plot_2P()
-    dev.off()
+    scale_x_continuous(expand = c(0.006,0))
 }
 
 # plot_2P_Ca(traces)
@@ -189,8 +189,7 @@ plot_2P_dGR <- function(traces, baseline_fluor="Red", indicator_fluor="Green", .
     labs(title = expression(paste("Two-photon Linescans: dG/R")), subtitle = paste(filename)) +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5)) +
-    scale_x_continuous(expand = c(0.006,0)) +
-    save_plot_2P()
+    scale_x_continuous(expand = c(0.006,0))
 }
 
 # #### G/R: #
@@ -205,16 +204,16 @@ plot_2P_norm <- function(traces, baseline_fluor="Red", indicator_fluor="Green", 
   filename= basename(getwd())
   require(ggplot2)
 
-  plot1 <- ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
+  plot2 <- ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
     #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-  plot1 + geom_line(aes(y=(traces[['GoR']]))) +
+  plot2 + geom_line(aes(y=(traces[['GoR']]))) +
     labs(y = "Pixel Intensity") +
     labs(x = "Frame") +
     labs(title = expression(paste("Two-photon Linescans: G/R")), subtitle = paste(filename)) +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5)) +
-    scale_x_continuous(expand = c(0.006,0)) +
-    save_plot_2P()
+    scale_x_continuous(expand = c(0.006,0))
+    # save_plot_2P()
 }
 
 
