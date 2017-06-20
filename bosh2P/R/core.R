@@ -105,7 +105,7 @@ norm_traces_LS <- function(channelMeans, auto.detect = TRUE, channel1.baseline =
 #' @export
 save_plot_2P = function(filetype = "png", filename = NULL, width = 6, height = 4, units = "in", type="cairo", res=300){
   if (is.null(filename)){
-    filename= basename(getwd())
+    filename= paste0(basename(getwd()), ".", filetype)
   }
   eval(call(filetype, filename=filename, width=width, height=height, units=units, type=type, res=res))
 }
