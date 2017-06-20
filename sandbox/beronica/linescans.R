@@ -7,7 +7,7 @@
 # Rscript --vanilla /GitHub/ROI-Analysis-Pipeline/R/updated.R
 
 #! usr/bin/env Rscript
-args <- commandArgs(TRUE)  
+args <- commandArgs(TRUE)
 setwd(args[1])
 wd.name <- basename(getwd())
 
@@ -33,8 +33,8 @@ node.xpaths <- xml_path(xml_find_all(xml.data2, ".//PVStateValue"))
 # Channel 1 = red, channel 2 = green
 
 dir.create("./results", showWarnings = FALSE)
-fnames <- Sys.glob("*.ome.tif")
-fnames2 <- Sys.glob("*!Source.tif")
+fnames <- Sys.glob("*.tif")
+fnames2 <- fnames[grep("Source", fnames, ignore.case = TRUE, invert = TRUE)]
 
 if (length(fnames)==0){
   fnames <- Sys.glob("*.tif");
@@ -55,12 +55,12 @@ for (x in fnames1[1:length(fnames1)]){
     rowmeans <- paste0(x,".rowmeans");
     rowmeans.names[x] <- cbind(assign(rowmeans, as.data.frame(apply(xdf, 1, mean))))
 }
-rowmeans.df<- as.data.frame(rowmeans.names) 
+rowmeans.df<- as.data.frame(rowmeans.names)
 
 # delta(green/red) calculation #
-## Green/Red: 
+## Green/Red:
 GoR.fun <- function(green, red){
-  GoR = green/red 
+  GoR = green/red
   return(GoR)
 }
 
@@ -70,7 +70,7 @@ if (((apply(rowmeans.df[1],2,mean))<(apply(rowmeans.df[2],2,mean)))==TRUE){
   if (((apply(rowmeans.df[1],2,mean))>(apply(rowmeans.df[2],2,mean)))==TRUE){
     colnames(rowmeans.df)<-c("red", "green")
   } else {
-    print("Caution: mean(channel 1) = mean(channel 2); May want to check data for accuracy.")
+    message("Caution: mean(channel 1) = mean(channel 2); May want to check data for accuracy.")
   }
 }
 
@@ -82,13 +82,13 @@ dGoR.values <- rowmeans.df$dGoR
 frames <- rownames(rowmeans.df)
 dGoR.df <- as.data.frame(cbind(frames,dGoR.values))
 
-#### red: # 
+#### red: #
 #dev.new()
 plotr <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw()
 #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
 plotr + geom_line(aes(y=rowmeans.df$red), col="magenta") +
   labs(y = "Pixel Intensity") +
-  labs(x = "Frame") + 
+  labs(x = "Frame") +
   labs(title = expression(paste("Two-photon Linescans: Red")), subtitle = paste(wd.name)) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.subtitle = element_text(hjust = 0.5)) +
@@ -97,12 +97,12 @@ plotr + geom_line(aes(y=rowmeans.df$red), col="magenta") +
 dev.off()
 cat("\nSAVED: ",normalizePath("./results/fig_red.png"),"\n")
 
-#### green: # 
-plotg <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw() 
+#### green: #
+plotg <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw()
 #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
 plotg + geom_line(aes(y=(rowmeans.df$green)), col="green") +
   labs(y = "Pixel Intensity") +
-  labs(x = "Frame") + 
+  labs(x = "Frame") +
   labs(title = expression(paste("Two-photon Linescans: Green")), subtitle = paste(wd.name)) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.subtitle = element_text(hjust = 0.5)) +
@@ -112,12 +112,12 @@ dev.off()
 cat("\nSAVED: ",normalizePath("./results/fig_green.png"),"\n")
 
 
-#### dG/R: # 
-plot1 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw() 
+#### dG/R: #
+plot1 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw()
   #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
   plot1 + geom_line(aes(y=(rowmeans.df[['dGoR']]))) +
     labs(y = "Pixel Intensity") +
-    labs(x = "Frame") + 
+    labs(x = "Frame") +
     labs(title = expression(paste("Two-photon Linescans: dG/R")), subtitle = paste(wd.name)) +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5)) +
@@ -125,13 +125,13 @@ plot1 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + th
     png(filename = "./results/fig_dGoR.png")
   dev.off()
   cat("\nSAVED: ",normalizePath("./results/fig_dGoR.png"),"\n")
-    
-#### G/R: # 
-    plot2 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw() 
+
+#### G/R: #
+    plot2 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + theme_bw()
     #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-    plot2 + geom_line(aes(y=(rowmeans.df[['GoR']]))) + 
+    plot2 + geom_line(aes(y=(rowmeans.df[['GoR']]))) +
       labs(y = "Pixel Intensity") +
-      labs(x = "Frame") + 
+      labs(x = "Frame") +
       labs(title = expression(paste("Two-photon Linescans: Green/Red (G/R)")), subtitle = paste(wd.name)) +
       theme(plot.title = element_text(hjust = 0.5)) +
       theme(plot.subtitle = element_text(hjust = 0.5)) +
@@ -139,7 +139,7 @@ plot1 <- ggplot(data=rowmeans.df, aes(x=as.numeric(rownames(rowmeans.df)))) + th
       png(filename = "./results/fig_GoR.png")
     dev.off()
     cat("\nSAVED: ",normalizePath("./results/fig_GoR.png"),"\n")
-    
+
 cat("\nDONE! \n")
 sink()
 
