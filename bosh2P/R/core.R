@@ -103,9 +103,11 @@ norm_traces_LS <- function(channelMeans, auto.detect = TRUE, channel1.baseline =
 #' save_plot_2P
 #'
 #' @export
-save_plot_2P = function(filetype = "png", filename = NULL, width = 6, height = 4, units = "in", type="cairo", res=300){
+save_plot_2P = function(filename = NULL, filetype = "png", width = 6, height = 4, units = "in", type="cairo", res=300){
   if (is.null(filename)){
     filename= paste0(basename(getwd()), ".", filetype)
+  } else{
+    filename = filename
   }
   eval(call(filetype, filename=filename, width=width, height=height, units=units, type=type, res=res))
 }
@@ -132,8 +134,9 @@ plot_2P_baseline<-function(traces, baseline_fluor="Red", indicator_fluor="Green"
     labs(title = paste("Two-photon Linescans:", baseline_fluor), subtitle = paste(filename)) +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5)) +
-    #scale_x_continuous(expand = c(0.006,0)) +
+    scale_x_continuous(expand = c(0.006,0)) +
     save_plot_2P()
+    dev.off()
 }
 # traces <- norm
 # plot_2P_baseline(traces)
@@ -159,7 +162,9 @@ plot_2P_Ca<-function(traces, baseline_fluor="Red", indicator_fluor="Green", ...)
     labs(title = paste("Two-photon Linescans:", indicator_fluor), subtitle = paste(filename)) +
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5)) +
-    scale_x_continuous(expand = c(0.006,0))
+    scale_x_continuous(expand = c(0.006,0))+
+    save_plot_2P()
+    dev.off()
 }
 
 # plot_2P_Ca(traces)
@@ -174,8 +179,9 @@ plot_2P_Ca<-function(traces, baseline_fluor="Red", indicator_fluor="Green", ...)
 #' @export
 plot_2P_dGR <- function(traces, baseline_fluor="Red", indicator_fluor="Green", ...){
   filename= basename(getwd())
+  require(ggplot2)
 
-  plot1 <- ggplot2::ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
+  plot1 <- ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
   #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
   plot1 + geom_line(aes(y=(traces[['dGoR']]))) +
     labs(y = "Pixel Intensity") +
@@ -197,8 +203,9 @@ plot_2P_dGR <- function(traces, baseline_fluor="Red", indicator_fluor="Green", .
 #' @export
 plot_2P_norm <- function(traces, baseline_fluor="Red", indicator_fluor="Green", ...){
   filename= basename(getwd())
+  require(ggplot2)
 
-  plot1 <- ggplot2::ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
+  plot1 <- ggplot(data=traces, aes(x=as.numeric(rownames(traces)))) + theme_bw()
     #geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
   plot1 + geom_line(aes(y=(traces[['GoR']]))) +
     labs(y = "Pixel Intensity") +
@@ -207,7 +214,7 @@ plot_2P_norm <- function(traces, baseline_fluor="Red", indicator_fluor="Green", 
     theme(plot.title = element_text(hjust = 0.5)) +
     theme(plot.subtitle = element_text(hjust = 0.5)) +
     scale_x_continuous(expand = c(0.006,0)) +
-    do.call(save_plot_2P, ...)
-  }
+    save_plot_2P()
+}
 
 

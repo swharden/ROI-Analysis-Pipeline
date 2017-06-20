@@ -4,7 +4,7 @@
 \alias{save_plot_2P}
 \title{save_plot_2P}
 \usage{
-save_plot_2P(filetype = "png", filename = NULL, width = 6, height = 4,
+save_plot_2P(filename = NULL, filetype = "png", width = 6, height = 4,
   units = "in", type = "cairo", res = 300)
 }
 \description{
