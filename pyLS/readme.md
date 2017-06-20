@@ -16,10 +16,11 @@ LS.allFigures()
 ```
 ### Optional Arguments
 To generate figures and CSV files for a LineScan folder, just create an `LineScan` class instance by feeding it the path to the LineScan folder. A few optional arguments are included here. See the library documentation for details.
-* `lineScan(folder,baseline=[1,2])` _manually defines the baseline region as between 1 and 2 seconds_
-* `lineScan(folder,marks=None)` _bypasses automatic feature detection and sets the markers to Y pixel positions 10 an 20_
-* `lineScan(folder,sigma=10)` _applies a 10 pixel horizontal gaussian blur to the image to smooth its data_
-
+```python
+LineScan(folder,baseline=[1,2]) #manually defines the baseline region as between 1 and 2 seconds
+LineScan(folder,marks=None) #bypasses automatic feature detection, markers to pixels 10 and 20
+LineScan(folder,sigma=10) #applies a 10 pixel horizontal gaussian blur to the image to smooth its data
+```
 ## Actual Data Output Folders 
 * [LineScan-06092017-1414-619](../data/linescan/realistic/LineScan-06092017-1414-619/analysis)
 * [LineScan-06092017-1414-620](../data/linescan/realistic/LineScan-06092017-1414-620/analysis)
