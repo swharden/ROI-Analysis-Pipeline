@@ -1,0 +1,25 @@
+
+Attaching package: 'reshape2'
+
+The following objects are masked from 'package:data.table':
+
+    dcast, melt
+
+Parsed with column specification:
+cols(
+  X1 = col_integer(),
+  Mean1 = col_double(),
+  Mean2 = col_double(),
+  Mean3 = col_double(),
+  Mean4 = col_double(),
+  Mean5 = col_double(),
+  Mean6 = col_double(),
+  Mean7 = col_double(),
+  Mean8 = col_double(),
+  Mean9 = col_double(),
+  Mean10 = col_double()
+)
+Warning message:
+Missing column names filled in: 'X1' [1] 
+Warning message:
+In sink() : no sink to remove
