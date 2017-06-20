@@ -34,6 +34,26 @@ Ensure your working directory is the root of a directory containing the Two-Phot
 library(bosh2P)
 setwd("~/GitHub/ROI-Analysis-Pipeline/data/linescan/realistic/LineScan-06092017-1414-620")
 traces<-load_2ptiff()
-norm<-trace_norm(traces)
+norm<-norm_traces_LS(traces)
 write.csv(norm, "demo.csv")
+
+plot_2P_baseline(norm) + save_plot_2P(filename = "baseline_demo.png")
+dev.off()
+
+plot_2P_Ca(norm) + save_plot_2P(filename = "Ca_demo.png")
+dev.off()
+
+plot_2P_norm(norm) + save_plot_2P(filename = "GoRnorm_demo.png")
+dev.off()
+
+plot_2P_dGR(norm) + save_plot_2P(filename = "dGR_demo.png")
+dev.off()
 ```
+![](../data/linescan/realistic/LineScan-06092017-1414-620/Ca_demo.png)
+
+![](../data/linescan/realistic/LineScan-06092017-1414-620/baseline_demo.png)
+
+![](../data/linescan/realistic/LineScan-06092017-1414-620/GoRnorm_demo.png)
+
+![](../data/linescan/realistic/LineScan-06092017-1414-620/dGR_demo.png)
+
