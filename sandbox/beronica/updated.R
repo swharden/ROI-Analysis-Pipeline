@@ -7,7 +7,7 @@
 # Rscript --vanilla /GitHub/ROI-Analysis-Pipeline/R/updated.R
 
 #! usr/bin/env Rscript
-args <- commandArgs(TRUE)  
+args <- commandArgs(TRUE)
 setwd(args[1])
 wd.name <- basename(getwd())
 
@@ -26,7 +26,7 @@ library(ggplot2)
 cat("\nLOADING: ",normalizePath("Results.xls"),"\n")
 
 cell.dt <- read_tsv("Results.xls")
-colnames(cell.dt)[1] <- "frame" 
+colnames(cell.dt)[1] <- "frame"
 ROImeans.dt <- cell.dt[,2:length(cell.dt), drop=FALSE]   # Keeps only "Mean_" columns (ROI mean values)
 actual.frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
 est.mins.func <- function(x) {x*(1/6)}
@@ -40,9 +40,9 @@ fnames2 <- as.double(fnames1)
 
 if (sum(is.na(fnames2))<2 && is.numeric(fnames2[1:3])==TRUE){
 
-t.interval <- (fnames2[3])-(fnames2[2])  
+t.interval <- (fnames2[3])-(fnames2[2])
 t0 <- (fnames2[1])-(t.interval)
-fnames2[is.na(fnames2)] <- t0; 
+fnames2[is.na(fnames2)] <- t0;
 fnames3 <- sort(fnames2);
 fnames3.df <- as.data.frame(fnames3);
 colnames(fnames3.df)[1]<-"time";
@@ -52,21 +52,21 @@ fnames.df <- as.data.frame(mins.funct(fnames3.df));
 f.df <- fnames.df;
 
 if (anyDuplicated(fnames.df)==0) {
-    
+
   if (nrow(fnames.df)==nrow(cell.dt)){
       fnames.df=fnames.df} else{
-        
+
         if (nrow(fnames.df)+1==nrow(cell.dt)){
           t1 <- fnames3.df[1, ,drop=FALSE];
           t1.0 <- t1 - t.interval;
           t1.mins <- as.data.frame(mins.funct(t1.0));
           fnames.df <- rbind(t1.mins, f.df);
-          
+
           if (nrow(fnames.df)==nrow(cell.dt) && anyDuplicated(fnames.df)==0){
             fnames.df=fnames.df
           } else {fnames.df <- est.mins1b;
           cat("\nCheck tiff file names. Unable to find frame times. Using frame number to estimate time.\n")}
-          
+
         } else{fnames.df <- est.mins1b;
         cat("\nCheck tiff file names. Unable to find frame times. Using frame number to estimate time.\n")}
       };
@@ -82,7 +82,7 @@ cell.dt<-cbind(fnames.df[,1, drop=FALSE], cell.dt[,2:length(cell.dt)])
 colnames(fnames.df)[1]<-"time"
 frame.time <- cbind(actual.frames, fnames.df);
 
-colnames(cell.dt)[1] <- "frame" 
+colnames(cell.dt)[1] <- "frame"
 frames = cell.dt[,1, drop=FALSE]   # Keeps only "frames" column
 
 #############################
@@ -146,7 +146,7 @@ ft.b2 <- ft.df[ft.df$frame==(b.range[,2]),]
 ft.t1 <- ft.df[ft.df$frame==(TGOT.range[,1]),]
 ft.t2 <- ft.df[ft.df$frame==(TGOT.range[,2]),]
 
-b.xmin=ft.b1[['time']] 
+b.xmin=ft.b1[['time']]
 b.xmax=ft.b2[['time']]
 t.xmin=ft.t1[['time']]
 t.xmax=ft.t2[['time']]
@@ -190,7 +190,7 @@ results_2a <- results_1[,1, drop=FALSE]
 results_2b <- as.data.frame(apply(results_1[2:length(results_1)], 2, function(x) x*100))
 results_B <- cbind(results_2a, results_2b)
 
-write.table(results_B, file = "results_B.xls", row.names = FALSE, sep="\t", quote = FALSE) 
+write.table(results_B, file = "results_B.xls", row.names = FALSE, sep="\t", quote = FALSE)
 cat("\nSAVED: ",normalizePath("results_B.xls"),"\n")
 
 #############################
@@ -218,11 +218,11 @@ time.unit = "Experiment Duration (minutes)"
 
 rplot1 <- ggplot(data=traces.data.m, aes(x=traces.data.m[['frame']], y=(traces.data.m[['dF.F']]))) + theme_bw() +
   geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002) + 
-  geom_line(aes(colour=ROI, alpha=0.07), show.legend = FALSE) 
+  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002) +
+  geom_line(aes(colour=ROI, alpha=0.07), show.legend = FALSE)
 
 rplot1 + labs(y = "dF/F (%)") +
-  labs(x = paste(time.unit)) + 
+  labs(x = paste(time.unit)) +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Traces")), subtitle = paste(wd.name, exp.info)) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.subtitle = element_text(hjust = 0.5)) +
@@ -235,10 +235,10 @@ cat("\nSAVED: ",normalizePath("fig_traces.png"),"\n")
 #### Average of Traces: #
 rplot2 <- ggplot(data=stats.dF.F, aes(x=stats.dF.F[['frame']])) +
   geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002) 
+  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002)
 
 rplot2 + geom_ribbon(aes(ymin=stats.dF.F[['mean.dF.F']]-stats.dF.F[['stdev.dF.F']], ymax=stats.dF.F[['mean.dF.F']]+stats.dF.F[['stdev.dF.F']]), fill="grey", alpha=0.3) +
-  geom_line(aes(y=(stats.dF.F[['mean.dF.F']]))) + theme_bw() + 
+  geom_line(aes(y=(stats.dF.F[['mean.dF.F']]))) + theme_bw() +
   labs(y = "dF/F (%)") +
   labs(x = paste(time.unit)) +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Average")), subtitle = paste(wd.name, exp.info)) +
@@ -250,14 +250,14 @@ dev.off()
 
 cat("\nSAVED: ",normalizePath("fig_av.png"),"\n")
 
-#### Raw Pixel Values: # 
+#### Raw Pixel Values: #
 rplot3 <- ggplot(data=df.m, aes(x=df.m[['frame']], y=(df.m[['Ft']]))) + theme_bw() +
   geom_rect(xmin=b.xmin, xmax=b.xmax, ymin=-Inf, ymax=Inf, fill="seagreen1", alpha=0.002) +
-  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002) + 
-  geom_line(aes(colour=ROI, alpha=0.07), show.legend = FALSE) 
+  geom_rect(xmin=t.xmin, xmax=t.xmax, ymin=-Inf, ymax=Inf, fill="yellow", alpha=0.002) +
+  geom_line(aes(colour=ROI, alpha=0.07), show.legend = FALSE)
 
 rplot3 + labs(y = "Pixel Intensity") +
-  labs(x = paste(time.unit)) + 
+  labs(x = paste(time.unit)) +
   labs(title = expression(paste("GCaMP6f: Ca"^"2+"*" Activity-- ROI Raw Pixel Intesity Values")), subtitle = paste(wd.name, exp.info)) +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(plot.subtitle = element_text(hjust = 0.5)) +

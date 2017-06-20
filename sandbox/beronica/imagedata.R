@@ -9,7 +9,7 @@
 
 library(RImageJROI)
 library(spatstat)
-library(spatstat.utils) 
+library(spatstat.utils)
 library(tiff)
 #library(rgdal)
 
@@ -50,7 +50,7 @@ for(roi in 1:length(myijstats)){
 
 ijstat.m <- as.matrix(myijstats)
 ijstat.df <- as.data.frame(myijstats)
-ij.df2 <- apply(ijstat.df, 2, unique) #dataframe of x and y ranges 
+ij.df2 <- apply(ijstat.df, 2, unique) #dataframe of x and y ranges
 
 
 # for(i in 1:length(xranges)){
@@ -92,15 +92,15 @@ for (a in 1:length(ranges.m)){
   x1 <- paste0("x1.",a);
     assign(x1, ranges.m['x1',a]);
     vars['x1',a] <- x1;
-    
+
   x2 <-paste0("x2.",a);
     assign(x2, ranges.m['x2',a]);
     vars['x2',a] <- x2;
-    
+
   y1 <-paste0("y1.",a);
     assign(y1, ranges.m['y1',a]);
     vars['y1',a] <- y1;
-    
+
   y2 <-paste0("y2.",a);
     assign(y2, ranges.m['y2',a]);
     vars['y2',a] <- y2
@@ -120,14 +120,15 @@ for (x in fnames1[1:length(fnames1)]){
     y2<-eval.fun(paste0('y2.',n));
     x1<-eval.fun(paste0('x1.',n));
     x2<-eval.fun(paste0('x2.',n));
-  
+
       #assign(cell, xdf[dim.fun(y1):dim.fun(y2),dim.fun(x1):dim.fun(x2)]);
       data.df[x,n]<- assign(cellmeans, mean(xdf[dim.fun(y1):dim.fun(y2),dim.fun(x1):dim.fun(x2)]))
-    
   };
 }
 
 mean.names <- c(paste0("Mean",1:length(ranges.df)))
 colnames(data.df)<-mean.names
+write.table(data.df, "demo_imagedata.R.xls", sep="\t", row.names = TRUE, col.names = NA) # Saves a file equivalent to the default output file "Results.xls" given by ImageJ
+ ## This file can be used in place of "Results.xls" in boshROI pipeline.
 
 ###########
