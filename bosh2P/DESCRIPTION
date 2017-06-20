@@ -2,8 +2,7 @@ Package: bosh2P
 Type: Package
 Title: Two-Photon Imaging Data Quantification and Analysis
 Version: 0.0.1.0000
-Authors@R: person("Beronica", "Ocasio", email = "beronica.ocasio@gmail.com", role = c("aut", "cre"))
-Authors@R: person("Scott", "Harden", email = "swharden@gmail.com", role = c("aut", "cre"))
+Authors@R: c(person("Beronica", "Ocasio", email = "beronica.ocasio@gmail.com", role = c("aut", "cre")), person("Scott", "Harden", email = "swharden@gmail.com", role = c("aut"))
 Description:  A package to assist in the quantification and analysis of Two-Photon imaging data.
 Depends: R (>= 3.4.0)
 License: What license is it under?
