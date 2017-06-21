@@ -10,5 +10,13 @@ Project | Description
 **[bosh2P](bosh2P)**  | R Package designed to analyze sub-cellular calcium transients in neurons from two-photon linescans simultaneously imaging Fluo-5f and Alexa Fluor 594. Calcium fluctuations are reported as the ratio of these two fluorophores.
 **[pyLS](pyLS)** | Python scripts to generate dF/F graphs from linescan data. Code here is independent of (but complementary to) boshLS.
 
-## Screenshot
+Screenshots
 ![](pyLS/screenshot.png)
+
+![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_01_img.png)
+
+![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_02_avg.png)
+
+![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_03_drift1.png)
+
+![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_04_drift2.png)
