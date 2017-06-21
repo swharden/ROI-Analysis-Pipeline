@@ -22,13 +22,13 @@ LineScan(folder,marks=None) #bypasses automatic feature detection, markers to pi
 LineScan(folder,sigma=10) #applies a 10 pixel horizontal gaussian blur to the image to smooth its data
 ```
 ## Actual Data Output Folders 
-* [LineScan-06092017-1414-619](../data/linescan/realistic/LineScan-06092017-1414-619/analysis)
-* [LineScan-06092017-1414-620](../data/linescan/realistic/LineScan-06092017-1414-620/analysis)
-* [LineScan-06092017-1414-621](../data/linescan/realistic/LineScan-06092017-1414-621/analysis)
-* [LineScan-06092017-1414-622](../data/linescan/realistic/LineScan-06092017-1414-622/analysis)
-* [LineScan-06092017-1414-623](../data/linescan/realistic/LineScan-06092017-1414-623/analysis)
-* [LineScan-06162017-1223-628](../data/linescan/realistic/LineScan-06162017-1223-628/analysis) <-- best
-* [LineScan-06162017-1223-636](../data/linescan/realistic/LineScan-06162017-1223-628/analysis) <-- best
+* [LineScan-06092017-1414-619](../data/linescan/realistic/LineScan-06092017-1414-619/analysis) <-- single linescan
+* [LineScan-06092017-1414-620](../data/linescan/realistic/LineScan-06092017-1414-620/analysis) <-- single linescan
+* [LineScan-06092017-1414-621](../data/linescan/realistic/LineScan-06092017-1414-621/analysis) <-- single linescan
+* [LineScan-06092017-1414-622](../data/linescan/realistic/LineScan-06092017-1414-622/analysis) <-- single linescan
+* [LineScan-06092017-1414-623](../data/linescan/realistic/LineScan-06092017-1414-623/analysis) <-- single linescan
+* [LineScan-06162017-1223-628](../data/linescan/realistic/LineScan-06162017-1223-628/analysis) <-- repeated linescans
+* [LineScan-06162017-1223-636](../data/linescan/realistic/LineScan-06162017-1223-628/analysis) <-- repeated linescans
 
 ## Example Output Figures (LineScan-06162017-1223-636)
 ![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_01_img.png)
