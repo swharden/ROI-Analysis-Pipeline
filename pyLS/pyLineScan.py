@@ -4,6 +4,7 @@ import scipy.ndimage as ndimage
 import matplotlib.pyplot as plt
 import os
 import glob
+import datetime
 
 DELTA=r'$\Delta$'
 
@@ -42,7 +43,7 @@ class LineScan:
         if verbose: print("linescans found: %d red and %d green"%(len(self.filesR),len(self.filesG)))
         self.frames = len(self.filesR)
         self.dpi=100 # change this externally as desired
-        
+
         ### do these things automatically when the class is loaded
         self.confLoad() # load the configuration
         self.dataLoad() # load image data as 2D arrays
@@ -62,7 +63,7 @@ class LineScan:
         minValue=min(vertAvg)
         cutoff=(maxValue-minValue)*.25+minValue # bottom 25%
         peakPos=np.where(vertAvg==maxValue)[0][0]
-        print("pixel row with peak intensity:",peakPos)        
+        print("pixel row with peak intensity:",peakPos)
         self.m1,self.m2=peakPos,peakPos
         for y in range(peakPos,len(vertAvg)):
             if vertAvg[y]>cutoff:self.m2=y+2
@@ -106,8 +107,9 @@ class LineScan:
         """load TIF data as a 2d array and store it in the lists self.dataG and self.dataR"""
         self.dataR,self.dataG,self.dataGoR=[None]*self.frames,[None]*self.frames,[None]*self.frames
         for frame in range(self.frames):
+            print("  loading frame %d of %d ..."%(frame+1,self.frames))
             self.dataR[frame]=plt.imread(os.path.join(self.folder,self.filesR[frame]))
-            self.dataG[frame]=plt.imread(os.path.join(self.folder,self.filesG[frame]))    
+            self.dataG[frame]=plt.imread(os.path.join(self.folder,self.filesG[frame]))
             if self.sigma>1:
                 # gaussian smoothing of image in the time domain
                 self.dataR[frame]=ndimage.gaussian_filter(self.dataR[frame],sigma=(self.sigma,0))
@@ -123,8 +125,8 @@ class LineScan:
         self.bGoR=np.array([None]*self.frames)
         self.bG=np.array([None]*self.frames)
         self.bR=np.array([None]*self.frames)
-        
-        for frame in range(self.frames):           
+
+        for frame in range(self.frames):
             self.traceG[frame]=np.average(self.dataG[frame][:,self.m1:self.m2],axis=1)
             self.traceR[frame]=np.average(self.dataR[frame][:,self.m1:self.m2],axis=1)
             self.traceGoR[frame]=np.average(self.dataGoR[frame][:,self.m1:self.m2],axis=1)
@@ -132,11 +134,11 @@ class LineScan:
             self.bG[frame]=np.average(self.traceG[frame][self.baselineIs[0]:self.baselineIs[1]])
             self.bR[frame]=np.average(self.traceR[frame][self.baselineIs[0]:self.baselineIs[1]])
             self.dGoR[frame]=self.traceGoR[frame]-self.bGoR[frame]
-            
+
         self.AVGdGoR=np.average(self.dGoR,axis=0)
 
     ### FILE STUFF
-    
+
     def clean(self):
         """delete everything in the analysis folder."""
         for fname in glob.glob(self.folderOut+"/*.*"):
@@ -145,10 +147,10 @@ class LineScan:
 
     def saveData(self,offset=2.46872):
         """generate CSV files of all data and save them in the analysis folder."""
-        datadGoR=np.flip(np.rot90(np.vstack((self.Xs+offset,np.array(self.dGoR.tolist())))),0)
-        dataR=np.flip(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceR.tolist())))),0)
-        dataG=np.flip(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceG.tolist())))),0)
-        dataGoR=np.flip(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceGoR.tolist())))),0)
+        datadGoR=np.fliplr(np.rot90(np.vstack((self.Xs+offset,np.array(self.dGoR.tolist())))))
+        dataR=np.fliplr(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceR.tolist())))))
+        dataG=np.fliplr(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceG.tolist())))))
+        dataGoR=np.fliplr(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceGoR.tolist())))))
         np.savetxt(self.folderOut+"/data_dGoR.csv",datadGoR,delimiter=',',fmt='%.05f')
         np.savetxt(self.folderOut+"/data_dataR.csv",dataR,delimiter=',',fmt='%.05f')
         np.savetxt(self.folderOut+"/data_dataG.csv",dataG,delimiter=',',fmt='%.05f')
@@ -158,13 +160,13 @@ class LineScan:
     ### PLOTTING ACTIONS
     def shadeBaseline(self):
         plt.axvspan(self.baselineSec[0],self.baselineSec[1],alpha=.1,color='k')
-        
+
     def markBounds(self,color='y'):
         for xpos in [self.m1,self.m2]:
             plt.axhline(xpos,color=color,ls='--',lw=2)
         for i in self.baselineIs:
             plt.axvline(self.Xs[i],color=color,ls='--',lw=2)
-        
+
     def saveFig(self,saveAs=None):
         """call this to save a figure. Make saveAs None to display figure. Make it a filename to save it."""
         if saveAs:
@@ -174,8 +176,8 @@ class LineScan:
         else:
             plt.show()
         plt.close()
-        
-    
+
+
     ### FIGURES
 
     def figureDriftDGOR(self,saveAs=False):
@@ -191,28 +193,28 @@ class LineScan:
         plt.legend(fontsize=6,loc=1)
         plt.ylabel(DELTA+" [G/R] (%)")
         plt.xlabel("linescan duration (seconds)")
-        plt.margins(0,.1)        
-        plt.tight_layout()   
+        plt.margins(0,.1)
+        plt.tight_layout()
         self.saveFig(saveAs)
 
 
     def figureDriftRAW(self,saveAs=False):
         """create a figure to assess drift of R and G over time."""
         plt.figure(figsize=(6,6))
-        
+
         plt.subplot(211)
         plt.grid(alpha=.5)
         plt.title("average of baseline region by frame")
         plt.plot(self.bG,'.-',color='g',alpha=.5)
         plt.plot(self.bR,'.-',color='r',alpha=.5)
         plt.ylabel("pixel intensity (AFU)")
-        
+
         plt.subplot(212)
         plt.grid(alpha=.5)
         plt.plot(self.bGoR*100,'.-',color='b',alpha=.5)
         plt.ylabel("raw [G/R] (%)")
         plt.xlabel("frame number")
-        
+
         plt.tight_layout()
         self.saveFig(saveAs)
 
@@ -236,9 +238,9 @@ class LineScan:
         plt.ylabel(title)
         plt.grid(alpha=.5)
         self.shadeBaseline()
-        plt.axhline(0,color='k',ls='--')        
+        plt.axhline(0,color='k',ls='--')
         plt.plot(self.Xs,self.AVGdGoR*100,'-',color='b',alpha=.5)
-        plt.margins(0,.1)        
+        plt.margins(0,.1)
         plt.xlabel("linescan duration (seconds)")
 
         plt.tight_layout()
@@ -267,7 +269,7 @@ class LineScan:
         plt.setp(plt.gca().get_xticklabels(), visible=False)
         plt.ylabel("red channel")
         plt.colorbar()
-        
+
         plt.subplot(313)
         plt.axis([0,self.Xs[-1],0,np.shape(self.dataR)[2]])
         data=np.rot90(np.average(self.dataG,axis=0))/np.rot90(np.average(self.dataR,axis=0))*100
@@ -277,15 +279,15 @@ class LineScan:
         plt.setp(plt.gca().get_yticklabels(), visible=False)
         plt.ylabel(DELTA+" [G/R] (%)")
         plt.colorbar()
-        
+
         plt.xlabel("linescan duration (seconds)")
         plt.tight_layout()
 
         self.saveFig(saveAs)
-        
+
     def allFigures(self):
         """automatically generate every figure for a given linescan."""
-        
+
         self.clean()
         self.saveData()
         self.figureImg("fig_01_img.png")
@@ -293,10 +295,44 @@ class LineScan:
         self.figureDriftRAW("fig_03_drift1.png")
         self.figureDriftDGOR("fig_04_drift2.png")
 
+def index(folderParent):
+    """make index.html and stick it in the parent directory."""
+    timestamp=datetime.datetime.now().strftime("%I:%M %p on %B %d, %Y")
+    folders=os.listdir(folderParent)
+    out="<html><style>"
+    out+="""
+    img{
+        margin: 10px;
+        border: 1px solid black;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, .2);
+        }
+    """
+    out+="</style><body>"
+    out+="<b style='font-size: 300%%'>pyLineScan</b><br><i>automatic linescan index generated at %s</i><hr><br>"%timestamp
+    for folder in sorted(folders):
+        if not folder.startswith("LineScan-"):
+            continue
+        path=os.path.abspath(folderParent+"/"+folder)
+        rel=folderParent+"/"+folder
+        out+="<div style='background-color: #336699; color: white; padding: 10px; page-break-before: always;'>"
+        out+="<span style='font-size: 200%%; font-weight: bold;'>%s</span><br>"%folder
+        out+="<code>%s</code></div>"%path
+        for fname in sorted(glob.glob(folderParent+"/"+folder+"/analysis/*.png")):
+            fname=os.path.basename(fname)
+            out+='<a href="%s/analysis/%s"><img src="%s/analysis/%s" height=300></a>'%(rel,fname,rel,fname)
+        out+="<br>"*6
+    out+="</code></body></html>"
+    fileOut=os.path.abspath(folderParent+"/index.html")
+    with open(fileOut,'w') as f:
+        f.write(out)
+    print("saved",fileOut)
 
 if __name__=="__main__":
     print("DO NOT RUN THIS SCRIPT DIRECTLY")
-    for folder in glob.glob('../data/linescan/realistic/LineScan-*'):
+    #for folder in glob.glob('../data/linescan/realistic/LineScan-*'):
+    folderParent=r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p'
+    for folder in glob.glob(folderParent+'/LineScan-*'):
         LS=LineScan(folder)
         LS.allFigures()
+    index(folderParent)
     print("DONE")
