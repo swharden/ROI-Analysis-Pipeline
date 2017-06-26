@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 import os
 import glob
 import datetime
+from PIL import Image
+from PIL import ImageEnhance
+import webbrowser
 
 DELTA=r'$\Delta$'
 
@@ -197,6 +200,36 @@ class LineScan:
         plt.tight_layout()
         self.saveFig(saveAs)
 
+    def figureDriftGOR(self,saveAs=False):
+        """create a figure to assess drift of dGoR over time."""
+        plt.figure(figsize=(6,6))
+        plt.grid(alpha=.5)
+        plt.title("raw [G/R] traces by frame")
+        for frame in range(self.frames):
+            plt.plot(self.Xs,self.traceGoR[frame]*100,alpha=.5,label=frame+1,
+                     color=plt.cm.get_cmap('jet')(frame/self.frames))
+        plt.legend(fontsize=6,loc=1)
+        plt.ylabel(DELTA+" G/R (%)")
+        plt.xlabel("linescan duration (seconds)")
+        plt.margins(0,.1)
+        plt.tight_layout()
+        self.saveFig(saveAs)
+
+    def figureDriftGOR2(self,saveAs=False):
+        """create a figure to assess drift of dGoR over time."""
+        plt.figure(figsize=(6,6))
+        plt.grid(alpha=.5)
+        plt.title("raw [G/R] traces by frame")
+        for frame in range(self.frames):
+            offset=self.Xs[-1]*frame
+            plt.plot(self.Xs+offset,self.traceGoR[frame]*100,alpha=.5,label=frame+1,
+                     color=plt.cm.get_cmap('jet')(frame/self.frames))
+        plt.legend(fontsize=6,loc=1)
+        plt.ylabel(DELTA+" G/R (%)")
+        plt.xlabel("linescan data only (seconds)")
+        plt.margins(0,.1)
+        plt.tight_layout()
+        self.saveFig(saveAs)
 
     def figureDriftRAW(self,saveAs=False):
         """create a figure to assess drift of R and G over time."""
@@ -223,15 +256,23 @@ class LineScan:
         plt.figure(figsize=(6,6))
 
         ax1=plt.subplot(211)
+        ax2=plt.subplot(212,sharex=ax1)
+
+        plt.subplot(211)
         plt.title(self.name)
         plt.ylabel("raw pixel intensity (AFU)")
         plt.grid(alpha=.5)
         self.shadeBaseline()
         for frame in range(self.frames):
+            plt.subplot(211)
             plt.plot(self.Xs,self.traceG[frame],'-',color='G',alpha=.5)
             plt.plot(self.Xs,self.traceR[frame],'-',color='R',alpha=.5)
+            plt.subplot(212)
+            plt.plot(self.Xs,self.dGoR[frame],'-',color='b',alpha=.2)
+        plt.subplot(211)
         plt.setp(plt.gca().get_xticklabels(), visible=False)
-        plt.subplot(212,sharex=ax1)
+
+        plt.subplot(212)
         title=DELTA+" [G/R] (%)"
         if self.frames>1:
             title+=" (avg n=%d)"%self.frames
@@ -285,15 +326,32 @@ class LineScan:
 
         self.saveFig(saveAs)
 
+    def refFig(self):
+        """convert a TIF reference figure showing the linescan path to a PNG in the analysis folder."""
+        fname=sorted(glob.glob(self.folder+"/References/*Window2*.tif"))[0]
+        fname=os.path.abspath(fname)
+        saveAs=os.path.abspath(self.folder+"/analysis/fig_00_ref.png")
+        print("converting",fname,'...')
+        im = Image.open(fname)
+        #print("enhancing contrast...")
+        #contrast = ImageEnhance.Contrast(im)
+        #im=contrast.enhance(5)
+        im.save(saveAs)
+        print('saved',saveAs)
+
     def allFigures(self):
         """automatically generate every figure for a given linescan."""
-
         self.clean()
+        self.refFig()
         self.saveData()
         self.figureImg("fig_01_img.png")
         self.figureAvg("fig_02_avg.png")
+        if self.frames<3: return
         self.figureDriftRAW("fig_03_drift1.png")
         self.figureDriftDGOR("fig_04_drift2.png")
+        self.figureDriftGOR("fig_05_drift3.png")
+        self.figureDriftGOR2("fig_05_drift32.png")
+
 
 def index(folderParent):
     """make index.html and stick it in the parent directory."""
@@ -320,19 +378,32 @@ def index(folderParent):
         for fname in sorted(glob.glob(folderParent+"/"+folder+"/analysis/*.png")):
             fname=os.path.basename(fname)
             out+='<a href="%s/analysis/%s"><img src="%s/analysis/%s" height=300></a>'%(rel,fname,rel,fname)
+        out+="<br><br><code><b>These data are stored in the following CSV files:</b></code><br>"
+        for fname in sorted(glob.glob(folderParent+"/"+folder+"/analysis/*.csv")):
+            out+='<code>%s</code><br>'%os.path.abspath(fname)
         out+="<br>"*6
     out+="</code></body></html>"
     fileOut=os.path.abspath(folderParent+"/index.html")
     with open(fileOut,'w') as f:
         f.write(out)
-    print("saved",fileOut)
+    print("\nSAVED HTML REPORT:\n"+fileOut+'\n')
+    webbrowser.open(fileOut)
 
-if __name__=="__main__":
-    print("DO NOT RUN THIS SCRIPT DIRECTLY")
-    #for folder in glob.glob('../data/linescan/realistic/LineScan-*'):
-    folderParent=r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p'
-    for folder in glob.glob(folderParent+'/LineScan-*'):
+def analyzeFolderOfLinescans(folderParent,reanalyze=False):
+    """analyze every linescan folder in a parent directory and generate a report."""
+    folders=sorted(glob.glob(folderParent+'/LineScan-*'))
+    for folder in folders:
+        if os.path.exists(folder+"/analysis/data_GoR.csv") and not reanalyze:
+            print("not re-analyzing",folder)
+            continue
         LS=LineScan(folder)
         LS.allFigures()
     index(folderParent)
+    return
+
+if __name__=="__main__":
+    print("DO NOT RUN THIS SCRIPT DIRECTLY")
+    analyzeFolderOfLinescans(r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p',reanalyze=False)
+    #analyzeFolderOfLinescans(r'C:\Users\LabUser\Documents\today',reanalyze=True)
+
     print("DONE")
