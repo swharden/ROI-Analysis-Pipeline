@@ -175,13 +175,26 @@ class LineScan:
         if saveAs:
             saveAs=os.path.abspath(os.path.join(self.folderOut,saveAs))
             plt.savefig(saveAs,dpi=self.dpi)
-            print("saved",os.path.basename(saveAs))
+            print("saved figure",os.path.basename(saveAs))
         else:
             plt.show()
         plt.close()
 
 
-    ### FIGURES
+    ### FIGURES ####################
+
+    def refFig(self):
+        """convert a TIF reference figure showing the linescan path to a PNG in the analysis folder."""
+        fname=sorted(glob.glob(self.folder+"/References/*Window2*.tif"))[0]
+        fname=os.path.abspath(fname)
+        saveAs=os.path.abspath(self.folder+"/analysis/fig_00_ref.png")
+        print("converting",fname,'...')
+        im = Image.open(fname)
+        #print("enhancing contrast...")
+        #contrast = ImageEnhance.Contrast(im)
+        #im=contrast.enhance(5)
+        im.save(saveAs)
+        print('saved',saveAs)
 
     def figureDriftDGOR(self,saveAs=False):
         """create a figure to assess drift of dGoR over time."""
@@ -326,18 +339,54 @@ class LineScan:
 
         self.saveFig(saveAs)
 
-    def refFig(self):
-        """convert a TIF reference figure showing the linescan path to a PNG in the analysis folder."""
-        fname=sorted(glob.glob(self.folder+"/References/*Window2*.tif"))[0]
-        fname=os.path.abspath(fname)
-        saveAs=os.path.abspath(self.folder+"/analysis/fig_00_ref.png")
-        print("converting",fname,'...')
-        im = Image.open(fname)
-        #print("enhancing contrast...")
-        #contrast = ImageEnhance.Contrast(im)
-        #im=contrast.enhance(5)
-        im.save(saveAs)
-        print('saved',saveAs)
+
+    def figure_dGoR_peak(self,saveAs=False,freq=True):
+        """create a scatter plot showing the peak dGoR vs frame number."""
+        plt.figure(figsize=(6,6))
+        plt.grid(alpha=.5)
+        if freq:
+            Xs=[1,5,10,15,20,25]
+            xlabel="AP Frequency (Hz)"
+        else:
+            Xs=np.arange(self.frames)+1
+            xlabel="line scan frame number"
+        Ys=np.ones(self.frames)*np.nan
+        plt.title("Calcium Response Curve (peak)")
+        for frame in range(self.frames):
+            Ys[frame]=np.max(self.dGoR[frame])*100
+        print("creating  data_dGoR_byframe_peak ...")
+        np.savetxt(self.folderOut+"/data_dGoR_byframe_peak.csv",Ys,delimiter=',',fmt='%.05f')
+        plt.ylabel("peak d[G/R] (%)")
+        plt.xlabel(xlabel)
+        plt.plot(Xs,Ys,'.-',ms=20)
+        plt.margins(.1,.1)
+        plt.tight_layout()
+        self.saveFig(saveAs)
+
+    def figure_dGoR_area(self,saveAs=False,freq=True):
+        """create a scatter plot showing the dGoR area vs frame number."""
+        plt.figure(figsize=(6,6))
+        plt.grid(alpha=.5)
+        if freq:
+            Xs=[1,5,10,15,20,25]
+            xlabel="AP Frequency (Hz)"
+        else:
+            Xs=np.arange(self.frames)+1
+            xlabel="line scan frame number"
+        Ys=np.ones(self.frames)*np.nan
+        plt.title("Calcium Response Curve (area)")
+        for frame in range(self.frames):
+            Ys[frame]=np.sum(self.dGoR[frame])*100/self.Xs[-1]/1000
+        print("creating  data_dGoR_byframe_area ...")
+        np.savetxt(self.folderOut+"/data_dGoR_byframe_area.csv",Ys,delimiter=',',fmt='%.05f')
+        plt.ylabel("d[G/R] area (% * ms)")
+        plt.xlabel(xlabel)
+        plt.plot(Xs,Ys,'.-',ms=20,color='r')
+        plt.margins(.1,.1)
+        plt.tight_layout()
+        self.saveFig(saveAs)
+
+    ### END OF INDIVIDUAL FIGURES ####################
 
     def allFigures(self):
         """automatically generate every figure for a given linescan."""
@@ -351,6 +400,10 @@ class LineScan:
         self.figureDriftDGOR("fig_04_drift2.png")
         self.figureDriftGOR("fig_05_drift3.png")
         self.figureDriftGOR2("fig_05_drift32.png")
+        self.figure_dGoR_peak("fig_06_peak.png")
+        self.figure_dGoR_area("fig_07_area.png")
+
+    ### END OF FIGURES ####################
 
 
 def index(folderParent):
@@ -389,12 +442,14 @@ def index(folderParent):
     print("\nSAVED HTML REPORT:\n"+fileOut+'\n')
     webbrowser.open(fileOut)
 
-def analyzeFolderOfLinescans(folderParent,reanalyze=False):
+def analyzeFolderOfLinescans(folderParent,reanalyze=False,matching=False):
     """analyze every linescan folder in a parent directory and generate a report."""
     folders=sorted(glob.glob(folderParent+'/LineScan-*'))
     for folder in folders:
         if os.path.exists(folder+"/analysis/data_GoR.csv") and not reanalyze:
             print("not re-analyzing",folder)
+            continue
+        if matching and not matching in os.path.basename(folder):
             continue
         LS=LineScan(folder)
         LS.allFigures()
@@ -403,7 +458,7 @@ def analyzeFolderOfLinescans(folderParent,reanalyze=False):
 
 if __name__=="__main__":
     print("DO NOT RUN THIS SCRIPT DIRECTLY")
-    analyzeFolderOfLinescans(r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p',reanalyze=False)
-    #analyzeFolderOfLinescans(r'C:\Users\LabUser\Documents\today',reanalyze=True)
+    #analyzeFolderOfLinescans(r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p',reanalyze=True,matching="1738-643")
+    analyzeFolderOfLinescans(r'C:\Users\swharden\Documents\temp',reanalyze=True)
 
     print("DONE")
