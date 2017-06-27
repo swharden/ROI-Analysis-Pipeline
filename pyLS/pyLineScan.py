@@ -8,6 +8,7 @@ import datetime
 from PIL import Image
 from PIL import ImageEnhance
 import webbrowser
+import sys
 
 DELTA=r'$\Delta$'
 
@@ -457,8 +458,24 @@ def analyzeFolderOfLinescans(folderParent,reanalyze=False,matching=False):
     return
 
 if __name__=="__main__":
-    print("DO NOT RUN THIS SCRIPT DIRECTLY")
-    #analyzeFolderOfLinescans(r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p',reanalyze=True,matching="1738-643")
-    analyzeFolderOfLinescans(r'C:\Users\swharden\Documents\temp',reanalyze=True)
 
-    print("DONE")
+    # this gets run if you launch from within a python IDE
+    if len(sys.argv)==1:
+        print("### RUNNING WITHOUT ARGUMENTS - ASSUMING YOU ARE A DEVELOPER ###")
+        input("press ENTER to continue...")
+        reanalyze=True
+        folder=r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p'
+        #folder=r'C:\Users\swharden\Documents\temp'
+        analyzeFolderOfLinescans(folder,reanalyze=True,matching="1738-643")
+
+    # this gets run if you launch from a console
+    if len(sys.argv)>1:
+        reanalyze=False
+        if "reanalyze" in sys.argv:
+            print("FORCING RE-ANALYSIS OF ALL FILES.")
+            reanalyze=True
+        folder=sys.argv[1]
+        print("FOLDER TO ANALYZE:\n%s"%folder)
+        assert os.path.exists(folder)
+        analyzeFolderOfLinescans(folder,reanalyze=reanalyze)
+    print("FINISHED ANALYSIS SUCCESSFULLY")
