@@ -343,14 +343,15 @@ class LineScan:
 
     def figure_dGoR_peak(self,saveAs=False,freq=True):
         """create a scatter plot showing the peak dGoR vs frame number."""
-        plt.figure(figsize=(6,6))
-        plt.grid(alpha=.5)
-        if freq:
-            Xs=[1,5,10,15,20,25]
+        freqs = [1,5,10,15,20,25]
+        if freq==True and self.frames==len(freqs):
+            Xs=freqs
             xlabel="AP Frequency (Hz)"
         else:
             Xs=np.arange(self.frames)+1
             xlabel="line scan frame number"
+        plt.figure(figsize=(6,6))
+        plt.grid(alpha=.5)
         Ys=np.ones(self.frames)*np.nan
         plt.title("Calcium Response Curve (peak)")
         for frame in range(self.frames):
@@ -366,14 +367,15 @@ class LineScan:
 
     def figure_dGoR_area(self,saveAs=False,freq=True):
         """create a scatter plot showing the dGoR area vs frame number."""
-        plt.figure(figsize=(6,6))
-        plt.grid(alpha=.5)
-        if freq:
-            Xs=[1,5,10,15,20,25]
+        freqs = [1,5,10,15,20,25]
+        if freq==True and self.frames==len(freqs):
+            Xs=freqs
             xlabel="AP Frequency (Hz)"
         else:
             Xs=np.arange(self.frames)+1
             xlabel="line scan frame number"
+        plt.figure(figsize=(6,6))
+        plt.grid(alpha=.5)
         Ys=np.ones(self.frames)*np.nan
         plt.title("Calcium Response Curve (area)")
         for frame in range(self.frames):
@@ -445,6 +447,8 @@ def index(folderParent):
 
 def analyzeFolderOfLinescans(folderParent,reanalyze=False,matching=False):
     """analyze every linescan folder in a parent directory and generate a report."""
+    print("Analyzing folder of linescans:",folderParent)
+    print(" reanalyze =",reanalyze)
     folders=sorted(glob.glob(folderParent+'/LineScan-*'))
     for folder in folders:
         if os.path.exists(folder+"/analysis/data_GoR.csv") and not reanalyze:
@@ -461,12 +465,10 @@ if __name__=="__main__":
 
     # this gets run if you launch from within a python IDE
     if len(sys.argv)==1:
-        print("### RUNNING WITHOUT ARGUMENTS - ASSUMING YOU ARE A DEVELOPER ###")
-        input("press ENTER to continue...")
-        reanalyze=True
+        print("### RUNNING WITHOUT ARGUMENTS - ASSUMING YOU ARE A DEVELOPER ###\n"*20)
         folder=r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p'
         #folder=r'C:\Users\swharden\Documents\temp'
-        analyzeFolderOfLinescans(folder,reanalyze=True,matching="1738-643")
+        analyzeFolderOfLinescans(folder,reanalyze=True)
 
     # this gets run if you launch from a console
     if len(sys.argv)>1:
