@@ -151,10 +151,10 @@ class LineScan:
 
     def saveData(self,offset=2.46872):
         """generate CSV files of all data and save them in the analysis folder."""
-        datadGoR=np.fliplr(np.rot90(np.vstack((self.Xs+offset,np.array(self.dGoR.tolist())))))
-        dataR=np.fliplr(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceR.tolist())))))
-        dataG=np.fliplr(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceG.tolist())))))
-        dataGoR=np.fliplr(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceGoR.tolist())))))
+        datadGoR=np.flipud(np.rot90(np.vstack((self.Xs+offset,np.array(self.dGoR.tolist())))))
+        dataR=np.flipud(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceR.tolist())))))
+        dataG=np.flipud(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceG.tolist())))))
+        dataGoR=np.flipud(np.rot90(np.vstack((self.Xs+offset,np.array(self.traceGoR.tolist())))))
         np.savetxt(self.folderOut+"/data_dGoR.csv",datadGoR,delimiter=',',fmt='%.05f')
         np.savetxt(self.folderOut+"/data_dataR.csv",dataR,delimiter=',',fmt='%.05f')
         np.savetxt(self.folderOut+"/data_dataG.csv",dataG,delimiter=',',fmt='%.05f')
