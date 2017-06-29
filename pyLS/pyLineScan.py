@@ -62,7 +62,7 @@ class LineScan:
         """
         if not self.marks:
             self.m1,self.m2=0,self.dataG[0].shape[1]
-        vertAvg=np.average(self.dataR[0],axis=0) # collapse the red channel to 1D (space domain)
+        vertAvg=np.average(np.average(self.dataR,axis=0),axis=0) # collapse the red channel to 1D (space domain)
         maxValue=max(vertAvg)
         minValue=min(vertAvg)
         cutoff=(maxValue-minValue)*.25+minValue # bottom 25%
@@ -223,7 +223,7 @@ class LineScan:
             plt.plot(self.Xs,self.traceGoR[frame]*100,alpha=.5,label=frame+1,
                      color=plt.cm.get_cmap('jet')(frame/self.frames))
         plt.legend(fontsize=6,loc=1)
-        plt.ylabel(DELTA+" G/R (%)")
+        plt.ylabel("raw G/R (%)")
         plt.xlabel("linescan duration (seconds)")
         plt.margins(0,.1)
         plt.tight_layout()
@@ -239,7 +239,7 @@ class LineScan:
             plt.plot(self.Xs+offset,self.traceGoR[frame]*100,alpha=.5,label=frame+1,
                      color=plt.cm.get_cmap('jet')(frame/self.frames))
         plt.legend(fontsize=6,loc=1)
-        plt.ylabel(DELTA+" G/R (%)")
+        plt.ylabel("raw G/R (%)")
         plt.xlabel("linescan data only (seconds)")
         plt.margins(0,.1)
         plt.tight_layout()
@@ -250,16 +250,18 @@ class LineScan:
         plt.figure(figsize=(6,6))
 
         plt.subplot(211)
+        plt.title("average baseline R and G by frame")
         plt.grid(alpha=.5)
-        plt.title("average of baseline region by frame")
-        plt.plot(self.bG,'.-',color='g',alpha=.5)
-        plt.plot(self.bR,'.-',color='r',alpha=.5)
+        plt.plot(self.bG,'.-',color='g',ms=20)
+        plt.plot(self.bR,'.-',color='r',ms=20)
+        plt.axis([None,None,0,None])
         plt.ylabel("pixel intensity (AFU)")
 
         plt.subplot(212)
+        plt.title("average baseline G/R ratio by frame")
         plt.grid(alpha=.5)
-        plt.plot(self.bGoR*100,'.-',color='b',alpha=.5)
-        plt.ylabel("raw [G/R] (%)")
+        plt.plot(self.bGoR,'.-',color='b',ms=20)
+        plt.ylabel("raw [G/R]")
         plt.xlabel("frame number")
 
         plt.tight_layout()
@@ -282,7 +284,7 @@ class LineScan:
             plt.plot(self.Xs,self.traceG[frame],'-',color='G',alpha=.5)
             plt.plot(self.Xs,self.traceR[frame],'-',color='R',alpha=.5)
             plt.subplot(212)
-            plt.plot(self.Xs,self.dGoR[frame],'-',color='b',alpha=.2)
+            plt.plot(self.Xs,self.dGoR[frame]*100.0,'-',color='b',alpha=.2)
         plt.subplot(211)
         plt.setp(plt.gca().get_xticklabels(), visible=False)
 
@@ -307,7 +309,7 @@ class LineScan:
         plt.figure(figsize=(6,6))
 
         plt.subplot(311)
-        plt.title("First Frame Images")
+        plt.title("Line Scan Structure Auto-Detection (avg n=%d)"%self.frames)
         plt.axis([0,self.Xs[-1],0,np.shape(self.dataG)[2]])
         plt.imshow(np.rot90(np.average(self.dataG,axis=0)),cmap='gray',aspect='auto',extent=plt.axis())
         self.markBounds()
@@ -458,25 +460,20 @@ def analyzeFolderOfLinescans(folderParent,reanalyze=False,matching=False):
             continue
         LS=LineScan(folder)
         LS.allFigures()
-    index(folderParent)
+    #index(folderParent)
     return
 
 if __name__=="__main__":
-
-    # this gets run if you launch from within a python IDE
     if len(sys.argv)==1:
         print("### RUNNING WITHOUT ARGUMENTS - ASSUMING YOU ARE A DEVELOPER ###\n"*20)
         folder=r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p'
-        #folder=r'C:\Users\swharden\Documents\temp'
-        analyzeFolderOfLinescans(folder,reanalyze=True)
-
-    # this gets run if you launch from a console
-    if len(sys.argv)>1:
+        analyzeFolderOfLinescans(folder,reanalyze=True,matching="-661")
+    else:
         reanalyze=False
         if "reanalyze" in sys.argv:
             print("FORCING RE-ANALYSIS OF ALL FILES.")
             reanalyze=True
-        folder=sys.argv[1]
+        folder=os.path.abspath(sys.argv[1])
         print("FOLDER TO ANALYZE:\n%s"%folder)
         assert os.path.exists(folder)
         analyzeFolderOfLinescans(folder,reanalyze=reanalyze)
