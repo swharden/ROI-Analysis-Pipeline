@@ -13,7 +13,7 @@ import sys
 DELTA=r'$\Delta$'
 
 class LineScan:
-    def __init__(self,folder,verbose=False,baseline=None,marks=None,sigma=5):
+    def __init__(self,folder,verbose=False,baseline=None,marks=None,sigma=5,lock_scale=False):
         """
         The LineScan class provides an easy object to load and analyze data from PrairieView linescan folders.
         By convension Ch1 is red (calcuim insensitive fluorophore) and Ch2 is green (calcium indicator).
@@ -31,6 +31,7 @@ class LineScan:
         self.baselineSec=baseline
         self.marks=marks
         self.sigma=sigma
+        self.lock_scale=lock_scale
         assert(os.path.exists(self.folder)), self.folder+" doesn't exist"
         self.name=os.path.basename(self.folder)
         if verbose: print("loading linescan",self.name)
@@ -211,6 +212,8 @@ class LineScan:
         plt.ylabel(DELTA+" [G/R] (%)")
         plt.xlabel("linescan duration (seconds)")
         plt.margins(0,.1)
+        if self.lock_scale:
+            plt.axis([None,None,-self.lock_scale*.1,self.lock_scale])
         plt.tight_layout()
         self.saveFig(saveAs)
 
@@ -226,6 +229,8 @@ class LineScan:
         plt.ylabel("raw G/R (%)")
         plt.xlabel("linescan duration (seconds)")
         plt.margins(0,.1)
+        if self.lock_scale:
+            plt.axis([None,None,0,self.lock_scale*2])
         plt.tight_layout()
         self.saveFig(saveAs)
 
@@ -242,6 +247,8 @@ class LineScan:
         plt.ylabel("raw G/R (%)")
         plt.xlabel("linescan data only (seconds)")
         plt.margins(0,.1)
+        if self.lock_scale:
+            plt.axis([None,None,0,self.lock_scale*2])
         plt.tight_layout()
         self.saveFig(saveAs)
 
@@ -263,6 +270,8 @@ class LineScan:
         plt.plot(self.bGoR,'.-',color='b',ms=20)
         plt.ylabel("raw [G/R]")
         plt.xlabel("frame number")
+        if self.lock_scale:
+            plt.axis([None,None,-self.lock_scale*.1,self.lock_scale])
 
         plt.tight_layout()
         self.saveFig(saveAs)
@@ -272,7 +281,7 @@ class LineScan:
         plt.figure(figsize=(6,6))
 
         ax1=plt.subplot(211)
-        ax2=plt.subplot(212,sharex=ax1)
+        plt.subplot(212,sharex=ax1)
 
         plt.subplot(211)
         plt.title(self.name)
@@ -364,6 +373,8 @@ class LineScan:
         plt.xlabel(xlabel)
         plt.plot(Xs,Ys,'.-',ms=20)
         plt.margins(.1,.1)
+        if self.lock_scale:
+            plt.axis([None,None,-self.lock_scale*.1,self.lock_scale])
         plt.tight_layout()
         self.saveFig(saveAs)
 
@@ -388,6 +399,8 @@ class LineScan:
         plt.xlabel(xlabel)
         plt.plot(Xs,Ys,'.-',ms=20,color='r')
         plt.margins(.1,.1)
+        if self.lock_scale:
+            plt.axis([None,None,-self.lock_scale*.1,self.lock_scale])
         plt.tight_layout()
         self.saveFig(saveAs)
 
