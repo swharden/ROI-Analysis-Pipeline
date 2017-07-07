@@ -1,6 +1,7 @@
 # pyLineScan is a package to aid analysis of two-photon linescans
 import numpy as np
 import scipy.ndimage as ndimage
+#import matplotlib
 import matplotlib.pyplot as plt
 import os
 import glob
@@ -10,7 +11,14 @@ from PIL import ImageEnhance
 import webbrowser
 import sys
 
+ALPHA=.5
 DELTA=r'$\Delta$'
+
+def COL(frac):
+    return plt.cm.get_cmap('spectral')(frac*.4+.10)
+    #return plt.cm.get_cmap('winter')(frac)
+    #return plt.cm.get_cmap('plasma')(frac*.8+.1)
+    #return plt.cm.get_cmap('jet')(frac*.5)
 
 class LineScan:
     def __init__(self,folder,verbose=False,baseline=None,marks=None,sigma=5,lock_scale=False):
@@ -205,8 +213,8 @@ class LineScan:
         plt.axhline(0,color='k',ls='--')
         plt.title(DELTA+"[G/R] traces by frame")
         for frame in range(self.frames):
-            plt.plot(self.Xs,self.dGoR[frame]*100,alpha=.5,label=frame+1,
-                     color=plt.cm.get_cmap('jet')(frame/self.frames))
+            plt.plot(self.Xs,self.dGoR[frame]*100,alpha=ALPHA,label=frame+1,
+                     color=COL(frame/self.frames))
         self.shadeBaseline()
         plt.legend(fontsize=6,loc=1)
         plt.ylabel(DELTA+" [G/R] (%)")
@@ -223,8 +231,8 @@ class LineScan:
         plt.grid(alpha=.5)
         plt.title("raw [G/R] traces by frame")
         for frame in range(self.frames):
-            plt.plot(self.Xs,self.traceGoR[frame]*100,alpha=.5,label=frame+1,
-                     color=plt.cm.get_cmap('jet')(frame/self.frames))
+            plt.plot(self.Xs,self.traceGoR[frame]*100,alpha=ALPHA,label=frame+1,
+                     color=COL(frame/self.frames))
         plt.legend(fontsize=6,loc=1)
         plt.ylabel("raw G/R (%)")
         plt.xlabel("linescan duration (seconds)")
@@ -241,8 +249,8 @@ class LineScan:
         plt.title("raw [G/R] traces by frame")
         for frame in range(self.frames):
             offset=self.Xs[-1]*frame
-            plt.plot(self.Xs+offset,self.traceGoR[frame]*100,alpha=.5,label=frame+1,
-                     color=plt.cm.get_cmap('jet')(frame/self.frames))
+            plt.plot(self.Xs+offset,self.traceGoR[frame]*100,alpha=ALPHA,label=frame+1,
+                     color=COL(frame/self.frames))
         plt.legend(fontsize=6,loc=1)
         plt.ylabel("raw G/R (%)")
         plt.xlabel("linescan data only (seconds)")
@@ -479,8 +487,10 @@ def analyzeFolderOfLinescans(folderParent,reanalyze=False,matching=False):
 if __name__=="__main__":
     if len(sys.argv)==1:
         print("### RUNNING WITHOUT ARGUMENTS - ASSUMING YOU ARE A DEVELOPER ###\n"*20)
-        folder=r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p'
-        analyzeFolderOfLinescans(folder,reanalyze=True,matching="-661")
+        #folder=r'X:\Data\SCOTT\2017-06-16 OXT-Tom\2p'
+        #analyzeFolderOfLinescans(folder,reanalyze=True,matching="-661")
+        LS = LineScan(R"X:\Data\SCOTT\2017-06-16 OXT-Tom\2p\LineScan-07062017-1730-720")
+        LS.allFigures()
     else:
         reanalyze=False
         if "reanalyze" in sys.argv:
@@ -489,5 +499,7 @@ if __name__=="__main__":
         folder=os.path.abspath(sys.argv[1])
         print("FOLDER TO ANALYZE:\n%s"%folder)
         assert os.path.exists(folder)
-        analyzeFolderOfLinescans(folder,reanalyze=reanalyze)
+        LS=LineScan(folder)
+        LS.allFigures()
+        #analyzeFolderOfLinescans(folder,reanalyze=reanalyze)
     print("FINISHED ANALYSIS SUCCESSFULLY")
