@@ -237,7 +237,7 @@ class TiffVid:
                 ax0.text(X1+1,Y1+5,str(p+1),va='top',color=color,
                          fontsize='small',fontweight='bold')
 
-        miscmsg="GABA Cre / GCaMP6f [PFC]\n"
+        miscmsg="OTR Cre / GCaMP6f [PFC]\n"
         msg="%s\n%sframe:%d\nminutes: %.02f"%(self.folder,miscmsg,frame,self.dataX[frame])
         ax0.text(2,2,msg,va='top',color='k',fontsize='small',fontweight='bold')
         ax0.text(0,0,msg,va='top',color='w',fontsize='small',fontweight='bold')
@@ -288,7 +288,7 @@ def scriptRun():
     makeFigures=False
 
     #for folder in sorted(glob.glob(r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\*")):
-    for folder in [r"\\Spike\X_Drive\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\2017-06-05 cell1"]:
+    for folder in [r"\\Spike\X_Drive\Data\SCOTT\2017-05-10 GCaMP6f\GCaMP6f PFC OXTR cre\2017-06-02 000"]:
         if not os.path.isdir(folder):
             continue
         print("\n\n\n","#"*100,"\n"," ANALYZING",folder,"\n","#"*100)
