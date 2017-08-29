@@ -27,7 +27,7 @@ class Cell:
         if not os.path.exists(self.path+"/analysis/"):
             os.mkdir(self.path+"/analysis/")
         self.analyzeLinescans()
-        self.masterCSV()
+        self.masterCSVs()
 
     def analyzeLinescans(self,reanalyze=False):
         """run pyLineScan.LineScan() on everything in the linescans folder."""
@@ -35,14 +35,21 @@ class Cell:
         lsFolders = [os.path.abspath(x) for x in lsFolders if os.path.isdir(x)]
         for lsFolder in lsFolders:
             if os.path.exists(lsFolder+"/analysis/data_GoR.csv") and not reanalyze:
-                print("skipping",lsFolder)
                 continue
-            print("analyzing",lsFolder)
             LS=pyLineScan.LineScan(lsFolder)
             LS.allFigures()
 
-    def masterCSV(self):
+    def masterCSVs(self):
+        """run masterCSV on every data file type."""
+        for fname in ["dataG","dataR","GoR","dGoR"]:
+            self.masterCSV(fname)
+
+    def masterCSV(self,dataFname="dGoR",reanalyze=False):
         """pull CSV data from several linescan folders and combine it into a master CSV."""
+        fnameOut=os.path.abspath(self.path+"/analysis/linescans_%s.csv"%dataFname)
+        if os.path.exists(fnameOut) and reanalyze is False:
+            return
+        print("creating",fnameOut)
         fnames = sorted(glob.glob(self.path+"/linescans/*"))
         data=None
         labels=[]
@@ -50,7 +57,7 @@ class Cell:
             try:
                 bn=os.path.basename(fname).split("_")
                 timePoint,structure,scan=bn
-                csvData=np.loadtxt(fname+"/analysis/data_dGoR.csv",delimiter=',',dtype=float)
+                csvData=np.loadtxt(fname+"/analysis/data_%s.csv"%dataFname,delimiter=',',dtype=float)
                 times=csvData[:,0]
                 values=csvData[:,1:]
                 if data is None:
@@ -60,14 +67,12 @@ class Cell:
                 label="_".join(bn)
                 for scanNumber in range(values.shape[1]): # support for multiple frames
                     labels.append(label+"_f%d"%(scanNumber+1))
-                print("master CSV now contains",label)
             except Exception as e:
                 print("not valid linescan folder:",fname)
                 print(e)
-        fname=os.path.abspath(self.path+"/analysis/linescans_dGoR.csv")
-        np.savetxt(fname,data,fmt='%.05f',delimiter=',',header=", ".join(labels))
-        print("saved",fname)
+        np.savetxt(fnameOut,data,fmt='%.05f',delimiter=',',header=", ".join(labels))
 
 if __name__=="__main__":
     print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
-    c = Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell2")
+    Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell1")
+    Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell2")
