@@ -5,3 +5,5 @@ This folder contains work relating to the development of code for exploratory da
 * [Docic Catalog](http://www.doriclenses.com/downloads/Product_catalog_RELEASE_WEB.pdf)
 * LED Driver: [Doric 2 channel LED Driver](http://doriclenses.com/life-sciences/led-drivers/782-led-drivers.html)
 * Software: [Doric Neuroscience Studio](http://doriclenses.com/life-sciences/software/955-doric-neuroscience-studio.html)
+
+![](doc/doric2.jpg)
