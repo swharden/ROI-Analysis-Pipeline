@@ -9,7 +9,7 @@ Project | Description
 **[pyROI](pyROI)** | Python scripts to generate annotated video (showing ROIs and graphs of analyzed data) from ROI data. Video output is HTML5-compatible MP4. Code here supplements boshROI.
 **[bosh2P](bosh2P)**  | R Package designed to analyze sub-cellular calcium transients in neurons from two-photon linescans simultaneously imaging Fluo-5f and Alexa Fluor 594. Calcium fluctuations are reported as the ratio of these two fluorophores.
 **[pyLS](pyLS)** | Python scripts to generate dF/F graphs from linescan data. Code here is independent of (but complementary to) boshLS.
-**[pyPhotoPhotometry](pyPhotoPhotometry)** | Python scripts related to analysis of calcium signals using Doric photo photmetry equipment
+**[pyFiberPhotometry](pyPhotoPhotometry)** | Python scripts related to analysis of calcium signals using Doric photo photmetry equipment
 
 ## Screenshots
 
