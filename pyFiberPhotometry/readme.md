@@ -4,6 +4,12 @@ This folder contains work relating to the development of code for exploratory da
 ## Experiment
 A 300 micron slice is placed in the chamber with continuously flowing ACSF. A fluorescent field (GCaMP6f+) is identified and the tip if the post is lowered to contact those cells. Fiber recordings then are taken with all regular microscopy illumination off.
 
+### Experiment Video
+* https://youtu.be/r5iyD7B55EE
+
+### Experiment Data
+![](data/slice2.csv_graph.png)
+
 DIC | Fluorescence | Post Placement
 ---|---|---
 ![](doc/placement/a.jpg)|![](doc/placement/b.jpg)|![](doc/placement/c.jpg)
@@ -62,3 +68,9 @@ Time(s),AnalogIn-1,AnalogIn-2,AnalogIn-3,AnalogIn-4,Sequence,TTL-1,TTL-2,TTL-3,T
 * Software: [Doric Neuroscience Studio](http://doriclenses.com/life-sciences/software/955-doric-neuroscience-studio.html)
 
 ![](doc/doric2.jpg)
+
+# Notes
+## Converting TIFF series to video
+```
+ffmpeg.exe -framerate 30 -y -i "./TIFF/TIFF%%04d.tif" -c:v libx264 -pix_fmt yuv420p "render.mp4"
+```
