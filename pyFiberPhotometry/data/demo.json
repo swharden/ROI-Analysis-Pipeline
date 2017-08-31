@@ -1,0 +1,12 @@
+{
+    "Timestamps": [
+        {
+            "Note": "drug started at 3 sec",
+            "Time": 3
+        },
+        {
+            "Note": "drug ended at 4 sec",
+            "Time": 4
+        }
+    ]
+}
