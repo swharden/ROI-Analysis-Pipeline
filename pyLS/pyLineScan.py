@@ -14,6 +14,7 @@ import sys
 ALPHA=.5
 DELTA=r'$\Delta$'
 
+COLORS=["b","g","orange","r","m"]
 def COL(frac):
     return plt.cm.get_cmap('spectral')(frac*.4+.10)
     #return plt.cm.get_cmap('winter')(frac)
