@@ -20,6 +20,10 @@ import glob
 import numpy as np
 import matplotlib.pyplot as plt
 
+#####################################################################################################
+### CODE RELATED TO COMBINING / ANALYZING CSV FILES AND DATA ########################################
+#####################################################################################################
+
 class Cell:
     def __init__(self,path):
         """this class represents a single cell's project folder (data and imaging)."""
@@ -88,8 +92,119 @@ class Cell:
         plt.savefig(fnameOut.replace(".csv",".png"))
         plt.close('all')
 
+def loadMasterCSV(fname):
+    """given a maser CSV file, return [labels, data]"""
+    with open(fname) as f:
+        labels=f.readline()
+        if labels.startswith("#"):
+            labels=labels[1:]
+        labels=labels.split(",")
+    labels=[x.strip() for x in labels]
+    data=np.loadtxt(fname,delimiter=",")
+    #TODO: figure out how to have column names
+    return labels,data
 
+def labelsToGroups(labels):
+    """given a list of labels, figure out how to group them ready for averaging."""
+    groups={}
+    for label in labels[1:]:
+        timeStructure="_".join(label.split("_")[:2])
+        if not timeStructure in groups:
+            groups[timeStructure]=[]
+        groups[timeStructure]=groups[timeStructure]+[label]
+    return groups
+
+def dataMatching(labels,data,match):
+    """given labeled columns, return only columns whose label gets a match."""
+    columns=[]
+    for i in range(1,len(labels)):
+        if match in labels[i]:
+            columns.append(i)
+    return data[:,columns]
+
+def masterDataAverage(fname):
+    """given a master CSV file, merge multiple timepoint-structure into AV and STDERR"""    
+    return
+
+
+
+###############################################################################################################
+### CODE RELATED TO MAKING GRAPHS #############################################################################
+###############################################################################################################
+
+def yAxis(fname):
+    """given a fname, return a formatted Y axis label"""
+    fname=os.path.basename(fname).lower()
+    DELTA=r'$\Delta$'
+    if "dgor" in fname: 
+        return DELTA+" G/R (%)"
+    elif "gor" in fname: 
+        return "raw G/R (%)"
+    else:
+        return "???"
+
+class MasterPlot:
+    def __init__(self,fname):
+        """load data from a master CSV file and plot it."""
+        self.fname=fname
+        self.labels,self.data=loadMasterCSV(fname)
+        self.groups=labelsToGroups(self.labels)
+        self.Xs = self.data[:,0]
+
+    def new(self):
+        plt.figure(figsize=(8,6))
+        plt.ylabel(yAxis(self.fname))
+        plt.xlabel("time (seconds)")
+        plt.title(os.path.basename(self.fname))
+        plt.grid(alpha=.25,ls='--')
+    
+    def close(self,show=True,saveAs=False):
+        plt.legend(fontsize=8)
+        plt.margins(0,.1)
+        if show:
+            plt.show()
+        if type(saveAs) is str:
+            plt.savefig(saveAs)
+        plt.close('all')        
+
+    def figure_averageByGroup(self):
+        self.new()
+        for i,group in enumerate(sorted(self.groups.keys())):
+            #color=pyLineScan.COL(i/len(groups.keys()))
+            color=pyLineScan.COLORS[i]
+            thisData=dataMatching(self.labels,self.data,group)
+            group+=" (n=%d)"%len(thisData[0])
+            AV=np.average(thisData,axis=1)
+            SD=np.std(thisData,axis=1)
+            SE=SD/np.math.sqrt(len(thisData[0]))
+            #plt.plot(self.Xs,thisData,color=color,alpha=.5,lw=1,ls=':')
+            plt.fill_between(self.Xs,AV-SE,AV+SE,alpha=.3,color=color,lw=0)
+            plt.plot(self.Xs,AV,color=color,alpha=.8,label=group)
+        self.close()
+        
+    def figure_sweeps_overlay(self):
+        self.new()
+        for i in range(1,len(self.data[0])):
+            color=pyLineScan.COL(i/len(self.data[0]))
+            label=self.labels[i]
+            plt.plot(self.Xs,self.data[:,i],alpha=.8,color=color,label=label)
+        self.close()
+
+    def figure_sweeps_continuous(self):
+        self.new()
+        for i in range(1,len(self.data[0])):
+            color=pyLineScan.COL(i/len(self.data[0]))
+            label=self.labels[i]
+            plt.plot(self.Xs+(self.Xs[-1]*i),self.data[:,i],alpha=.8,color=color,label=label)
+        self.close()
+        
 if __name__=="__main__":
     print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
-    Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell1")
-    Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell2")
+    #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell1")
+    #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell2")
+    fname="data/linescans_GoR.csv"
+    MP=MasterPlot(fname)
+    MP.figure_averageByGroup()
+    MP.figure_sweeps_overlay()
+    MP.figure_sweeps_continuous()
+    print("DONE")
