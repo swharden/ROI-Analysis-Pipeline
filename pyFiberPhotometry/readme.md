@@ -4,10 +4,8 @@ This folder contains work relating to the development of code for exploratory da
 ## Experiment
 A 300 micron slice is placed in the chamber with continuously flowing ACSF. A fluorescent field (GCaMP6f+) is identified and the tip if the post is lowered to contact those cells. Fiber recordings then are taken with all regular microscopy illumination off.
 
-### Experiment Video
 * https://youtu.be/r5iyD7B55EE
 
-### Experiment Data
 ![](data/slice2.csv_graph.png)
 
 DIC | Fluorescence | Post Placement
