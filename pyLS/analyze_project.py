@@ -18,6 +18,7 @@ import pyLineScan
 import os
 import glob
 import numpy as np
+import matplotlib.pyplot as plt
 
 class Cell:
     def __init__(self,path):
@@ -44,7 +45,7 @@ class Cell:
         for fname in ["dataG","dataR","GoR","dGoR"]:
             self.masterCSV(fname)
 
-    def masterCSV(self,dataFname="dGoR",reanalyze=False):
+    def masterCSV(self,dataFname="dGoR",reanalyze=True,plotToo=True):
         """pull CSV data from several linescan folders and combine it into a master CSV."""
         fnameOut=os.path.abspath(self.path+"/analysis/linescans_%s.csv"%dataFname)
         if os.path.exists(fnameOut) and reanalyze is False:
@@ -71,6 +72,22 @@ class Cell:
                 print("not valid linescan folder:",fname)
                 print(e)
         np.savetxt(fnameOut,data,fmt='%.05f',delimiter=',',header=", ".join(labels))
+        if plotToo is False:
+            return
+
+        # make a preview of all the data contained within
+        # TODO: make this smarter, reading the output CSV, and support averaging
+        plt.figure(figsize=(8,6))
+        for i,label in enumerate(labels[1:]):
+            Xs = data[:,0]
+            Xs = np.arange(1000)+i*1000
+            plt.plot(Xs,data[:,i+1],label=label,alpha=.8,color=pyLineScan.COL(i/len(labels)))
+        plt.margins(0,.1)
+        plt.title(os.path.basename(fnameOut))
+        plt.legend(fontsize=8)
+        plt.savefig(fnameOut.replace(".csv",".png"))
+        plt.close('all')
+
 
 if __name__=="__main__":
     print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
