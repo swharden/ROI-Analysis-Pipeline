@@ -52,11 +52,11 @@ if __name__=="__main__":
     #plt.plot(data[:,0],data[:,2],label=labels[2],color='g')
     GoR = data[:,2]/data[:,1] # green over red
     dGoR = GoR-GoR[0] # crude baseline subtraction
-    plt.plot(data[:,0],dGoR*100.0,label="d(G/B)")
+    plt.plot(data[:,0]/60,dGoR*100.0,label="d(G/B)")
 
     # ADD TIME POINTS TO GRAPH MANUALLY
-    plt.axvspan(314,376,color='r',alpha=.1,label="0.1mM Glu")
-    plt.axvspan(804,886,color='r',alpha=.1)
+    plt.axvspan(314/60,376/60,color='r',alpha=.1,label="0.1mM Glu")
+    plt.axvspan(804/60,886/60,color='r',alpha=.1)
 
     # ADD COMMENTS TO GRAPH FROM JSON FILE
 #    if notes:
