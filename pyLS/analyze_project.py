@@ -182,8 +182,8 @@ class MasterPlot:
             SD=np.std(thisData,axis=1)
             SE=SD/np.math.sqrt(len(thisData[0]))
             #plt.plot(self.Xs,thisData,color=color,alpha=.5,lw=1,ls=':')
-            plt.fill_between(self.Xs,AV-SE,AV+SE,alpha=.3,color=color,lw=0)
-            plt.plot(self.Xs,AV,color=color,alpha=.8,label=group)
+            plt.fill_between(self.Xs,(AV-SE)*100,(AV+SE)*100,alpha=.3,color=color,lw=0)
+            plt.plot(self.Xs,AV*100,color=color,alpha=.8,label=group)
         self.close(saveAs="averageByGroup")
 
     def figure_sweeps_overlay(self):
@@ -191,7 +191,7 @@ class MasterPlot:
         for i in range(1,len(self.data[0])):
             color=pyLineScan.COL(i/len(self.data[0]))
             label=self.labels[i]
-            plt.plot(self.Xs,self.data[:,i],alpha=.8,color=color,label=label)
+            plt.plot(self.Xs,self.data[:,i]*100,alpha=.8,color=color,label=label)
         self.close(saveAs="sweepsOverlay")
 
     def figure_sweeps_continuous(self):
@@ -199,7 +199,7 @@ class MasterPlot:
         for i in range(1,len(self.data[0])):
             color=pyLineScan.COL(i/len(self.data[0]))
             label=self.labels[i]
-            plt.plot(self.Xs+(self.Xs[-1]*i),self.data[:,i],alpha=.8,color=color,label=label)
+            plt.plot(self.Xs+(self.Xs[-1]*i),self.data[:,i]*100,alpha=.8,color=color,label=label)
         self.close(saveAs="sweepsContinuous")
 
 if __name__=="__main__":
