@@ -16,7 +16,7 @@ DELTA=r'$\Delta$'
 
 COLORS=["b","g","orange","r","m"]
 def COL(frac):
-    return plt.cm.get_cmap('spectral')(frac*.4+.10)
+    return plt.cm.get_cmap('nipy_spectral')(frac*.4+.10)
     #return plt.cm.get_cmap('winter')(frac)
     #return plt.cm.get_cmap('plasma')(frac*.8+.1)
     #return plt.cm.get_cmap('jet')(frac*.5)
