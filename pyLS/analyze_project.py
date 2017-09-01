@@ -19,6 +19,7 @@ import os
 import glob
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
 #####################################################################################################
 ### CODE RELATED TO COMBINING / ANALYZING CSV FILES AND DATA ########################################
@@ -31,8 +32,14 @@ class Cell:
         assert os.path.exists(self.path)
         if not os.path.exists(self.path+"/analysis/"):
             os.mkdir(self.path+"/analysis/")
+        self.clearAnalysisFolder()
         self.analyzeLinescans()
         self.masterCSVs()
+
+    def clearAnalysisFolder(self):
+        print("deleting old analysis files...")
+        for fname in glob.glob(self.path+"/analysis/*"):
+            os.remove(fname)
 
     def analyzeLinescans(self,reanalyze=False):
         """run pyLineScan.LineScan() on everything in the linescans folder."""
@@ -76,21 +83,11 @@ class Cell:
                 print("not valid linescan folder:",fname)
                 print(e)
         np.savetxt(fnameOut,data,fmt='%.05f',delimiter=',',header=", ".join(labels))
-        if plotToo is False:
-            return
-
-        # make a preview of all the data contained within
-        # TODO: make this smarter, reading the output CSV, and support averaging
-        plt.figure(figsize=(8,6))
-        for i,label in enumerate(labels[1:]):
-            Xs = data[:,0]
-            Xs = np.arange(1000)+i*1000
-            plt.plot(Xs,data[:,i+1],label=label,alpha=.8,color=pyLineScan.COL(i/len(labels)))
-        plt.margins(0,.1)
-        plt.title(os.path.basename(fnameOut))
-        plt.legend(fontsize=8)
-        plt.savefig(fnameOut.replace(".csv",".png"))
-        plt.close('all')
+        if plotToo:
+            MP=MasterPlot(fnameOut)
+            MP.figure_averageByGroup()
+            MP.figure_sweeps_overlay()
+            MP.figure_sweeps_continuous()
 
 def loadMasterCSV(fname):
     """given a maser CSV file, return [labels, data]"""
@@ -123,7 +120,7 @@ def dataMatching(labels,data,match):
     return data[:,columns]
 
 def masterDataAverage(fname):
-    """given a master CSV file, merge multiple timepoint-structure into AV and STDERR"""    
+    """given a master CSV file, merge multiple timepoint-structure into AV and STDERR"""
     return
 
 
@@ -136,9 +133,13 @@ def yAxis(fname):
     """given a fname, return a formatted Y axis label"""
     fname=os.path.basename(fname).lower()
     DELTA=r'$\Delta$'
-    if "dgor" in fname: 
+    if "dgor" in fname:
+        try:
+            plt.axhline(0,color='k',ls='--',alpha=.5)
+        except:
+            print("couldn't draw a horizontal line, but that's okay")
         return DELTA+" G/R (%)"
-    elif "gor" in fname: 
+    elif "gor" in fname:
         return "raw G/R (%)"
     else:
         return "???"
@@ -146,7 +147,7 @@ def yAxis(fname):
 class MasterPlot:
     def __init__(self,fname):
         """load data from a master CSV file and plot it."""
-        self.fname=fname
+        self.fname=os.path.abspath(fname)
         self.labels,self.data=loadMasterCSV(fname)
         self.groups=labelsToGroups(self.labels)
         self.Xs = self.data[:,0]
@@ -157,15 +158,18 @@ class MasterPlot:
         plt.xlabel("time (seconds)")
         plt.title(os.path.basename(self.fname))
         plt.grid(alpha=.25,ls='--')
-    
-    def close(self,show=True,saveAs=False):
+
+    def close(self,show=False,saveAs=False):
         plt.legend(fontsize=8)
         plt.margins(0,.1)
+        if type(saveAs) is str:
+            if not "/" in saveAs and not "\\" in saveAs:
+                saveAs = self.fname+"_%s.png"%saveAs
+            print('saving',os.path.basename(saveAs),'...')
+            plt.savefig(saveAs,dpi=100)
         if show:
             plt.show()
-        if type(saveAs) is str:
-            plt.savefig(saveAs)
-        plt.close('all')        
+        plt.close('all')
 
     def figure_averageByGroup(self):
         self.new()
@@ -180,15 +184,15 @@ class MasterPlot:
             #plt.plot(self.Xs,thisData,color=color,alpha=.5,lw=1,ls=':')
             plt.fill_between(self.Xs,AV-SE,AV+SE,alpha=.3,color=color,lw=0)
             plt.plot(self.Xs,AV,color=color,alpha=.8,label=group)
-        self.close()
-        
+        self.close(saveAs="averageByGroup")
+
     def figure_sweeps_overlay(self):
         self.new()
         for i in range(1,len(self.data[0])):
             color=pyLineScan.COL(i/len(self.data[0]))
             label=self.labels[i]
             plt.plot(self.Xs,self.data[:,i],alpha=.8,color=color,label=label)
-        self.close()
+        self.close(saveAs="sweepsOverlay")
 
     def figure_sweeps_continuous(self):
         self.new()
@@ -196,15 +200,18 @@ class MasterPlot:
             color=pyLineScan.COL(i/len(self.data[0]))
             label=self.labels[i]
             plt.plot(self.Xs+(self.Xs[-1]*i),self.data[:,i],alpha=.8,color=color,label=label)
-        self.close()
-        
+        self.close(saveAs="sweepsContinuous")
+
 if __name__=="__main__":
-    print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
-    #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell1")
-    #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell2")
-    fname="data/linescans_GoR.csv"
-    MP=MasterPlot(fname)
-    MP.figure_averageByGroup()
-    MP.figure_sweeps_overlay()
-    MP.figure_sweeps_continuous()
+    if len(sys.argv)==2:
+        projectFolder=sys.argv[1]
+        if os.path.exists(projectFolder):
+            print("analyzing 2P linescan cell folder:\n"+projectFolder)
+            Cell(projectFolder)
+        else:
+            print("FOLDER DOES NOT EXIST:\n"+projectFolder)
+    else:
+        print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
+        #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell1")
+        #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell2")
     print("DONE")
