@@ -10,6 +10,8 @@ DIC | Fluorescence | Post Placement
 ---|---|---
 ![](doc/placement/a.jpg)|![](doc/placement/b.jpg)|![](doc/placement/c.jpg)
 
+![](doc/placement/stage.jpg)
+
 ![](data/slice2.csv_graph.png)
 
 ## Data File Format
