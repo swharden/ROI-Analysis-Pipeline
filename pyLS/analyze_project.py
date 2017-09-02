@@ -142,7 +142,7 @@ def yAxis(fname):
     elif "gor" in fname:
         return "raw G/R (%)"
     else:
-        return "???"
+        return "raw PMT value"
 
 class MasterPlot:
     def __init__(self,fname):
