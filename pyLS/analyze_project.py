@@ -20,6 +20,8 @@ import glob
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import datetime
+import pickle
 
 #####################################################################################################
 ### CODE RELATED TO COMBINING / ANALYZING CSV FILES AND DATA ########################################
@@ -34,12 +36,29 @@ class Cell:
             os.mkdir(self.path+"/analysis/")
         self.clearAnalysisFolder()
         self.analyzeLinescans()
+        self.lookupTimeCodes()
         self.masterCSVs()
 
     def clearAnalysisFolder(self):
         print("deleting old analysis files...")
         for fname in glob.glob(self.path+"/analysis/*"):
             os.remove(fname)
+
+    def lookupTimeCodes(self):
+        """figure out when each linescan was obtained."""
+        self.timeCodes={}
+        for folder in sorted(glob.glob(self.path+"/linescans/*")):
+            if os.path.isfile(folder):
+                continue
+            print(folder)
+            xmlFiles=glob.glob(folder+"/*.xml")
+            assert len(xmlFiles)==1, "I see multiple XML files!"
+            with open(xmlFiles[0]) as f:
+                raw=f.read()
+            stamp=raw.split('"')[7]
+            stamp=datetime.datetime.strptime(stamp, '%m/%d/%Y %I:%M:%S %p')
+            self.timeCodes[os.path.basename(folder)]=stamp
+        pickle.dump(self.timeCodes,open(self.path+"/analysis/timeCodes.pkl",'wb'))
 
     def analyzeLinescans(self,reanalyze=False):
         """run pyLineScan.LineScan() on everything in the linescans folder."""
@@ -88,6 +107,7 @@ class Cell:
             MP.figure_averageByGroup()
             MP.figure_sweeps_overlay()
             MP.figure_sweeps_continuous()
+            MP.figure_sweeps_continuous2()
 
 def loadMasterCSV(fname):
     """given a maser CSV file, return [labels, data]"""
@@ -152,6 +172,14 @@ class MasterPlot:
         self.groups=labelsToGroups(self.labels)
         self.Xs = self.data[:,0]
 
+        # figure out the time points in actual time
+        timeCodes = pickle.load(open(os.path.dirname(fname)+"/timeCodes.pkl", "rb" ))
+        timePoints = []
+        for key in sorted(timeCodes.keys()):
+            timePoints.append(timeCodes[key])
+        timePoints = [x-timePoints[0] for x in timePoints]
+        self.XsOffset = [x.seconds for x in timePoints]
+
     def new(self):
         plt.figure(figsize=(8,6))
         plt.ylabel(yAxis(self.fname))
@@ -160,7 +188,7 @@ class MasterPlot:
         plt.grid(alpha=.25,ls='--')
 
     def close(self,show=False,saveAs=False):
-        plt.legend(fontsize=8)
+        plt.legend(fontsize=6)
         plt.margins(0,.1)
         if type(saveAs) is str:
             if not "/" in saveAs and not "\\" in saveAs:
@@ -173,17 +201,19 @@ class MasterPlot:
 
     def figure_averageByGroup(self):
         self.new()
+        colors=pyLineScan.COLORS
+        if len(colors)<len(self.groups.keys()):
+            colors = [pyLineScan.COL(x/len(self.groups.keys())) for x in range(len(self.groups.keys()))]
+
         for i,group in enumerate(sorted(self.groups.keys())):
-            #color=pyLineScan.COL(i/len(groups.keys()))
-            color=pyLineScan.COLORS[i]
             thisData=dataMatching(self.labels,self.data,group)
             group+=" (n=%d)"%len(thisData[0])
             AV=np.average(thisData,axis=1)
             SD=np.std(thisData,axis=1)
             SE=SD/np.math.sqrt(len(thisData[0]))
             #plt.plot(self.Xs,thisData,color=color,alpha=.5,lw=1,ls=':')
-            plt.fill_between(self.Xs,(AV-SE)*100,(AV+SE)*100,alpha=.3,color=color,lw=0)
-            plt.plot(self.Xs,AV*100,color=color,alpha=.8,label=group)
+            plt.fill_between(self.Xs,(AV-SE)*100,(AV+SE)*100,alpha=.3,color=colors[i],lw=0)
+            plt.plot(self.Xs,AV*100,color=colors[i],alpha=.8,label=group)
         self.close(saveAs="averageByGroup")
 
     def figure_sweeps_overlay(self):
@@ -200,7 +230,18 @@ class MasterPlot:
             color=pyLineScan.COL(i/len(self.data[0]))
             label=self.labels[i]
             plt.plot(self.Xs+(self.Xs[-1]*i),self.data[:,i]*100,alpha=.8,color=color,label=label)
+        plt.gca().get_xaxis().set_visible(False)
         self.close(saveAs="sweepsContinuous")
+
+    def figure_sweeps_continuous2(self):
+        self.new()
+        for i in range(1,len(self.data[0])):
+            color=pyLineScan.COL(i/len(self.data[0]))
+            label=self.labels[i]
+            while len(self.XsOffset)<len(self.data[0]):
+                self.XsOffset+=[self.XsOffset[-1]+self.XsOffset[-1]-self.XsOffset[-2]]
+            plt.plot(self.Xs+self.XsOffset[i],self.data[:,i]*100,alpha=.8,color=color,label=label)
+        self.close(saveAs="sweepsContinuous2")
 
 if __name__=="__main__":
     if len(sys.argv)==2:
@@ -212,6 +253,6 @@ if __name__=="__main__":
             print("FOLDER DOES NOT EXIST:\n"+projectFolder)
     else:
         print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
-        #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell1")
+        Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell1")
         #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell2")
     print("DONE")
