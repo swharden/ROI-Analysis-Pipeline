@@ -253,6 +253,5 @@ if __name__=="__main__":
             print("FOLDER DOES NOT EXIST:\n"+projectFolder)
     else:
         print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
-        Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell1")
-        #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17828_Cell2")
+        Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17906016_Cell3_VC20hz")
     print("DONE")
