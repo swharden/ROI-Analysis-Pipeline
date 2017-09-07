@@ -237,7 +237,7 @@ class MasterPlot:
 
         for i,peaks in enumerate(allPeaks):
             color=pyLineScan.COLORS[i]
-            plt.plot(peaks,'-',color=color,lw=3,label=structure)
+            plt.plot(peaks,'-',color=color,lw=3,label=self.structures[i])
             plt.plot(peaks,'o',color='w',mec=color,mew=3,ms=15,markerfacecoloralt='w')
 
         plt.ylabel(yAxis(self.fname))
