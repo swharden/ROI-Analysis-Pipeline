@@ -203,7 +203,7 @@ class MasterPlot:
         self.new()
         colors=pyLineScan.COLORS
         if len(colors)<len(self.groups.keys()):
-            colors = [pyLineScan.COL(x/len(self.groups.keys())) for x in range(len(self.groups.keys()))]
+            colors = [pyLineScan.COL2(x/len(self.groups.keys())) for x in range(len(self.groups.keys()))]
 
         for i,group in enumerate(sorted(self.groups.keys())):
             thisData=dataMatching(self.labels,self.data,group)
@@ -253,5 +253,5 @@ if __name__=="__main__":
             print("FOLDER DOES NOT EXIST:\n"+projectFolder)
     else:
         print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
-        Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17906016_Cell3_VC20hz")
+        Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17906012_Cell2_distence")
     print("DONE")
