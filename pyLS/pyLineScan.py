@@ -21,6 +21,12 @@ def COL(frac):
     #return plt.cm.get_cmap('plasma')(frac*.8+.1)
     #return plt.cm.get_cmap('jet')(frac*.5)
 
+def COL2(frac):
+    #return plt.cm.get_cmap('nipy_spectral')(frac*.4+.10)
+    #return plt.cm.get_cmap('winter')(frac)
+    #return plt.cm.get_cmap('plasma')(frac)
+    return plt.cm.get_cmap('jet')(1-frac)
+
 class LineScan:
     def __init__(self,folder,verbose=False,baseline=None,marks=None,sigma=5,lock_scale=False):
         """
