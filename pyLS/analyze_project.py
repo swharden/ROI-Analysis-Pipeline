@@ -249,6 +249,11 @@ class MasterPlot:
         fTag="z_peaks"
         if normalize:
             fTag+="Normed"
+        maxLen=max([len(x) for x in allPeaks])
+        for i,peaks in enumerate(allPeaks):
+            while len(allPeaks[i])<maxLen:
+                allPeaks[i]=np.concatenate((allPeaks[i],[np.nan]))
+        print(allPeaks)
         np.savetxt("%s_%s.csv"%(self.fname,fTag),allPeaks,fmt='%.05f',delimiter=',',header=", ".join(self.timeNames))
         self.close(saveAs="05_"+fTag,margins=False)
 
@@ -307,13 +312,8 @@ if __name__=="__main__":
     else:
         print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
         for folder in sorted(glob.glob(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\*")):
-            if not "20hz" in folder:
+            if not "17908000_Cell1_mannitol" in folder:
                 continue
             if os.path.exists(folder+"/linescans/"):
                 Cell(folder)
-                #print(folder)
-        #Cell(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17906012_Cell2_distence")
-        #MP=MasterPlot(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\17906016_Cell3_VC20hz\analysis/linescans_GoR.csv")
-        #MP.figure_peaksByGroup()
-        #MP.figure_peaksByGroup()
     print("DONE")

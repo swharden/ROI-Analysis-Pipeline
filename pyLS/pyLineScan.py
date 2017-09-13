@@ -202,7 +202,7 @@ class LineScan:
 
     def refFig(self):
         """convert a TIF reference figure showing the linescan path to a PNG in the analysis folder."""
-        fname=sorted(glob.glob(self.folder+"/References/*Window2*.tif"))[0]
+        fname=sorted(glob.glob(self.folder+"/References/*Window*.tif"))[0]
         fname=os.path.abspath(fname)
         saveAs=os.path.abspath(self.folder+"/analysis/fig_00_ref.png")
         print("converting",fname,'...')
