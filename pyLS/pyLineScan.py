@@ -425,7 +425,7 @@ class LineScan:
     def allFigures(self):
         """automatically generate every figure for a given linescan."""
         self.clean()
-        self.refFig()
+        #self.refFig()
         self.saveData()
         self.figureImg("fig_01_img.png")
         self.figureAvg("fig_02_avg.png")
