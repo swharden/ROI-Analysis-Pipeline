@@ -202,16 +202,17 @@ class LineScan:
 
     def refFig(self):
         """convert a TIF reference figure showing the linescan path to a PNG in the analysis folder."""
-        fname=sorted(glob.glob(self.folder+"/References/*Window*.tif"))[0]
-        fname=os.path.abspath(fname)
-        saveAs=os.path.abspath(self.folder+"/analysis/fig_00_ref.png")
-        print("converting",fname,'...')
-        im = Image.open(fname)
-        #print("enhancing contrast...")
-        #contrast = ImageEnhance.Contrast(im)
-        #im=contrast.enhance(5)
-        im.save(saveAs)
-        print('saved',saveAs)
+        fnames=sorted(glob.glob(self.folder+"/References/*Window*.tif"))
+        for i,fname in enumerate(fnames):
+            fname=os.path.abspath(fname)
+            saveAs=os.path.abspath(self.folder+"/analysis/fig_00%d_ref.png"%i)
+            print("converting",fname,'...')
+            im = Image.open(fname)
+            print("enhancing contrast...")
+            contrast = ImageEnhance.Contrast(im)
+            im=contrast.enhance(1.5)
+            im.save(saveAs)
+            print('saved',saveAs)
 
     def figureDriftDGOR(self,saveAs=False):
         """create a figure to assess drift of dGoR over time."""
