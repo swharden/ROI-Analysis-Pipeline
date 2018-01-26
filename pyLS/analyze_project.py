@@ -163,10 +163,18 @@ class MasterPlot:
         self.path=os.path.abspath(self.fname+'/../../')
         self.labels,self.data=loadMasterCSV(fname)
         self.groups=labelsToGroups(self.labels)
-        self.structures=[x.split("_")[-1] for x in self.groups.keys()]
-        self.structures=sorted(list(set(self.structures)))
-        self.timeNames=[x.split("_")[0][2:] for x in self.groups.keys()]
-        self.timeNames=sorted(list(set(self.timeNames)))
+        self.structures2=[x.split("_")[-1] for x in self.groups.keys()]
+        self.structures=[]
+        for item in self.structures2:
+            if not item in self.structures:
+                self.structures.append(item)
+        #self.structures=sorted(list(set(self.structures)))
+        self.timeNames2=[x.split("_")[0][2:] for x in sorted(self.groups.keys())]
+        self.timeNames=[]
+        for item in self.timeNames2:
+            if not item in self.timeNames:
+                self.timeNames.append(item)
+        #self.timeNames=sorted(list(set(self.timeNames)))
         self.Xs = self.data[:,0]
 
         # figure out the time points in actual time
@@ -223,7 +231,6 @@ class MasterPlot:
 
         allPeaks=[]
         for s,structure in enumerate(self.structures):
-            print()
             peaks=[]
             for i,group in enumerate(sorted(self.groups.keys())):
                 if not group.endswith(structure):
@@ -253,7 +260,7 @@ class MasterPlot:
         for i,peaks in enumerate(allPeaks):
             while len(allPeaks[i])<maxLen:
                 allPeaks[i]=np.concatenate((allPeaks[i],[np.nan]))
-        print(allPeaks)
+        #print(allPeaks)
         np.savetxt("%s_%s.csv"%(self.fname,fTag),allPeaks,fmt='%.05f',delimiter=',',header=", ".join(self.timeNames))
         self.close(saveAs="05_"+fTag,margins=False)
 
