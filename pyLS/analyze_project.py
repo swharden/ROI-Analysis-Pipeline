@@ -296,6 +296,7 @@ class MasterPlot:
             label=self.labels[i]
             plt.plot(self.Xs+(self.Xs[-1]*i),self.data[:,i]*100,alpha=.8,color=color,label=label)
         plt.gca().get_xaxis().set_visible(False)
+        plt.axis([None,None,0,None]) # force raw PMT to display on full scale
         self.close(saveAs="03_sweepsContinuous")
 
     def figure_sweeps_continuous2(self):
