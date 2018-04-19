@@ -1,5 +1,5 @@
 """
-This script was customized to generate graphs from 
+This script was customized to generate graphs from
 calcium imaging data in the AT1/MPO experiments.
 """
 import matplotlib.pyplot as plt
@@ -250,7 +250,9 @@ class TiffVid:
         ax0 = plt.subplot(gs[0])
         img=plt.imread(fnamePic)
         if self.maxIntensity is False:
-            self.maxIntensity=np.percentile(img,99)*1.5
+            # SET BRIGHTNESS AND CONTRAST HERE
+            self.maxIntensity=np.percentile(img,99)*5 # brightness as a multiple of high percentile
+            #self.maxIntensity=np.max(img) # no saturation
             print("SETTING MAX INTENSITY:",self.maxIntensity)
         ax0.imshow(img, zorder=0, cmap='gray', clim=(0, self.maxIntensity))
         roiFile=self.folder+"/RoiSet.zip"
@@ -266,7 +268,7 @@ class TiffVid:
                          color=color,alpha=.5,lw=2)
                 lbl=str(p)
                 if p==0:
-                    lbl="baseline"
+                    lbl="ref"
                 ax0.text(X1+1,Y1+5,str(lbl),va='top',color=color,
                          fontsize=14,fontweight='bold')
 
@@ -315,7 +317,7 @@ class TiffVid:
         plt.close('all')
 
 
-def scriptRun():
+def scriptRun(overwrite=True):
     #path=r"X:\Data\SCOTT\2017-05-10 GCaMP6f\2017-05-10 GCaMP6f PFC OXTR cre\2017-05-31 cell1"
     #path=r"C:\Users\swharden\Documents\temp\seq"
 
@@ -326,8 +328,10 @@ def scriptRun():
             continue
         if not "-animal" in folder:
             continue
+        if not "-animal3-slice1" in folder:
+            continue
         print("\n\n\n","#"*100,"\n"," ANALYZING",folder,"\n","#"*100)
-        if os.path.exists(folder+"/render2.mp4"):
+        if overwrite==False and os.path.exists(folder+"/render2.mp4"):
             print("SKIPPING")
             continue
         else:
