@@ -319,9 +319,16 @@ if __name__=="__main__":
             print("FOLDER DOES NOT EXIST:\n"+projectFolder)
     else:
         print("DO NOT RUN THIS DIRECTLY! THIS BLOCK IS FOR DEVELOPERS/TESTING ONLY")
-        for folder in sorted(glob.glob(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\*")):
-            if not "17908000_Cell1_mannitol" in folder:
-                continue
-            if os.path.exists(folder+"/linescans/"):
-                Cell(folder)
+        folder=R"X:\Data\OT-Cre\calcium-mannitol\2018-04-03 water 2p\18403018"
+        Cell(folder)
+#        for folder in sorted(glob.glob(R"X:\Data\SCOTT\2017-08-28 Mannital 2P\*")):
+#            if not "17908000_Cell1_mannitol" in folder:
+#                continue
+#            if os.path.exists(folder+"/linescans/"):
+#                Cell(folder)
     print("DONE")
+
+
+
+
+
