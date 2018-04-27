@@ -97,6 +97,7 @@ class Cell:
             MP.figure_averageByGroup()
             MP.figure_peaksByGroup()
             MP.figure_peaksByGroup(normalize=True)
+            MP.figure_baselinesByGroup()
             MP.figure_sweeps_overlay()
             MP.figure_sweeps_continuous()
             MP.figure_sweeps_continuous2()
@@ -210,7 +211,7 @@ class MasterPlot:
         plt.grid(alpha=.25,ls='--')
 
     def close(self,show=False,saveAs=False,margins=True):
-        plt.legend(fontsize=6)
+        plt.legend(fontsize=10)
         if margins:
             plt.margins(0,.1)
         if type(saveAs) is str:
@@ -222,10 +223,41 @@ class MasterPlot:
             plt.show()
         plt.close('all')
 
+    def figure_baselinesByGroup(self):
+        plt.figure(figsize=(8,6))
+        plt.grid(alpha=.25,ls='--')
+        allBaselines=[]
+
+        # ANALYSIS
+        for s,structure in enumerate(self.structures):
+            baselines=[]
+            for i,group in enumerate(sorted(self.groups.keys())):
+                if not group.endswith(structure):
+                    continue
+                AV=np.nanmean(dataMatching(self.labels,self.data,group),axis=1)
+                AV=AV[np.isfinite(AV)]
+                # baseline range is 5-15% of total window
+                baselines.append(np.average(AV[int(len(AV)*.05):int(len(AV)*.15)]))
+            allBaselines.append(baselines)
+
+        # PLOTTING
+        for i,baselines in enumerate(allBaselines):
+            color=pyLineScan.COLORS[i]
+            plt.plot(baselines,'-',color=color,lw=3,label=self.structures[i])
+            plt.plot(baselines,'o',color='w',mec=color,mew=3,ms=15,markerfacecoloralt='w')
+        plt.title("Baselines [%s]"%os.path.basename(self.fname))
+        #plt.ylabel("raw PMT value (AFU)")
+        plt.xticks(range(len(baselines)), self.timeNames)
+        self.close(saveAs="06_z_baseline",margins=False)
+
+        # CSV creation
+        np.savetxt("%s_z_baselines.csv"%(self.fname),allBaselines,fmt='%.05f',delimiter=',',header=", ".join(self.timeNames))
+
+
     def figure_peaksByGroup(self,normalize=False):
         plt.figure(figsize=(8,6))
-        plt.title(os.path.basename(self.fname))
-        #plt.grid(alpha=.25,ls='--')
+        plt.title("Peaks [%s]"%os.path.basename(self.fname))
+        plt.grid(alpha=.25,ls='--')
         if normalize:
             plt.axhline(100,color='k',alpha=.5,ls='--')
 
@@ -247,10 +279,11 @@ class MasterPlot:
             plt.plot(peaks,'-',color=color,lw=3,label=self.structures[i])
             plt.plot(peaks,'o',color='w',mec=color,mew=3,ms=15,markerfacecoloralt='w')
 
-        plt.ylabel(yAxis(self.fname))
         if normalize:
             plt.ylabel("normalized [%s] (%%)"%yAxis(self.fname))
             #plt.axis([None,None,0,None])
+        #else:
+            #plt.ylabel("raw PMT value (AFU)")
         plt.xticks(range(len(peaks)), self.timeNames)
         plt.legend()
         fTag="z_peaks"
