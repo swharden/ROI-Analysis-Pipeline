@@ -21,7 +21,23 @@ LineScan(folder,baseline=[1,2]) #manually defines the baseline region as between
 LineScan(folder,marks=None) #bypasses automatic feature detection, markers to pixels 10 and 20
 LineScan(folder,sigma=10) #applies a 10 pixel horizontal gaussian blur to the image to smooth its data
 ```
-## Actual Data Output Folders 
+
+### Launching from Command Line
+
+Give it a single argument - the path to a 2P LineScan folder right off the microscope:
+```bash
+python analyze_project.py "/path/to/LineScan"
+```
+
+I prefer creating a batch file with full file paths, something like:
+```bash
+"C:\Users\swharden\AppData\Local\Continuum\Anaconda3\python.exe" "C:\Users\shengwanhui\Documents\GitHub\ROI-Analysis-Pipeline\pyLS\analyze_project.py" "X:\Data\SD\PVN mannital\07-09-2018 lactating rat PVN\07-16-2018 MCN MT 2P\18723030"
+pause
+```
+
+## Sample Data
+
+### Sample Data Output Folders 
 * [LineScan-06092017-1414-619](../data/linescan/realistic/LineScan-06092017-1414-619/analysis) <-- single linescan
 * [LineScan-06092017-1414-620](../data/linescan/realistic/LineScan-06092017-1414-620/analysis) <-- single linescan
 * [LineScan-06092017-1414-621](../data/linescan/realistic/LineScan-06092017-1414-621/analysis) <-- single linescan
@@ -30,7 +46,7 @@ LineScan(folder,sigma=10) #applies a 10 pixel horizontal gaussian blur to the im
 * [LineScan-06162017-1223-628](../data/linescan/realistic/LineScan-06162017-1223-628/analysis) <-- repeated linescans
 * [LineScan-06162017-1223-636](../data/linescan/realistic/LineScan-06162017-1223-628/analysis) <-- repeated linescans
 
-## Example Output Figures (LineScan-06162017-1223-636)
+### Sample Data Output Figures (LineScan-06162017-1223-636)
 ![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_01_img.png)
 ![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_02_avg.png)
 ![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_03_drift1.png)
