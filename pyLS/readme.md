@@ -8,13 +8,17 @@ pyLineScan is a Python module intended to make it easy to access, analyze, and d
 * **Automatic figure creation** is simple since most LineScans are analyzed for the same things. Pre-programmed figures are included in the core class and figures can be generated with minimal effort.
 * **Automatic CSV file output** saves red (data_R.csv), green (data_G.csv), green/red (data_GoR.csv), and baseline-subtracted delta green/red (data_dGoR.csv) automatically for every linescan analyzed. These CSV files are ready to copy/paste into another analysis suite such as Matlab or OriginLab.
 
-### Example Usage
+## Usage
+
+### Within Python
+
+#### Quickstart
 ```Python
 import pyLineScan
 LS=PyLineScan.LineScan('/path/to/LineScan/')
 LS.allFigures()
 ```
-### Optional Arguments
+#### Optional Arguments
 To generate figures and CSV files for a LineScan folder, just create an `LineScan` class instance by feeding it the path to the LineScan folder. A few optional arguments are included here. See the library documentation for details.
 ```python
 LineScan(folder,baseline=[1,2]) #manually defines the baseline region as between 1 and 2 seconds
@@ -35,7 +39,9 @@ I prefer creating a batch file with full file paths, something like:
 pause
 ```
 
-## Sample Data
+A sample batch file is provided: [analyze_project.bat](analyze_project.bat)
+
+## Sample Output
 
 ### Sample Data Output Folders 
 * [LineScan-06092017-1414-619](../data/linescan/realistic/LineScan-06092017-1414-619/analysis) <-- single linescan
