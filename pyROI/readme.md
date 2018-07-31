@@ -52,18 +52,24 @@ Before automatic analysis can occur, ROIs must be defined and saved. This must b
 
 * delete any images in `video/` which don't have the proper filename
 * drag/drop a cell's `video/` folder onto ImageJ
-* drag/drop the [default ROI set](RoiSet-default.zip) onto ImageJ
+* drag/drop the [default ROI set zip](RoiSet-default.zip) onto ImageJ (drag/drop the zip file itself)
 * check the "show all" box to simplify your life
+* While moving ROIs, be careful only to drag them and never to resize them
 * Place the first ROI (the big one) over _background_ which does not change with drug
 * Place every other ROI over whatever you intend to measure
-* Select all ROIs (critically important), press "More", select "Save"
+* Select the ROI window, Select all ROIs with CTRL+A, press "More", select "Save"
 * Save in the root slice folder (not the video folder) as `RoiSet.zip`
-* Press "More", select "multi-measure".
+* Press "More", select "multi-measure", and accept the default checkboxes
+* If columns other than "mean" are created, click "analyze", "set measurements", and only select "mean"
 * Save the output in the root slice folder (not the video folder) as `Results.xls` (not CSV)
 * Close all FIJI images and close the ROI window.
-* Repeat until all slice folders have `RoiSet.zip` and `Results.xls`.
+* Repeat until all slice folders have `RoiSet.zip` and `Results.xls`
 
-### Create Graphs and Videos
+### Create Graphs
+Launch the [makeAllGraphs.py](makeAllGraphs.py) script with the path to the high-level experiment folder as its only argument. 
 
-### Batch Script
-I usually create a batch script to launch Python me and give my scripts the correct arguments. An example analysis batch file is [`analyze_folder.bat`](analyze_folder.bat).
+```bash
+"C:\path\to\python.exe" "C:\path\to\makeAllGraphs.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data"
+```
+
+This could be launched with a batch script (I suggest adding a `pause` command at the end).
