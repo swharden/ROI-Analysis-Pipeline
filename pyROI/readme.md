@@ -65,11 +65,37 @@ Before automatic analysis can occur, ROIs must be defined and saved. This must b
 * Close all FIJI images and close the ROI window.
 * Repeat until all slice folders have `RoiSet.zip` and `Results.xls`
 
-### Create Graphs
-Launch the [makeAllGraphs.py](makeAllGraphs.py) script with the path to the high-level experiment folder as its only argument. 
+### Create dF/F Graphs
+This part is optional, since `Results.xls` saved in the previous step could be imported directly into Origin. However, the end of this script updates an XLS file in the root experiment folder to produce a large XLS file with one column per slice (pulling in each slice's individual results file), so this section may be desired so the output XLS could be imported to Origin.
+
+* Launch the [makeAllGraphs.py](makeAllGraphs.py) script with the path to the high-level experiment folder as its only argument. 
+* This usually runs very fast and can be run routinely
+* This could be launched with a batch script (I suggest adding a `pause` command at the end).
+* To re-render a slice's graphs:
+  * Delete `dataAvg.csv` and `dataRaw.csv` from the slice folder
+  * Delete the `swhlab` folder in the slice folder
 
 ```bash
 "C:\path\to\python.exe" "C:\path\to\makeAllGraphs.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data"
 ```
 
-This could be launched with a batch script (I suggest adding a `pause` command at the end).
+### Create Annotated Video
+This part is extremely optional. Video is only useful for experiment inspection on the website, or to produce an occasional clip for a powerpoint file.
+
+* Just like the previous python script, run this one with the master path as a single argument.
+* This usually runs **very slow** and should be run carefully
+* This could be launched with a batch script (I suggest adding a `pause` command at the end).
+* Brightness can be tweaked by editing the `brightness=` line at the bottom of the script
+* To re-render a slice's video (such as after modifying brightness):
+  * Delete the `video.mp4` file in the slice folder
+  * Delete the `video2` folder in the slice folder
+  * Re-run the Python script
+
+```
+"C:\path\to\python.exe" "C:\path\to\makeAllVideos.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data"
+```
+
+### Viewing Experiments on the Website
+Since the folder architecture is highly defined, an [`index.php`](index.php) has been created to browse the experiment folder. If you have multiple experiment folders, drop [`index.php`](index.php) in the root of each folder and navigate to that folder on the website.
+
+* The X-drive folder structure can be accessed via [http://192.168.1.9/X/](http://192.168.1.9/X/)

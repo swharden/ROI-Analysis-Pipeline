@@ -106,16 +106,16 @@ foreach($folders as $folder){
 
     // everything in root folder
     foreach (scandir($folder) as $fname){
-        if (!strpos($fname,".png")) continue;
+        if (!(strpos($fname,".png") || strpos($fname,".jpg"))) continue;
         $url="$folder/$fname";
-        echo "<a target='_blank' href='$url'><img style='margin: 10px;' src='$url' height='300'></a> ";
+        echo "<a target='_blank' href='$url'><img style='border: 1px solid black; margin: 10px;' src='$url' height='300'></a> ";
     }
 
     // everything in SWHLab folder
     foreach (scandir($folder."/swhlab") as $fname){
-        if (!strpos($fname,".png")) continue;
+        if (!(strpos($fname,".png") || strpos($fname,".jpg"))) continue;
         $url="$folder/swhlab/$fname";
-        echo "<a target='_blank' href='$url'><img style='margin: 10px;' src='$url' height='300'></a> ";
+        echo "<a target='_blank' href='$url'><img style='border: 1px solid black; margin: 10px;' src='$url' height='300'></a> ";
     }
 
     echo "</div>";
