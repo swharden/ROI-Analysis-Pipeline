@@ -108,7 +108,7 @@ Since the folder architecture is highly defined, an [`index.php`](index.php) has
 
 * The X-drive folder structure can be accessed via [http://192.168.1.9/X/](http://192.168.1.9/X/)
 
-### Creating Fancy Videoes
+### Creating Fancy Videos
 This has virtually no utility outside of producing 1 representative video for a powerpoint. This code is very complex, requires manual modification, and should not be run routinely. It is available in [makeFancyVideo.py](makeFancyVideo.py)
 
 ![](makeFancyVideo.png)
