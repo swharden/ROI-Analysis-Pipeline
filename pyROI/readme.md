@@ -44,9 +44,10 @@ Create an `experiment.txt` file in every sub folder. Describe what you did for e
 * Analysis requires FIJI
   * Use FIJI (https://fiji.sc), which I refer to as ImageJ.
   * Before using it select "Analyze", "set measurements", and only select "mean".
-* Analysis requires Python
-  * I use [Anaconda](https://www.anaconda.com/download/) (Python 3.6.1)
-
+* Analysis requires
+  * Python - I suggest [Anaconda](https://www.anaconda.com/download/)
+  * FFMPG - [download FFMPG](https://www.ffmpeg.org/download.html)
+  
 ### Define and Measure ROIs
 Before automatic analysis can occur, ROIs must be defined and saved. This must be done individually for every slice folder.
 
