@@ -59,6 +59,7 @@ Before automatic analysis can occur, ROIs must be defined and saved. This must b
 * Place every other ROI over whatever you intend to measure
 * Select the ROI window, Select all ROIs with CTRL+A, press "More", select "Save"
 * Save in the root slice folder (not the video folder) as `RoiSet.zip`
+* I often screenshot the window (showing all the squares) and save it as `RoiSet.png` in the same folder
 * Press "More", select "multi-measure", and accept the default checkboxes
 * If columns other than "mean" are created, click "analyze", "set measurements", and only select "mean"
 * Save the output in the root slice folder (not the video folder) as `Results.xls` (not CSV)
