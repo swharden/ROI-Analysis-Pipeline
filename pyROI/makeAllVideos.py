@@ -59,11 +59,17 @@ def video_create_mp4(folder, recalculate=False):
 if __name__ == "__main__":
 
     # the folder to analyze is usually given as a command line argument
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         print("ERROR: launch with an argument (path to master experiment folder)")
         raise ValueError
     else:
         folderOfExperiments = sys.argv[1]
+
+    # load brightness as an argument
+    brightness = 10
+    if len(sys.argv)>=3:
+        brightness = int(sys.argv[2])
+    print("Setting brightness:", brightness)
 
     # you can override that behavior here
     # folderOfExperiments = "X:\Data\AT1-Cre\MPO GCaMP6f\data"
@@ -84,6 +90,6 @@ if __name__ == "__main__":
                 print(path, " - ### ANALYZING NOW ###")
 
                 # SET BRIGHTNESS HERE
-                video_tif_to_bmp(path, brightness=10, recalculate=recalculate)
+                video_tif_to_bmp(path, brightness=brightness, recalculate=recalculate)
                 video_create_mp4(path, recalculate=recalculate)
     print("DONE")

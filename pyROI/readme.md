@@ -97,6 +97,12 @@ This part is extremely optional. Video is only useful for experiment inspection 
 "C:\path\to\python.exe" "C:\path\to\makeAllVideos.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data"
 ```
 
+To customize brightness, add an extra argument. The default is 10.
+
+```
+"C:\path\to\python.exe" "C:\path\to\makeAllVideos.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data" 20
+```
+
 ### Viewing Experiments on the Website
 Since the folder architecture is highly defined, an [`index.php`](index.php) has been created to browse the experiment folder. If you have multiple experiment folders, drop [`index.php`](index.php) in the root of each folder and navigate to that folder on the website.
 
