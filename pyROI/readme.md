@@ -46,7 +46,7 @@ Create an `experiment.txt` file in every sub folder. Describe what you did for e
   * Before using it select "Analyze", "set measurements", and only select "mean".
 * Analysis requires
   * Python - I suggest [Anaconda](https://www.anaconda.com/download/)
-  * FFMPG - [download FFMPG](https://www.ffmpeg.org/download.html)
+  * FFMPG - [Windows builds page](https://ffmpeg.zeranoe.com/builds/) ([main website](https://www.ffmpeg.org))
   
 ### Define and Measure ROIs
 Before automatic analysis can occur, ROIs must be defined and saved. This must be done individually for every slice folder.
