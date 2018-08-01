@@ -81,7 +81,7 @@ This part is optional, since `Results.xls` saved in the previous step could be i
 "C:\path\to\python.exe" "C:\path\to\makeAllGraphs.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data"
 ```
 
-### Create Annotated Video
+### Create Data Video
 This part is extremely optional. Video is only useful for experiment inspection on the website, or to produce an occasional clip for a powerpoint file.
 
 * Just like the previous python script, run this one with the master path as a single argument.
@@ -107,3 +107,8 @@ To customize brightness, add an extra argument. The default is 10.
 Since the folder architecture is highly defined, an [`index.php`](index.php) has been created to browse the experiment folder. If you have multiple experiment folders, drop [`index.php`](index.php) in the root of each folder and navigate to that folder on the website.
 
 * The X-drive folder structure can be accessed via [http://192.168.1.9/X/](http://192.168.1.9/X/)
+
+### Creating Fancy Videoes
+This has virtually no utility outside of producing 1 representative video for a powerpoint. This code is very complex, requires manual modification, and should not be run routinely. It is available in [makeFancyVideo.py](makeFancyVideo.py)
+
+![](makeFancyVideo.png)
