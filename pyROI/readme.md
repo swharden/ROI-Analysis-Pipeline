@@ -1,11 +1,11 @@
 # GCaMP6f Analysis
 
 ## Folder Arrangement
-There is a master experiment folder. This this example it is:
+The master experiment folder houses all experiments for a project. Example:
 ```
 X:\Data\AT1-Cre\MPO GCaMP6f\data
 ```
-The master folder probably contains an index.php. Copy/paste this into the master folder as necessary to utilize the lab website. A demo [`index.php`](index.php) is provided. For convenience, I also store a [default ROI set](RoiSet-default.zip) in this location.
+The master folder probably contains [`index.php`](index.php) which allows it to be navigated easily on the website.  This file can be copy/pasted into new master folders. For convenience, I also store a [RoiSet-default.zip](RoiSet-default.zip) in the master folder.
 
 Inside the master folder are sub-folders, one for each different slice analyzed:
 ```
@@ -67,9 +67,11 @@ Before automatic analysis can occur, ROIs must be defined and saved. This must b
 * Close all FIJI images and close the ROI window.
 * Repeat until all slice folders have `RoiSet.zip` and `Results.xls`
 
-### Create dF/F Graphs
-This part is optional, since `Results.xls` saved in the previous step could be imported directly into Origin. However, the end of this script updates an XLS file in the root experiment folder to produce a large XLS file with one column per slice (pulling in each slice's individual results file), so this section may be desired so the output XLS could be imported to Origin.
+### dF/F Analysis
+So far `Results.xls` (saved in the previous step) cotains _raw pixel intensity_ data organized by ROI. For a meaningful calcium signal it must be converted into dF/F units. This step does this conversion and creates useful graphs in the process.
 
+ `dataAvg.csv` and `dataRaw.csv` are both created in this step. Either could be drag-dropped into Origin. However, every time this script is run all CSV files from all subfolders are combined into a master CSV in the master folder (one folder up). It is this master file which is ideally imported into Origin.
+ 
 * Launch the [makeAllGraphs.py](makeAllGraphs.py) script with the path to the high-level experiment folder as its only argument. 
 * This usually runs very fast and can be run routinely
 * This could be launched with a batch script (I suggest adding a `pause` command at the end).
