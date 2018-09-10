@@ -85,7 +85,7 @@ So far `Results.xls` (saved in the previous step) cotains _raw pixel intensity_ 
 
 The "all" argument can be added to force re-analysis of everything:
 ```bash
-"C:\path\to\python.exe" "C:\path\to\makeAllGraphs.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data" ALL
+"C:\path\to\python.exe" "C:\path\to\makeAllGraphs.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data" REANALYZE
 ```
 
 ### Create Simple Videos

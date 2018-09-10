@@ -201,7 +201,7 @@ if __name__ == "__main__":
         raise ValueError(f"Folder does not exist: {givenFolder}")
 
     # set this if you want to forcefully re-analyze all data for the project
-    if len(sys.argv)>2 and sys.argv[2].upper() == "ALL":
+    if len(sys.argv)>2 and sys.argv[2].upper() == "REANALYZE":
         recalculate = True
     else:
         recalculate = False
