@@ -83,6 +83,11 @@ So far `Results.xls` (saved in the previous step) cotains _raw pixel intensity_ 
 "C:\path\to\python.exe" "C:\path\to\makeAllGraphs.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data"
 ```
 
+The "all" argument can be added to force re-analysis of everything:
+```bash
+"C:\path\to\python.exe" "C:\path\to\makeAllGraphs.py" "X:\Data\AT1-Cre\MPO GCaMP6f\data" ALL
+```
+
 ### Create Simple Videos
 This part is extremely optional. Video is only useful for experiment inspection on the website, or to produce an occasional clip for a powerpoint file.
 

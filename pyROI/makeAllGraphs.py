@@ -191,7 +191,7 @@ SUCCESS=R"""
 if __name__ == "__main__":
 
     # require a folder path as a command line argument
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         print(f"ERROR: {__file__} requires an argument (folder path)")
         raise ValueError
     else:
@@ -201,7 +201,10 @@ if __name__ == "__main__":
         raise ValueError(f"Folder does not exist: {givenFolder}")
 
     # set this if you want to forcefully re-analyze all data for the project
-    recalculate = False
+    if len(sys.argv)>2 and sys.argv[2].upper() == "ALL":
+        recalculate = True
+    else:
+        recalculate = False
     
     # determine if the path is an experiment folder or a folder of experiment folders
     if os.path.exists(os.path.join(givenFolder,"video")):
