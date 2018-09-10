@@ -16,7 +16,7 @@ def plotDataLines(times, data, AVG, ERR, b1, b2, title, showLines=False, showAvg
     plt.figure(figsize=(8, 6))
     plt.grid(alpha=.4, ls='--')
     plt.axvspan(b1, b2, color='b', alpha=.1, label="baseline", lw=0)
-    plt.axvspan(10, 13, color='r', alpha=.1, label="ANG-II", lw=0)
+    #plt.axvspan(10, 13, color='r', alpha=.1, label="ANG-II", lw=0)
     plt.axhline(0, color='k', ls='--')
     if len(times)<len(data):
         print(f"There's a time point mismatch!")
