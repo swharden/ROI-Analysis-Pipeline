@@ -208,7 +208,7 @@ if __name__ == "__main__":
     
     # determine if the path is an experiment folder or a folder of experiment folders
     if os.path.exists(os.path.join(givenFolder,"video")):
-        print("Folder does not have a video/ folder")
+        print("Folder has a video/ folder")
         print("It will be analyzed as an experiment folder")
         print("\n\n### Analyzing experiment 1 of 1 ###")
         analyzeExperimentFolder(givenFolder, recalculate)
