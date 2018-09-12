@@ -100,6 +100,7 @@ def makeMasterCSV(folderOfExperiments, fname="dataRaw.csv"):
     combines all of a certain CSV file in each subfolder into a master CSV 
     file ready for Origin import.
     """
+    raise NotImplementedError("we dont use this function anymore.")
     print("\n\n###","Merging every dataRaw.csv into ALL_dataRaw.csv","###")
     print(f"reading every {fname} file in {folderOfExperiments} ...")
     allData = False
@@ -112,13 +113,15 @@ def makeMasterCSV(folderOfExperiments, fname="dataRaw.csv"):
         if not os.path.exists(dataFile):
             continue
         data = np.loadtxt(dataFile, delimiter=',', dtype=object)
-        labelsROI = ["ROI-%02d" % (x+1) for x in range(len(data[0]))]
-        labelsUnits = ["dF/F" for x in range(len(data[0]))]
+        print("data shape:", data.shape)
+        nLabels = len(data)
+        labelsROI = ["ROI-%02d" % (x+1) for x in range(nLabels)]
+        labelsUnits = ["dF/F" for x in range(nLabels)]
         labelsLong = [os.path.basename(path)+"-"+x for x in labelsROI]
         data = np.insert(data, 0, labelsROI, axis=0)
         data = np.insert(data, 0, labelsUnits, axis=0)
         data = np.insert(data, 0, labelsLong, axis=0)
-        data2 = np.full((500, 10), '', dtype=object)
+        data2 = np.full((500, nLabels), '', dtype=object)
         for i in range(len(data)):
             data2[i] = data[i]
         if allData is False:
@@ -190,6 +193,9 @@ SUCCESS=R"""
 
 if __name__ == "__main__":
 
+    # uncomment the next line to simulate a command line argument
+    #sys.argv = ["Python", R"X:\Data\AT1-Cre\MPO GCaMP6f\data\18-09-07-animal2-slice1-NaCl - OVLT", "REANALYZE"]
+    
     # require a folder path as a command line argument
     if len(sys.argv) < 2:
         print(f"ERROR: {__file__} requires an argument (folder path)")
@@ -213,7 +219,6 @@ if __name__ == "__main__":
         print("\n\n### Analyzing experiment 1 of 1 ###")
         analyzeExperimentFolder(givenFolder, recalculate)
         masterFolder = os.path.dirname(givenFolder)
-        makeMasterCSV(masterFolder)
     else:
         print("Folder does not have a video/ folder")
         print("It will be treated as a folder of experiment folders")
@@ -226,5 +231,4 @@ if __name__ == "__main__":
         for i,experimentFolder in enumerate(experimentFolders):
                 print("\n\n### Analyzing experiment %d of %d ###"%(i+1, len(experimentFolders)))
                 analyzeExperimentFolder(experimentFolder, recalculate)
-        makeMasterCSV(masterFolder)    
     print(SUCCESS,"\n  Analysis completed successfully.\n\n")
