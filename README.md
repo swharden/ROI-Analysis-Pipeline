@@ -11,6 +11,7 @@ Project | Description
 **[pyLS](pyLS)** | Python scripts to generate dF/F graphs from linescan data. Code here is independent of (but complementary to) boshLS. Code here is actively used to analyze two-photon linescans.
 **[pyFiber](pyFiber)** | Python scripts related to analysis of calcium signals using Doric photo photmetry equipment. Code here is under-developed and not actively used.
 **[SWH2P](SWH2P)** | Python API to data created by PrairieView multiphoton imaging software.
+**[imageDelta](imageDelta)** | Python script to create 2D arrays representing average baseline and drug images from a video folder (TIF series), then display the difference as a heatmap.
 
 ## Screenshots
 
@@ -20,6 +21,6 @@ Project | Description
 
 ![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_02_avg.png)
 
-![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_03_drift1.png)
-
 ![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_04_drift2.png)
+
+![](imageDelta/demo/analysis_02_NaCl.png)
