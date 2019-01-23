@@ -13,6 +13,13 @@ Project | Description
 **[SWH2P](SWH2P)** | Python API to data created by PrairieView multiphoton imaging software.
 **[imageDelta](imageDelta)** | Python script to create 2D arrays representing average baseline and drug images from a video folder (TIF series), then display the difference as a heatmap.
 
+## Notes
+### Convert a folder of BMP files to MP4
+You can use a GUI [ffmpeg-batch](https://sourceforge.net/projects/ffmpeg-batch/) or command line:
+```
+ffmpeg.exe -framerate 10 -y -i "C:/input/frame_%%07d.bmp" -c:v libx264 -pix_fmt yuv420p "C:/output/file.mp4"
+```
+
 ## Screenshots
 
 ![](pyLS/screenshot.png)
