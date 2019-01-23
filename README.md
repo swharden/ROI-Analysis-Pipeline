@@ -19,6 +19,11 @@ Export as an image series, BMP, named "frame", starting at 0, with 4 digits.
 ```
 ffmpeg.exe -framerate 10 -y -i "C:/input/frame%04d.bmp" -c:v libx264 -pix_fmt yuv420p "C:/output/file.mp4"
 ```
+Or get fancy with a multiline batch file:
+```batch
+SET VIDPATH=X:\Data\SD\NTS GCaMP CART\2019-01-23 design\2019-01-23-slice-green\TSeries-01232019-1447-1378\video
+ffmpeg.exe -framerate 20 -y -i "%VIDPATH%\frame%04d.tif" -c:v libx264 -pix_fmt yuv420p "%VIDPATH%\video.mp4"
+```
 
 ## Screenshots
 
