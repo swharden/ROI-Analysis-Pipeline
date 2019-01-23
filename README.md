@@ -15,9 +15,9 @@ Project | Description
 
 ## Notes
 ### Convert a folder of BMP files to MP4
-You can use a GUI [ffmpeg-batch](https://sourceforge.net/projects/ffmpeg-batch/) or command line:
+Export as an image series, BMP, named "frame", starting at 0, with 4 digits.
 ```
-ffmpeg.exe -framerate 10 -y -i "C:/input/frame_%%07d.bmp" -c:v libx264 -pix_fmt yuv420p "C:/output/file.mp4"
+ffmpeg.exe -framerate 10 -y -i "C:/input/frame%%04d.bmp" -c:v libx264 -pix_fmt yuv420p "C:/output/file.mp4"
 ```
 
 ## Screenshots
