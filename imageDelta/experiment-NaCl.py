@@ -29,7 +29,13 @@ if __name__ == "__main__":
 
     # analyze each experiment folder
     for folder in folders:
+        if os.path.exists(folder+"/analysis_01_intensityOverTime.png"):
+            print("Skipping already-analyzed folder:", os.path.basename(folder))
+            continue
         folderPath = os.path.join(folder,"video")
+        if not os.path.exists(folderPath):
+            print("Skipping path without a video folder:", os.path.basename(folder))
+            continue
         print(f"\n\nANALYZING: {folderPath}")
         drugs = []
         drugs.append(id.Drug("NaCl", id.drugFrameFromFileList(10, folderPath)))
