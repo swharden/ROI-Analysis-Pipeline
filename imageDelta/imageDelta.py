@@ -117,6 +117,7 @@ def graphDrugExperiment(drugs, folderPath):
     for drug in drugs:
         assert isinstance(drug, Drug)
     parentFolder = os.path.dirname(folderPath)
+    experimentName = os.path.basename(folderPath)
 
     # create time course graph
     intensities = imageSeriesIntensityByFrame(folderPath)
@@ -131,7 +132,7 @@ def graphDrugExperiment(drugs, folderPath):
     plt.xlabel("Frame Number")
     plt.tight_layout()
     plt.legend()
-    imgFname = os.path.abspath(parentFolder+"/analysis_01_intensityOverTime.png")
+    imgFname = os.path.abspath("%s/%s_01_intensityOverTime.png"%(parentFolder, experimentName))
     plt.savefig(imgFname)
     plt.close()
     print("Saved", imgFname)
@@ -139,7 +140,7 @@ def graphDrugExperiment(drugs, folderPath):
     # create an intensity change image for every drug application
     for i,drug in enumerate(drugs):
         assert isinstance(drug, Drug)
-        imgFname = os.path.abspath(parentFolder+"/analysis_%02d_%s.png"%(i+2, drug.drugName))
+        imgFname = os.path.abspath("%s/%s_%02d_%s.png"%(parentFolder, experimentName, i+2, drug.drugName))
         imageDelta(folderPath, drug.frames, drug.drugName, imgFname)
         plt.close()
         print("Saved", imgFname)
@@ -154,9 +155,14 @@ def drugFrameFromFileList(timeMinutes, folderPath):
     fnames = sorted(glob.glob(folderPath+"/*.tif"))
     fnames = [os.path.basename(x) for x in fnames]
     fnames = [x.lower().replace(".tif",'') for x in fnames]
-    fnames = [float(x) for x in fnames]
-    times = np.array(fnames)
-    times = times - times[0]
+    try:
+        # get file time from filename (epoch seconds)
+        fnames = [float(x) for x in fnames]
+        times = np.array(fnames)
+        times = times - times[0]
+    except:
+        # assume framerate is 1hz
+        times = np.arange(len(fnames))
     timesMin = times / 60
     drugFrame = -1
     for i, timeMin in enumerate(timesMin):
