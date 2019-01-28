@@ -7,11 +7,10 @@ The **imageDelta** project takes a folder of single-image TIFs, allows the user 
 import imageDelta as id
 folderPath = R"X:\some\path\to\video"
 drugs = []
-drugs.append(id.Drug("NaCl", id.drugFrameFromFileList(10, folderPath)))
-drugs.append(id.Drug("AngII", id.drugFrameFromFileList(20, folderPath)))
+drugs.append(id.Drug("drug1", id.drugFrameFromFileList(10, folderPath)))
+drugs.append(id.Drug("drug2", id.drugFrameFromFileList(20, folderPath)))
 id.graphDrugExperiment(drugs, folderPath)
 ```
 
-![](demo/analysis_01_intensityOverTime.png)
-![](demo/analysis_02_NaCl.png)
-![](demo/analysis_03_AngII.png)
+![](demo/drug0.png)
+![](demo/drug1.png)
