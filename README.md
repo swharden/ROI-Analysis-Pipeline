@@ -1,7 +1,5 @@
 # ROI Analysis Pipeline
-This project contains Python scripts and R packages written to facilitate analysis of fluorescent micrographs for the purpose of biomedical research. Although code in this project can be interacted with directly for the purpose of data exploration, care is taken to ensure these scripts can also be run in a fully-automated manner allowing them to serve as individual component in a data analysis pipeline or be executed by a web-based data browsing front-end (i.e., [SWHLabPHP](https://github.com/swharden/SWHLabPHP)). Data analyzed by these routines are typically related to calcium reporting fluorophores (i.e., Fluo-4, Fluo-4 AM, Fluo-5, GCaMP6) obtained with a traditional epifluroesecnce or two-photon scanning laser microscope.
-
-These projects are collaboratively written and maintained by [Scott Harden](https://github.com/swharden) and [Beronica Ocasio](https://github.com/beronicao).
+This project contains code (Python and R) for analyzing regions of interest (ROIs) in fluorescent micrographs. Analyses are typically related to calcium-sensitive fluorophores (Fluo-5, GCaMP6, etc.).
 
 Project | Description
 ---|---
@@ -10,29 +8,14 @@ Project | Description
 **[bosh2P](bosh2P)**  | R Package designed to analyze sub-cellular calcium transients in neurons from two-photon linescans simultaneously imaging Fluo-5f and Alexa Fluor 594. Calcium fluctuations are reported as the ratio of these two fluorophores.
 **[pyLS](pyLS)** | Python scripts to generate dF/F graphs from linescan data. Code here is independent of (but complementary to) boshLS. Code here is actively used to analyze two-photon linescans.
 **[pyFiber](pyFiber)** | Python scripts related to analysis of calcium signals using Doric photo photmetry equipment. Code here is under-developed and not actively used.
-**[SWH2P](SWH2P)** | Python API to data created by PrairieView multiphoton imaging software.
+**[Prairie2P](SWH2P)** | Python API to data created by PrairieView multiphoton imaging software.
 **[imageDelta](imageDelta)** | Python script to create 2D arrays representing average baseline and drug images from a video folder (TIF series), then display the difference as a heatmap.
+**[ImageJ ROI Analysis](ijp)** | Python modules for analyzing ΔF/F data from CSV files created with ImageJ's multi-measure tool
 
-## Notes
-### Convert a folder of BMP files to MP4
-Export as an image series, BMP, named "frame", starting at 0, with 4 digits.
-```
-ffmpeg.exe -framerate 10 -y -i "C:/input/frame%04d.bmp" -c:v libx264 -pix_fmt yuv420p "C:/output/file.mp4"
-```
-Or get fancy with a multiline batch file:
-```batch
-SET VIDPATH=X:\Data\SD\NTS GCaMP CART\2019-01-23 design\2019-01-23-slice-green\TSeries-01232019-1447-1378\video
-ffmpeg.exe -framerate 20 -y -i "%VIDPATH%\frame%04d.tif" -c:v libx264 -pix_fmt yuv420p "%VIDPATH%\video.mp4"
-```
+## Sample
 
-## Screenshots
+![](data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_01_img.png)
 
-![](pyLS/screenshot.png)
+![](data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_02_avg.png)
 
-![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_01_img.png)
-
-![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_02_avg.png)
-
-![](/data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_04_drift2.png)
-
-![](imageDelta/demo/analysis_02_NaCl.png)
+![](ijp/screenshot-heatmap.png)
