@@ -178,8 +178,6 @@ class ROI:
         Time, Response, Roi1, Roi2, Roi3, ...
         """
         df = self.dff.copy()
-        df.insert(0, "Time (sec)", np.arange(len(df)) * .9)
-        df.insert(0, "Frame (#)", range(len(df)))
 
         dffColumnNames = [x for x in self.roiNames]
 
@@ -191,7 +189,7 @@ class ROI:
         lines.append("Frame (#),Time (sec)," + ",".join(dffColumnNames))
         for i in range(self.dff.shape[0]):
             frameNumber = i + 1
-            frameTime = i * 0.123
+            frameTime = i * self.framePeriod
             roiValues = ",".join([f"{x: .5f}" for x in self.dff.iloc[i]])
             lines.append(f"{frameNumber},{frameTime},{roiValues}")
 
