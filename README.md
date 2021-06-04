@@ -18,4 +18,4 @@ Project | Description
 
 ![](data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_02_avg.png)
 
-![](ijp/screenshot-heatmap.png)
+![](data/misc/screenshot-heatmap.png)
