@@ -126,7 +126,7 @@ class ROI:
             data = self.dff.transpose()
 
         plt.imshow(data,
-                   extent=[self.dff.shape[0]*self.framePeriod, 0,
+                   extent=[0, self.dff.shape[0]*self.framePeriod,
                            self.dff.shape[1], 0],
                    cmap=plt.get_cmap(colormap),
                    interpolation='nearest', aspect='auto')
