@@ -11,6 +11,7 @@ Project | Description
 **[Prairie2P](SWH2P)** | Python API to data created by PrairieView multiphoton imaging software.
 **[imageDelta](imageDelta)** | Python script to create 2D arrays representing average baseline and drug images from a video folder (TIF series), then display the difference as a heatmap.
 **[ImageJ ROI Analysis](ijp)** | Python modules for analyzing ΔF/F data from CSV files created with ImageJ's multi-measure tool
+**[ZRatio](ZRatio)** | A standalone Windows application for reading PrairieView ZStack folders containing two-channel images, creating maximum projections, and displaying ratiometric analyses of regions of interest (ROIs).
 
 ## Sample
 
@@ -19,3 +20,5 @@ Project | Description
 ![](data/linescan/realistic/LineScan-06162017-1223-636/analysis/fig_02_avg.png)
 
 ![](data/misc/screenshot-heatmap.png)
+
+![](ZRatio/screenshot.png)
