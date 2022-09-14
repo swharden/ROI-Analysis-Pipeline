@@ -1,0 +1,1020 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PVScan version="5.6.64.200" date="9/9/2022 4:27:33 PM" notes="">
+  <SystemIDs SystemID="06C0-36EA-87F8-D64B-B09E-90A2-19FE-4D5D">
+    <SystemID SystemID="4174" Description="Frazier - UFL (BX51)" />
+  </SystemIDs>
+  <PVStateShard>
+    <PVStateValue key="activeMode" value="Galvo" />
+    <PVStateValue key="bitDepth" value="13" />
+    <PVStateValue key="currentScanAmplitude">
+      <IndexedValue index="XAxis" value="7.601308755" />
+      <IndexedValue index="YAxis" value="7.601308755" />
+    </PVStateValue>
+    <PVStateValue key="currentScanCenter">
+      <IndexedValue index="XAxis" value="0" />
+      <IndexedValue index="YAxis" value="0" />
+    </PVStateValue>
+    <PVStateValue key="dwellTime" value="7.2" />
+    <PVStateValue key="framePeriod" value="2.095605" />
+    <PVStateValue key="interlacedScanTrackCount" value="0" />
+    <PVStateValue key="laserPower">
+      <IndexedValue index="0" value="0" description="Mira" />
+      <IndexedValue index="1" value="79.4871794871795" description="Insight X3" />
+      <IndexedValue index="2" value="0" description="1040nm" />
+    </PVStateValue>
+    <PVStateValue key="linesPerFrame" value="512" />
+    <PVStateValue key="maxVoltage">
+      <IndexedValue index="XAxis" value="3.8006543775" />
+      <IndexedValue index="YAxis" value="3.8006543775" />
+    </PVStateValue>
+    <PVStateValue key="micronsPerPixel">
+      <IndexedValue index="XAxis" value="0.294698390910515" />
+      <IndexedValue index="YAxis" value="0.294698390910515" />
+      <IndexedValue index="ZAxis" value="2" />
+    </PVStateValue>
+    <PVStateValue key="minVoltage">
+      <IndexedValue index="XAxis" value="-3.8006543775" />
+      <IndexedValue index="YAxis" value="-3.8006543775" />
+    </PVStateValue>
+    <PVStateValue key="objectiveLens" value="40X LUMPlanFL/IR" />
+    <PVStateValue key="objectiveLensMag" value="40" />
+    <PVStateValue key="objectiveLensNA" value="0.8" />
+    <PVStateValue key="opticalZoom" value="2" />
+    <PVStateValue key="pixelsPerLine" value="512" />
+    <PVStateValue key="pmtGain">
+      <IndexedValue index="0" value="625" description="Ch 1 HV" />
+      <IndexedValue index="1" value="825" description="Ch 2 HV" />
+    </PVStateValue>
+    <PVStateValue key="positionCurrent">
+      <SubindexedValues index="XAxis">
+        <SubindexedValue subindex="0" value="385.5" />
+      </SubindexedValues>
+      <SubindexedValues index="YAxis">
+        <SubindexedValue subindex="0" value="103" />
+      </SubindexedValues>
+      <SubindexedValues index="ZAxis">
+        <SubindexedValue subindex="0" value="31.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+        <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+      </SubindexedValues>
+    </PVStateValue>
+    <PVStateValue key="preampFilter" value="Filter2500KHz" description="2.50 MHz" />
+    <PVStateValue key="preampGain">
+      <SubindexedValues index="0">
+        <SubindexedValue subindex="0" value="0" description="Ch1" />
+        <SubindexedValue subindex="1" value="0" description="Ch2" />
+        <SubindexedValue subindex="2" value="0" description="Ch 3" />
+      </SubindexedValues>
+    </PVStateValue>
+    <PVStateValue key="preampOffset">
+      <SubindexedValues index="0">
+        <SubindexedValue subindex="0" value="0" description="Ch1" />
+        <SubindexedValue subindex="1" value="0" description="Ch2" />
+        <SubindexedValue subindex="2" value="0" description="Ch 3" />
+      </SubindexedValues>
+    </PVStateValue>
+    <PVStateValue key="rastersPerFrame" value="1" />
+    <PVStateValue key="rotation" value="0" />
+    <PVStateValue key="samplesPerPixel" value="36" />
+    <PVStateValue key="scanLinePeriod" value="0.004085" />
+    <PVStateValue key="useInterlacedScanPattern" value="False" />
+    <PVStateValue key="xYStageGridIndex" value="-1" />
+    <PVStateValue key="xYStageGridXIndex" value="-1" />
+    <PVStateValue key="xYStageGridYIndex" value="-1" />
+    <PVStateValue key="yAspectExpansion" value="1" />
+    <PVStateValue key="zDevice" value="0" />
+  </PVStateShard>
+  <Sequence type="ZSeries" cycle="1" time="16:27:33.5626391" xYStageGridDefined="False" xYStageGridNumXPositions="3" xYStageGridNumYPositions="3" xYStageGridOverlapPercentage="0" xYStageGridXOverlap="0" xYStageGridYOverlap="0">
+    <PVStateShard />
+    <Frame relativeTime="0" absoluteTime="0.518000000000029" index="1" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000001.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000001.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="63.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="2.65600000000086" absoluteTime="3.17400000000089" index="2" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000002.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000002.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="82.0512820512821" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="61.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="5.34100000000035" absoluteTime="5.85900000000038" index="3" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000003.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000003.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="82.0512820512821" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="59.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="8.03200000000106" absoluteTime="8.55000000000109" index="4" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000004.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000004.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="82.0512820512821" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="57.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="10.7400000000016" absoluteTime="11.2580000000016" index="5" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000005.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000005.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="84.6153846153846" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="55.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="13.4210000000003" absoluteTime="13.9390000000003" index="6" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000006.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000006.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="87.1794871794872" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="53.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="16.1500000000015" absoluteTime="16.6680000000015" index="7" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000007.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000007.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="87.1794871794872" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="51.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="18.8389999999999" absoluteTime="19.357" index="8" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000008.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000008.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="87.1794871794872" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="49.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="21.5160000000014" absoluteTime="22.0340000000015" index="9" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000009.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000009.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="89.7435897435898" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="47.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="24.2080000000005" absoluteTime="24.7260000000006" index="10" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000010.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000010.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="89.7435897435898" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="45.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="26.9080000000013" absoluteTime="27.4260000000013" index="11" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000011.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000011.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="92.3076923076923" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="43.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="29.594000000001" absoluteTime="30.112000000001" index="12" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000012.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000012.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="94.8717948717949" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="41.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="32.277" absoluteTime="32.7950000000001" index="13" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000013.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000013.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="94.8717948717949" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="39.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="35.0250000000015" absoluteTime="35.5430000000015" index="14" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000014.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000014.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="97.4358974358974" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="37.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="37.7270000000008" absoluteTime="38.2450000000008" index="15" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000015.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000015.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="97.4358974358974" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="35.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="40.4459999999999" absoluteTime="40.9639999999999" index="16" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000016.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000016.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="100" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="33.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="43.107" absoluteTime="43.625" index="17" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000017.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000017.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="100" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="31.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="45.8060000000005" absoluteTime="46.3240000000005" index="18" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000018.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000018.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="102.564102564103" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="29.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="48.5220000000008" absoluteTime="49.0400000000009" index="19" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000019.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000019.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="105.128205128205" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="27.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="51.1959999999999" absoluteTime="51.7139999999999" index="20" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000020.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000020.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="105.128205128205" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="25.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="53.8860000000004" absoluteTime="54.4040000000005" index="21" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000021.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000021.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="107.692307692308" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="23.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="56.5950000000012" absoluteTime="57.1130000000012" index="22" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000022.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000022.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="110.25641025641" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="21.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="59.264000000001" absoluteTime="59.7820000000011" index="23" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000023.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000023.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="110.25641025641" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="19.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="61.9440000000013" absoluteTime="62.4620000000014" index="24" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000024.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000024.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="112.820512820513" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="17.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="64.6460000000006" absoluteTime="65.1640000000007" index="25" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000025.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000025.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="112.820512820513" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="15.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="67.3320000000003" absoluteTime="67.8500000000004" index="26" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000026.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000026.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="115.384615384615" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="13.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="70.0210000000006" absoluteTime="70.5390000000007" index="27" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000027.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000027.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="117.948717948718" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="11.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="72.746000000001" absoluteTime="73.264000000001" index="28" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000028.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000028.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="117.948717948718" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="9.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="75.4160000000011" absoluteTime="75.9340000000011" index="29" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000029.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000029.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="120.512820512821" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="7.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="78.1170000000002" absoluteTime="78.6350000000002" index="30" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000030.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000030.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="123.076923076923" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="5.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="80.8280000000013" absoluteTime="81.3460000000014" index="31" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000031.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000031.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="125.641025641026" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="3.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="83.5070000000014" absoluteTime="84.0250000000015" index="32" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000032.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000032.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="128.205128205128" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="1.45" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="86.1980000000003" absoluteTime="86.7160000000003" index="33" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000033.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000033.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="128.205128205128" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="-0.549999999999997" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="88.898000000001" absoluteTime="89.4160000000011" index="34" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000034.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000034.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="130.769230769231" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="-2.55" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="91.5670000000009" absoluteTime="92.0850000000009" index="35" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000035.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000035.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="133.333333333333" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="-4.55" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="94.2669999999998" absoluteTime="94.7849999999999" index="36" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000036.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000036.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="135.897435897436" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="-6.55" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="96.9420000000009" absoluteTime="97.4600000000009" index="37" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000037.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000037.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="135.897435897436" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="-8.55" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="99.6620000000003" absoluteTime="100.18" index="38" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000038.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000038.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="138.461538461538" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="-10.55" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+    <Frame relativeTime="102.366" absoluteTime="102.884" index="39" parameterSet="CurrentSettings">
+      <File channel="1" channelName="Ch1" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch1_000039.ome.tif" />
+      <File channel="2" channelName="Ch2" filename="ZSeries-09092022-1241-1659_Cycle00001_Ch2_000039.ome.tif" />
+      <ExtraParameters lastGoodFrame="0" />
+      <PVStateShard>
+        <PVStateValue key="laserPower">
+          <IndexedValue index="0" value="0" description="Mira" />
+          <IndexedValue index="1" value="141.025641025641" description="Insight X3" />
+          <IndexedValue index="2" value="0" description="1040nm" />
+        </PVStateValue>
+        <PVStateValue key="positionCurrent">
+          <SubindexedValues index="XAxis">
+            <SubindexedValue subindex="0" value="385.5" />
+          </SubindexedValues>
+          <SubindexedValues index="YAxis">
+            <SubindexedValue subindex="0" value="103" />
+          </SubindexedValues>
+          <SubindexedValues index="ZAxis">
+            <SubindexedValue subindex="0" value="-12.55" description="PVFocusAssemblyPrairieMultiAxisMotorController" />
+            <SubindexedValue subindex="1" value="0" description="Bruker 400 μm Piezo" />
+          </SubindexedValues>
+        </PVStateValue>
+      </PVStateShard>
+    </Frame>
+  </Sequence>
+</PVScan>

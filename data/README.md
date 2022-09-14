@@ -1,2 +1,3 @@
-# Demo Data
-These folders contain example data to test script development with.
+# Sample Data
+
+These folders contain example data used for testing
