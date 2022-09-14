@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZRatio", "ZRatio\ZRatio.csproj", "{77AB5862-25B4-4234-9C34-4D2C4B2CA31A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZRatio.Tests", "ZRatio.Tests\ZRatio.Tests.csproj", "{C63BD4AE-1516-4700-A198-04899B12E97D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77AB5862-25B4-4234-9C34-4D2C4B2CA31A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77AB5862-25B4-4234-9C34-4D2C4B2CA31A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77AB5862-25B4-4234-9C34-4D2C4B2CA31A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77AB5862-25B4-4234-9C34-4D2C4B2CA31A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C63BD4AE-1516-4700-A198-04899B12E97D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C63BD4AE-1516-4700-A198-04899B12E97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C63BD4AE-1516-4700-A198-04899B12E97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C63BD4AE-1516-4700-A198-04899B12E97D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC72B4C0-E310-4311-84FE-00A8378EC155}
+	EndGlobalSection
+EndGlobal
